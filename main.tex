@@ -1,0 +1,147 @@
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[backend=biber,style=apa,]{biblatex}
+\usepackage{csquotes}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx} % Required for inserting images
+
+
+\addbibresource{ref.bib}
+
+\newtheorem{example}{Ejemplo}
+
+% \bibliographystyle{apalike}
+% \nocite{*}
+
+\title{Proyecto de Investigación}
+\author{Hugo Missael González Cruz}
+\date{January 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducción al Análisis de Datos}
+
+La ciencia de datos es la intersección de matemáticas, estadística y programación, con el objetivo
+de descubrir patrones en los datos. Según \textcite{Garzon2022}:
+\begin{displayquote}
+Data science is about solving problems based on
+observations of factors (referred to as co-variates, predictors, or just features) 
+that may determine a solution. 
+\end{displayquote} (p.1).
+
+El proceso básico se sigue para el análisis de datos es, a grandes rasgos, como sigue:
+
+\begin{enumerate}
+    \item Se elige un fenómeno en el mundo real de donde obtenemos los datos en ``crudo''.
+    \item Se procesan y limpian los datos, es decir, se transforman de tal forma que 
+        sean apropiados para el análisis.
+\end{enumerate}
+
+A partir de aquí el proceso no es lineal y depende del objetivo para el que se hace el análisis.
+Una opción es hacer un análisis exploratorio de datos. En tal caso, podríamos hallar valores duplicados, faltantes
+o mal registrados; de forma que deberíamos regresar a limpiar el conjunto de datos. 
+
+Dependiendo de nuestro objetivo ---una vez los datos están limpios--- podemos usar algún algoritmo. 
+Finalmente, se interpretan los resultados y opcionalmente se comunican mediante reportes o visualizaciones.
+
+Podemos agrupar los problemas concernientes al análisis de datos
+en tres: clasificación, predicción y \textit{clustering}.
+
+Dada la población concerniente a un problema $\Omega$ y una muestra
+$D \subset \Omega$, resolver el problema, generalmente, consiste
+en obtener un modelo en términos de $D$ que soluciona el problema en los 
+términos esperados.
+
+Un problema de \textbf{clasificación} consiste en definir categorías sobre la 
+población y, dada una entrada, decidir a cuál de ellas pertenece. Esto es, si $\Pi$ es una partición de $\Omega$, dada una entrada $x$, encontrar $C \in \Pi$ tal que $x \in C$.
+
+Una solución a un problema de clasificación es un modelo que coloca a $x$ en la categoría correcta.
+
+Un problema de \textbf{predicción} consiste en, dada una función $f: \Omega \to \mathbb{R}$
+que le asigna un valor numérico a alguna característica de $x \in \Omega$ y
+cuyo valor es difícil de medir directamente, hallar el valor de $f(x)$. 
+Una solución es un modelo, basado en otras características de $x$,
+capaz de predecir el valor de $f(x)$.
+
+Un problema de \textit{clustering} consiste en construir una partición $\Pi$ en $\Omega$, dada
+una métrica $d: \Omega \times \Omega \to \mathbb{R}$ que mide el grado de similitud entre 
+elementos de la población. Una solución es un modelo que produce una partición tal que elementos
+en un \textit{cluster} son similares.\\
+
+\begin{quote}
+    Data is an objective recording of one or several event(s) in the real world that is 
+    accessible at later times for perusal and analysis by at least one person.
+\end{quote} \cite{Garzon2022}
+
+\begin{example}
+Según la definición anterior, son datos:
+
+\begin{itemize}
+    \item Los contenidos de una página web
+    \item Mediciones (precisos o no) de algún fenómeno físico
+    \item Estadísticas recolectadas por sitios web
+\end{itemize}
+No son datos:
+
+\begin{itemize}
+   \item Los recuerdos de una persona sobre un evento
+   \item La ocurrencia de un evento (si no se registra)
+   \item Los contenidos de la memoria RAM de una computadora
+\end{itemize}
+
+Una forma simple de organizar datos es en una tabla. En un arreglo de este tipo, las columnas
+se pueden considerar como vectores de dimensión $n$ ($nD$) que
+describen atributos de los datos. Llamamos \textit{records} a las 
+columnas. A su vez, los renglones en la tabla 
+son un vector de dimensión $p$ ($pD$) conformado por valores de los atributos. Llamamos a un renglón
+\textit{feature}. A los valores específicos en una \textit{feature} se llaman \textit{datums} (plural \textit{data}).
+De esta manera, una tabla es una vector $nD$ de vectores $pD$.
+
+Aún más, una tabla puede considerarse como una muestra donde las columnas son variables aleatorias. 
+
+Podemos clasificar a las \textit{features} por el tipo de dato que contienen. Tenemos la siguiente clasificación:
+\begin{enumerate}
+    \item Cualitativa
+        \begin{enumerate}
+            \item Ordinal
+            \item Nominal
+        \end{enumerate}
+    \item Cuantitativa
+        \begin{enumerate}
+            \item Discreta
+            \item Continua
+        \end{enumerate}
+\end{enumerate}
+
+Un dato es cualitativo si toma un pequeño número de valores. Es ordinal si es susceptible a ser ordenado y nominal en otro caso.
+De forma similar, un dato es Cuantitativo si toma un número grande de valores. Es Discreto si toma una cantidad de valores finito o infinito numerable
+y es continua si toma valores sobre un conjunto no numerable.
+
+\end{example}
+\section{Análisis Exploratorio de Datos}
+Usualmente, se presenta al análisis exploratorio de datos en contraparte al análisis confirmatorio de datos, este último, 
+dedicado a las hipótesis y al modelado. Por esta razón, en el análisis exploratorio no hay un modelo explícito.
+Según \textcite{Tukey_1977}, un problema básico sobre cualquier conjunto de datos es hacerlo más entendible para la mente.
+Para dicho fin es deseable:
+\begin{itemize}
+    \item Tener una descripción simple
+    \item Ser capaces de describir una capa más profundo (aun si no hallamos nada)
+\end{itemize}
+El análisis exploratorio de datos es un método sistemático para hacerse de una visión global 
+del conjunto de datos. Para esto, utiliza gráficas, transforma las variables y presenta estadísticas 
+que resumen el estado de los datos. Se trata de entender los datos, de hacerse una idea de su forma y ganar intuición.
+Sin embargo, no habría gran valor en explorar los datos si descubrimos lo que ya sabíamos. Un buen análisis exploratorio
+nos fuerza a ver lo que no esperábamos.
+
+\section{Reducción de Dimensión}
+
+\subsection{PCA}
+
+% \bibliography{ref}
+\printbibliography
+\end{document}
