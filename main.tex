@@ -27,29 +27,56 @@
 \maketitle
 
 \section{Introducción al Análisis de Datos}
+Recientemente ha habido una explosión en la cantidad de datos que se recopilan sobre diversos aspectos de nuestra vida. 
+Las actividades que realizamos en línea como leer noticias, escuchar música o comprar, están siendo registradas
+constantenmente y generan una cantidad inmensa de datos. Además de esto, actualmente, contamos con gran poder computacional
+accesible y a bajo costo. En este contexto, ha surgido la necesidad de procesar los datos para convertirlos
+ya sea en productos o decisiones accionables.
+Puede definirse la ciencia de datos como la intersección de matemáticas, estadística y programación, con el objetivo
+de descubrir patrones en los datos, esto ---claro-- sin ser únicamente una o la otra.
+Según \textcite{Garzon2022}:
 
-La ciencia de datos es la intersección de matemáticas, estadística y programación, con el objetivo
-de descubrir patrones en los datos. Según \textcite{Garzon2022}:
 \begin{displayquote}
 Data science is about solving problems based on
 observations of factors (referred to as co-variates, predictors, or just features) 
 that may determine a solution. 
 \end{displayquote}
 
-El proceso básico se sigue para el análisis de datos es, a grandes rasgos, como sigue:
+Tratándose de la materia prima de la disciplina, es necesario distinguir las cosas que consideramos como datos y que
+podemos análizar de las que no. Según \textcite{Garzon2022}:
+\begin{quote}
+    Data is an objective recording of one or several event(s) in the real world that is 
+    accessible at later times for perusal and analysis by at least one person.
+\end{quote} 
+Es decir, un dato es un registro de un fenómeno del mundo real que es susceptible a ser analizado.
 
-\begin{enumerate}
-    \item Se elige un fenómeno en el mundo real de donde obtenemos los datos en ``crudo''.
-    \item Se procesan y limpian los datos, es decir, se transforman de tal forma que 
-        sean apropiados para el análisis.
-\end{enumerate}
+\begin{example}
+
+    Son Datos:
+    \begin{itemize}
+        \item Los contenidos de una página web.
+        \item Mediciones (precisos o no) de algún fenómeno físico.
+        \item Estadísticas recolectadas por sitios web.
+    \end{itemize}
+    No son datos:
+    \begin{itemize}
+    \item Los recuerdos de una persona sobre un evento.
+    \item La ocurrencia de un evento (si no se registra).
+    \item Los contenidos de la memoria RAM de una computadora.
+    \end{itemize}
+\end{example}
+Decimos que los datos recolectados de un fenómeno del mundo real están en ``crudo''.
+Los datos en dicho estado son susceptibles para ser analizados, pero tal vez no estén en una forma útil para nuestro 
+análisis. A esta parte del proceso, se le conoce como limpieza de datos y consiste en transformarlos de 
+modo que sean apropiados para su análisis.
 
 A partir de aquí el proceso no es lineal y depende del objetivo para el que se hace el análisis.
 Una opción es hacer un análisis exploratorio de datos. En tal caso, podríamos hallar valores duplicados, faltantes
 o mal registrados; de forma que deberíamos regresar al paso anterior, es decir, limpiar de nuevo el conjunto de datos. 
 Enseguida, dependiendo del problema que deseamos resolver, podemos usar algún modelo o algoritmo que nos ayude a resolver el 
 problema.
-Finalmente, se interpretan los resultados y opcionalmente se comunican mediante reportes o visualizaciones.
+Finalmente, se interpretan los resultados y opcionalmente se comunican mediante reportes o visualizaciones. A partir 
+de la cuales se toman decisiones, acciones o se desarrollan productos.
 
 Podemos agrupar los problemas concernientes al análisis de datos
 en tres: clasificación, predicción y \textit{clustering}.
@@ -61,9 +88,8 @@ términos esperados.
 
 \begin{example}
 Considera el problema de clasificar flores Iris en tres categorías: Setosa, Versicolor y Virginica.
-
 En este caso, $\Omega$ es el conjunto de flores Iris, $D$ es el conjunto de flores Iris de las que hemos registrado
-datos como la longitud y anchura de los pétalos.
+datos como la longitud y anchura de sus pétalos.
 Entonces, una solución sería un algoritmo que, a partir de la longitud y anchura de los pétalos, sea capaz de clasificar una flor Iris en 
 la especie correcta.
 \end{example}
@@ -86,28 +112,6 @@ consiste en construir una partición $\Pi$ en $\Omega$,
 dada una métrica $d$ que mide el grado de similitud entre 
 elementos de la población. Una solución es un modelo que produce una partición tal que elementos
 en un \textit{cluster} son similares.
-
-Por último, 
-\begin{quote}
-    Data is an objective recording of one or several event(s) in the real world that is 
-    accessible at later times for perusal and analysis by at least one person.
-\end{quote} \cite{Garzon2022}
-
-\begin{example}
-Según la definición anterior, son datos:
-
-\begin{itemize}
-    \item Los contenidos de una página web
-    \item Mediciones (precisos o no) de algún fenómeno físico
-    \item Estadísticas recolectadas por sitios web
-\end{itemize}
-No son datos:
-
-\begin{itemize}
-   \item Los recuerdos de una persona sobre un evento
-   \item La ocurrencia de un evento (si no se registra)
-   \item Los contenidos de la memoria RAM de una computadora
-\end{itemize}
 
 Una forma simple de organizar datos es en una tabla. En un arreglo de este tipo, las columnas
 se pueden considerar como vectores de dimensión $n$ ($nD$) que
@@ -137,7 +141,6 @@ Un dato es cualitativo si toma un pequeño número de valores. Es ordinal si es 
 De forma similar, un dato es Cuantitativo si toma un número grande de valores. Es Discreto si toma una cantidad de valores finito o infinito numerable
 y es continua si toma valores sobre un conjunto no numerable.
 
-\end{example}
 \section{Análisis Exploratorio de Datos}
 Usualmente, se presenta al análisis exploratorio de datos en contraparte al análisis confirmatorio de datos, este último, 
 dedicado a las hipótesis y al modelado. Por esta razón, en el análisis exploratorio no hay un modelo explícito.
@@ -148,8 +151,7 @@ Para dicho fin es deseable:
     \item Ser capaces de describir una capa más profunda (aun si no hallamos nada)
 \end{itemize}
 El análisis exploratorio de datos no puede ser todo el análisis, es un primer paso. Una manera de encontrar pistas que guién
-el análisis confirmatorio.
-El análisis exploratorio de datos es un método sistemático para hacerse de una visión global 
+el análisis confirmatorio. Es un método sistemático para hacerse de una visión global 
 del conjunto de datos. Para esto, utiliza gráficas, transforma las variables y presenta estadísticas 
 que resumen el estado de los datos. Se trata de entender los datos, de hacerse una idea de su forma y ganar intuición.
 Sin embargo, no habría gran valor en explorar los datos si descubrimos lo que ya sabíamos. Un buen análisis exploratorio
