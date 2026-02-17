@@ -1,0 +1,114 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{apa/global//global/global}
+    \entry{Garzon2022}{book}{}
+      \name{editor}{6}{}{%
+        {{un=0,uniquepart=base,hash=bdf8d76e604a65c2dda878847ce00733}{%
+           family={Garzon},
+           familyi={G\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a3a9c5d93c8c95a77bcb92115638f140}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Ching-Chi},
+           giveni={C\bibinithyphendelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=eacc9f7103503f51dfaaf7cb8597e5df}{%
+           family={Venugopal},
+           familyi={V\bibinitperiod},
+           given={Deepak},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c490ecaa85f2ccfdeda72dfd210c1af9}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Nirman},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6a2ce84f4d4ee419512e5598feb16dd5}{%
+           family={Jana},
+           familyi={J\bibinitperiod},
+           given={Kalidas},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8d4e64331b597428d0ab60c8b905212a}{%
+           family={Deng},
+           familyi={D\bibinitperiod},
+           given={Lih-Yuan},
+           giveni={L\bibinithyphendelim Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{83f855eed85a022805000de7655d60c2}
+      \strng{fullhash}{008ea05202391c43a875c0344be21d8b}
+      \strng{bibnamehash}{008ea05202391c43a875c0344be21d8b}
+      \strng{editorbibnamehash}{008ea05202391c43a875c0344be21d8b}
+      \strng{editornamehash}{83f855eed85a022805000de7655d60c2}
+      \strng{editorfullhash}{008ea05202391c43a875c0344be21d8b}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{editor}
+      \field{labeltitlesource}{title}
+      \field{title}{Dimensionality reduction in data science}
+      \field{year}{2022}
+    \endentry
+    \entry{Tukey_1977}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=9edab5dbc1987bcb98d6de058f00fc47}{%
+           family={Tukey},
+           familyi={T\bibinitperiod},
+           given={John\bibnamedelima W.},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley}%
+      }
+      \strng{namehash}{9edab5dbc1987bcb98d6de058f00fc47}
+      \strng{fullhash}{9edab5dbc1987bcb98d6de058f00fc47}
+      \strng{bibnamehash}{9edab5dbc1987bcb98d6de058f00fc47}
+      \strng{authorbibnamehash}{9edab5dbc1987bcb98d6de058f00fc47}
+      \strng{authornamehash}{9edab5dbc1987bcb98d6de058f00fc47}
+      \strng{authorfullhash}{9edab5dbc1987bcb98d6de058f00fc47}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Exploratory Data Analysis}
+      \field{year}{1977}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

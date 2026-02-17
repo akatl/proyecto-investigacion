@@ -1,13 +1,15 @@
 \documentclass{article}
 \usepackage[spanish]{babel}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
-\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
-\usepackage[backend=biber,style=apa,]{biblatex}
+% \usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=2.75cm]{geometry}
+\usepackage[backend=biber,style=apa]{biblatex}
+\usepackage{parskip}
 \usepackage{csquotes}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx} 
 
+\graphicspath{{./img/}}
 \addbibresource{ref.bib}
 
 \setlength{\parindent}{0pt}
@@ -20,7 +22,7 @@
 
 \title{Proyecto de Investigación}
 \author{Hugo Missael González Cruz}
-\date{January 2026}
+\date{\today}
 
 \begin{document}
 
@@ -29,9 +31,9 @@
 \section{Introducción al Análisis de Datos}
 Recientemente ha habido una explosión en la cantidad de datos que se recopilan sobre diversos aspectos de nuestra vida. 
 Las actividades que realizamos en línea como leer noticias, escuchar música o comprar, están siendo registradas
-constantenmente y generan una cantidad inmensa de datos. Además de esto, actualmente, contamos con gran poder computacional
-accesible y a bajo costo. En este contexto, ha surgido la necesidad de procesar los datos para convertirlos
-ya sea en productos o decisiones accionables.
+constantemente y generan una cantidad inmensa de datos. Además, actualmente, contamos con gran poder computacional
+accesible y a bajo costo, en este contexto, ha surgido la necesidad de procesar los datos para convertirlos
+ya sea en productos o en decisiones accionables.
 Puede definirse la ciencia de datos como la intersección de matemáticas, estadística y programación, con el objetivo
 de descubrir patrones en los datos, esto ---claro-- sin ser únicamente una o la otra.
 Según \textcite{Garzon2022}:
@@ -42,16 +44,17 @@ observations of factors (referred to as co-variates, predictors, or just feature
 that may determine a solution. 
 \end{displayquote}
 
-Tratándose de la materia prima de la disciplina, es necesario distinguir las cosas que consideramos como datos y que
-podemos análizar de las que no. Según \textcite{Garzon2022}:
+Tratándose de la materia prima de la disciplina, nuestro punto de partida son los datos. 
+Empezando por distinguir los objetos que consideramos datos, estableceremos nuestro objeto de análisis.
+Según \textcite{Garzon2022}:
 \begin{quote}
     Data is an objective recording of one or several event(s) in the real world that is 
     accessible at later times for perusal and analysis by at least one person.
 \end{quote} 
+
 Es decir, un dato es un registro de un fenómeno del mundo real que es susceptible a ser analizado.
 
 \begin{example}
-
     Son Datos:
     \begin{itemize}
         \item Los contenidos de una página web.
@@ -65,6 +68,28 @@ Es decir, un dato es un registro de un fenómeno del mundo real que es susceptib
     \item Los contenidos de la memoria RAM de una computadora.
     \end{itemize}
 \end{example}
+
+Podemos clasificar a los datos de acuerdo a los valores que puede tomar. 
+Un dato es \textit{cualitativo} si describe información que no puede ser medida, por ejemplo, grado de estudios, género o religión.
+Es ordinal si es susceptible a ser ordenado y nominal en otro caso.
+Por otro lado, un dato es \textit{cuantitativo} si representa información que puede ser medida y representada naturalmente con números, por 
+ejemplo, edad, estatura o salario.
+Es discreto si toma valores de un conjunto finito o infinito numerable y es continua si toma valores sobre un conjunto no numerable.
+Podemos resumir la clasificación anterior en la siguiente tabla:
+
+\begin{enumerate}
+    \item Cualitativa
+        \begin{enumerate}
+            \item Ordinal
+            \item Nominal
+        \end{enumerate}
+    \item Cuantitativa
+        \begin{enumerate}
+            \item Discreta
+            \item Continua
+        \end{enumerate}
+\end{enumerate}
+
 Decimos que los datos recolectados de un fenómeno del mundo real están en ``crudo''.
 Los datos en dicho estado son susceptibles para ser analizados, pero tal vez no estén en una forma útil para nuestro 
 análisis. A esta parte del proceso, se le conoce como limpieza de datos y consiste en transformarlos de 
@@ -78,9 +103,27 @@ problema.
 Finalmente, se interpretan los resultados y opcionalmente se comunican mediante reportes o visualizaciones. A partir 
 de la cuales se toman decisiones, acciones o se desarrollan productos.
 
-Podemos agrupar los problemas concernientes al análisis de datos
-en tres: clasificación, predicción y \textit{clustering}.
-Para describir brevemente cada tipo de problema, llamamos $\Omega$ a la población concerniente 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{data_science_process.png} 
+    \caption{El proceso de análisis de datos. 
+    Farcaster at English Wikipedia, CC BY-SA 3.0 \url{https://creativecommons.org/licenses/by-sa/3.0}, via Wikimedia Commons.} 
+    \label{fig:data_science_process} 
+\end{figure}
+
+Una forma simple de organizar datos es en una tabla. En un arreglo de este tipo, las columnas
+se pueden considerar como vectores de dimensión $n$ que
+describen \textbf{atributos} de los datos. A su vez, los renglones en la tabla 
+son un vector de dimensión $p$ conformado por valores especifícos de los atributos. 
+Llamamos a una columna \textbf{atributo} (\textit{feature}) y a un renglón, \textbf{registro} (\textit{record}). 
+Una tabla de este estilo o un conjunto de ellas se llama conjunto de datos (\textit{dataset}).
+
+De lo anterior, es claro que nuestro interés no son los datos aislados, sino un conjunto de ellos ---extraídos de un
+fenómeno del mundo real--- en el que podemos comenzar a buscar patrones. 
+Las razones para analizar datos son muchas y muy variadas, pero ---a grandes rasgos-- se pueden clasificar en tres
+problemas: clasificación, predicción y \textit{clustering}.
+
+Para describir brevemente cada problema, llamamos $\Omega$ a la población concerniente 
 al problema y una muestra relativamente pequeña (respecto a la población) $D \subset \Omega$. 
 Entonces, resolver el problema, consiste
 en obtener un modelo $M$ en términos de $D$ que soluciona el problema en los 
@@ -112,34 +155,6 @@ consiste en construir una partición $\Pi$ en $\Omega$,
 dada una métrica $d$ que mide el grado de similitud entre 
 elementos de la población. Una solución es un modelo que produce una partición tal que elementos
 en un \textit{cluster} son similares.
-
-Una forma simple de organizar datos es en una tabla. En un arreglo de este tipo, las columnas
-se pueden considerar como vectores de dimensión $n$ ($nD$) que
-describen atributos de los datos. Llamamos \textit{records} a las 
-columnas. A su vez, los renglones en la tabla 
-son un vector de dimensión $p$ ($pD$) conformado por valores de los atributos. Llamamos a un renglón
-\textit{feature}. A los valores específicos en una \textit{feature} se llaman \textit{datums} (plural \textit{data}).
-De esta manera, una tabla es una vector $nD$ de vectores $pD$.
-
-Aún más, una tabla puede considerarse como una muestra donde las columnas son variables aleatorias. 
-
-Podemos clasificar a las \textit{features} por el tipo de dato que contienen. Tenemos la siguiente clasificación:
-\begin{enumerate}
-    \item Cualitativa
-        \begin{enumerate}
-            \item Ordinal
-            \item Nominal
-        \end{enumerate}
-    \item Cuantitativa
-        \begin{enumerate}
-            \item Discreta
-            \item Continua
-        \end{enumerate}
-\end{enumerate}
-
-Un dato es cualitativo si toma un pequeño número de valores. Es ordinal si es susceptible a ser ordenado y nominal en otro caso.
-De forma similar, un dato es Cuantitativo si toma un número grande de valores. Es Discreto si toma una cantidad de valores finito o infinito numerable
-y es continua si toma valores sobre un conjunto no numerable.
 
 \section{Análisis Exploratorio de Datos}
 Usualmente, se presenta al análisis exploratorio de datos en contraparte al análisis confirmatorio de datos, este último, 
