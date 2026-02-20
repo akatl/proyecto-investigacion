@@ -123,8 +123,10 @@ fenómeno del mundo real--- en el que podemos comenzar a buscar patrones.
 Las razones para analizar datos son muchas y muy variadas, pero ---a grandes rasgos-- se pueden clasificar en tres
 problemas: clasificación, predicción y \textit{clustering}.
 
-Para describir brevemente cada problema, llamamos $\Omega$ a la población concerniente 
-al problema y una muestra relativamente pequeña (respecto a la población) $D \subset \Omega$. 
+Finalmente, presentamos una clasificación típica de los tres principales tipos de problemas que podemos resolver
+con análisis de datos.
+Para ello, llamamos $\Omega$ a la población concerniente 
+al problema y $D \subset \Omega$ una muestra relativamente pequeña (respecto a la población).
 Entonces, resolver el problema, consiste
 en obtener un modelo $M$ en términos de $D$ que soluciona el problema en los 
 términos esperados.
@@ -156,16 +158,17 @@ dada una métrica $d$ que mide el grado de similitud entre
 elementos de la población. Una solución es un modelo que produce una partición tal que elementos
 en un \textit{cluster} son similares.
 
+Con esto, tenemos una idea general del flujo de trabajo. Sin embargo, el enfoque de este trabajo son los algoritmos de
+reducción de dimensión que típicamente suelen considerarse concerniente a la fase de exploración de datos o a la fase
+de visualización.  
+
 \section{Análisis Exploratorio de Datos}
 Usualmente, se presenta al análisis exploratorio de datos en contraparte al análisis confirmatorio de datos, este último, 
-dedicado a las hipótesis y al modelado. Por esta razón, en el análisis exploratorio no hay un modelo explícito.
-Según \textcite{Tukey_1977}, un problema básico sobre cualquier conjunto de datos es hacerlo más entendible para la mente.
-Para dicho fin es deseable:
-\begin{itemize}
-    \item Tener una descripción simple
-    \item Ser capaces de describir una capa más profunda (aun si no hallamos nada)
-\end{itemize}
-El análisis exploratorio de datos no puede ser todo el análisis, es un primer paso. Una manera de encontrar pistas que guién
+dedicado a las hipótesis y al modelado. Según \textcite{Tukey_1977}, se trata de observar los datos para ver qué es lo que 
+parecen decir. Se considera que cualquier apariencia que observemos son descripciones parciales y trata de ver más allá. 
+Está interesado en la apariencia y no en la confirmación.
+
+Por lo anterior, el análisis exploratorio de datos no puede ser todo el análisis, es un primer paso. Una manera de encontrar pistas que guíen
 el análisis confirmatorio. Es un método sistemático para hacerse de una visión global 
 del conjunto de datos. Para esto, utiliza gráficas, transforma las variables y presenta estadísticas 
 que resumen el estado de los datos. Se trata de entender los datos, de hacerse una idea de su forma y ganar intuición.
@@ -177,26 +180,44 @@ El conjunto de herramientas para hacer análisis exploratorio de datos incluye:
 \begin{itemize}
     \item Estadísticas que resumen el estado global del conjunto de datos.
     \item Histogramas, Diagramas de caja, diagramas de tallo y hoja.
-    \item Visualizaciones univariadas y multivariadas que ayudan a ver la relación entre las variables.
-    \item Técnicas de \textit{clustering} y de reducción de dimensión que 
-        ayudan a visualizar conjuntos de datos con una gran cantidad de variables.
+    \item Visualizaciones que ayudan a entender la relación entre las variables.
+    % \item Técnicas de \textit{clustering} y de reducción de dimensión que 
+        % ayudan a visualizar conjuntos de datos con una gran cantidad de variables.
 \end{itemize}
+
+Un problema que surge cuando se tienen una gran cantidad de datos es hacerla entendible. 
+La visualización de datos es un enfoque del análisis exploratorio que utiliza métodos gráficos 
+para hacer sentido del conjunto de datos. En especial, cuando el conjunto es grande o tienen una
+cantidad de variables. En dichos casos, las herramientas mencionadad anteriormente podrían 
+no ser suficientes, entonces, se utilizan herramientas más sofisticadas como el \textit{clustering} y la reducción de dimensión.
+
 \section{Reducción de Dimensión}
 En general, el objetivo de la Reducción de Dimensión es encontrar una representación en una 
 dimensión más baja de los datos y, que a su vez, preserve las propiedades clave para un problema
 dado. Dependiendo del enfoque usado, las propiedades que deseamos preservar son distintas.
 Nosotros, nos enfocaremos en el enfoque estadístico y en el enfoque geométrico.
 
-Los métodos estadísticos formulan el problema en términos de métricas estadísticas.
-En especial, las medidas de dispersión como varianza, covarianza y la correlación entre las 
-variables son el principal criterio para evaluar métodos de reducción de dimensión.
-Mediante la evaluación de dichas métricas se pueden seleccionar características importantes, 
-describir la relación entre las variables, hacer inferencias, clasificar, predecir o agrupar
-eventos futuros.
+Suponiendo que nuestras observaciones son mediciones de $d$ características, es decir, $x \in \mathbb{R}^d$.
+Entonces, nuestro conjunto de datos es un conjunto de observaciones de dimensión $d$.
+Usualmente, no todas las características son igual de significativas, de modo que podríamos prescindir de ellas
+y conservar una cantidad significativa de la información original. En otras palabras, el conjunto de datos
+no cubre todo el espacio $\mathbb{R}^d$, pero yace en una estructura embebida de dimensión menor que $d$. En especial,
+la hipótesis de la variedad postula que los puntos de un conjunto de datos, yacen en una variedad (subvariedad o subespacio)
+de dimensión menor que $d$.
+Por lo anterior, a la reducción de dimensión también se le conoce como aprendizaje de variedades (subvariedades).
 
-Desde un enfoque geométrico, la idea es definir una noción de distancia apropiada para el problema
-y minimizar un función de pérdida que mide las discrepancias entre las distancias cuando se 
-reduce la dimensión.
+Podemos clasificar las técnicas de reducción de dimensión en tres: métodos espectrales, métodos probabilísticos y métodos 
+basados en redes neuronales.
+Los métodos espectrales intentan encontrar la subvariedad, ya sea lineal o no-lineal, de los datos. Usualmente, el problema
+se reduce a un problema de eigenvectores generalizados.
+En los métodos probabilísticos, se considera que los datos son variables aleatorias multidimensionales. Es posible hallar 
+una variable latente en la cual, la variable aleatoria, está condicionada. El problema es hallar una representación de menor
+dimensión de dicha variable latente.
+Finalmente, los métodos basados en redes neuronales utilizan un \textit{autoencoder} donde los datos se comprimen entre el 
+codificador y el decodificador, en ese punto los datos pasan por un cuello de botella de menor dimensión para luego ser
+reconstruidos, lo que hace al cuello de botella ideal para reducir la dimensión.
+
+
 \subsection{PCA}
 
 % \bibliography{ref}
