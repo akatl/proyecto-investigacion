@@ -19,6 +19,37 @@
 
 \refsection{0}
   \datalist[entry]{apa/global//global/global}
+    \entry{Fullstory_2024}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=ae92f3cc8a0b84cd4cca07509b0876bd}{%
+           family={Fullstory},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{ae92f3cc8a0b84cd4cca07509b0876bd}
+      \strng{fullhash}{ae92f3cc8a0b84cd4cca07509b0876bd}
+      \strng{bibnamehash}{ae92f3cc8a0b84cd4cca07509b0876bd}
+      \strng{authorbibnamehash}{ae92f3cc8a0b84cd4cca07509b0876bd}
+      \strng{authornamehash}{ae92f3cc8a0b84cd4cca07509b0876bd}
+      \strng{authorfullhash}{ae92f3cc8a0b84cd4cca07509b0876bd}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Qualitative vs. Quantitative Data in Research: The Difference}
+      \field{month}{10}
+      \field{title}{Qualitative vs. quantitative data in research: The difference}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.fullstory.com/blog/qualitative-vs-quantitative-data/
+      \endverb
+      \verb{url}
+      \verb https://www.fullstory.com/blog/qualitative-vs-quantitative-data/
+      \endverb
+    \endentry
     \entry{Garzon2022}{book}{}
       \name{editor}{6}{}{%
         {{un=0,uniquepart=base,hash=bdf8d76e604a65c2dda878847ce00733}{%
@@ -79,6 +110,165 @@
       \field{labeltitlesource}{title}
       \field{title}{Dimensionality reduction in data science}
       \field{year}{2022}
+    \endentry
+    \entry{Ghojogh_Elements}{book}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=e74dc8a436d8f62a0f4eec19eb8d8b9f}{%
+           family={Ghojogh},
+           familyi={G\bibinitperiod},
+           given={Benyamin},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ca82b846a197d41722abe45110716a6d}{%
+           family={Crowley},
+           familyi={C\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=47d3fd1a2122cf0752c2e376cd8a613d}{%
+           family={Karray},
+           familyi={K\bibinitperiod},
+           given={Fakhri},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=dfd14c69d2338ce9cf556c819a32d286}{%
+           family={Ghodsi},
+           familyi={G\bibinitperiod},
+           given={Ali},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{479ead23f1ea5286b833ac9a7b16e44a}
+      \strng{fullhash}{3ddde5c1d0900709b96904e291b65445}
+      \strng{bibnamehash}{3ddde5c1d0900709b96904e291b65445}
+      \strng{authorbibnamehash}{3ddde5c1d0900709b96904e291b65445}
+      \strng{authornamehash}{479ead23f1ea5286b833ac9a7b16e44a}
+      \strng{authorfullhash}{3ddde5c1d0900709b96904e291b65445}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Elements of dimensionality reduction and manifold learning}
+      \field{year}{2023}
+      \true{nocite}
+    \endentry
+    \entry{IBM_2025}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=cbf44511d041dc6d1dd73cc0c033122c}{%
+           family={IBM},
+           familyi={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{fullhash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{bibnamehash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{authorbibnamehash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{authornamehash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \strng{authorfullhash}{cbf44511d041dc6d1dd73cc0c033122c}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IBM}
+      \field{month}{11}
+      \field{title}{What is exploratory data analysis?}
+      \field{year}{2025}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.ibm.com/think/topics/exploratory-data-analysis
+      \endverb
+      \verb{url}
+      \verb https://www.ibm.com/think/topics/exploratory-data-analysis
+      \endverb
+    \endentry
+    \entry{Pearson}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=b69135425e9c9d6adc927b94c33421d4}{%
+           family={Pearson},
+           familyi={P\bibinitperiod},
+           given={Karl},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor \& Francis}%
+      }
+      \strng{namehash}{b69135425e9c9d6adc927b94c33421d4}
+      \strng{fullhash}{b69135425e9c9d6adc927b94c33421d4}
+      \strng{bibnamehash}{b69135425e9c9d6adc927b94c33421d4}
+      \strng{authorbibnamehash}{b69135425e9c9d6adc927b94c33421d4}
+      \strng{authornamehash}{b69135425e9c9d6adc927b94c33421d4}
+      \strng{authorfullhash}{b69135425e9c9d6adc927b94c33421d4}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science}
+      \field{number}{11}
+      \field{title}{LIII. On lines and planes of closest fit to systems of points in space}
+      \field{volume}{2}
+      \field{year}{1901}
+      \true{nocite}
+      \field{pages}{559\bibrangedash 572}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1080/14786440109462720
+      \endverb
+      \verb{eprint}
+      \verb https://doi.org/10.1080/14786440109462720
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1080/14786440109462720
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1080/14786440109462720
+      \endverb
+    \endentry
+    \entry{doingDT}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=231a1f7a56775b345d4051ea7160e5a5}{%
+           family={Schutt},
+           familyi={S\bibinitperiod},
+           given={Rachel},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=bd23830ab55f1371f6e9f93eebc3ecf2}{%
+           family={O’Neil},
+           familyi={O\bibinitperiod},
+           given={Cathy},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {O’Reilly Media}%
+      }
+      \strng{namehash}{2965fd35f07445dedec21468f79113a4}
+      \strng{fullhash}{2965fd35f07445dedec21468f79113a4}
+      \strng{bibnamehash}{2965fd35f07445dedec21468f79113a4}
+      \strng{authorbibnamehash}{2965fd35f07445dedec21468f79113a4}
+      \strng{authornamehash}{2965fd35f07445dedec21468f79113a4}
+      \strng{authorfullhash}{2965fd35f07445dedec21468f79113a4}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Doing data science}
+      \field{year}{2014}
+      \true{nocite}
     \endentry
     \entry{Tukey_1977}{book}{}
       \name{author}{1}{}{%

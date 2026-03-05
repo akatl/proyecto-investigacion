@@ -7,18 +7,31 @@
 \usepackage{csquotes}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{graphicx} 
 
 \graphicspath{{./img/}}
 \addbibresource{ref.bib}
 
 \setlength{\parindent}{0pt}
+\numberwithin{equation}{section}
 
+\newtheorem{theorem}{Teorema}
+
+\theoremstyle{remark}
 \newtheorem{example}{Ejemplo}
+
+\theoremstyle{definition}
 \newtheorem{definition}{Definición}
 
+\theoremstyle{remark}
+\newtheorem{corollary}{Corolario}
+
+\theoremstyle{remark}
+\newtheorem{note}{Nota}
+
 % \bibliographystyle{apalike}
-% \nocite{*}
+\nocite{*}
 
 \title{Proyecto de Investigación}
 \author{Hugo Missael González Cruz}
@@ -181,8 +194,6 @@ El conjunto de herramientas para hacer análisis exploratorio de datos incluye:
     \item Estadísticas que resumen el estado global del conjunto de datos.
     \item Histogramas, Diagramas de caja, diagramas de tallo y hoja.
     \item Visualizaciones que ayudan a entender la relación entre las variables.
-    % \item Técnicas de \textit{clustering} y de reducción de dimensión que 
-        % ayudan a visualizar conjuntos de datos con una gran cantidad de variables.
 \end{itemize}
 
 Un problema que surge cuando se tienen una gran cantidad de datos es hacerla entendible. 
@@ -220,6 +231,161 @@ reconstruidos, lo que hace al cuello de botella ideal para reducir la dimensión
 
 \subsection{PCA}
 
+Principal Component Analysis (PCA), es un método lineal de reducción de dimensión. 
+Originalmente fue propuesto por Pearson en 1901 en el artículo 
+``\textit{On lines and planes of closest fit to systems of points in space}''. Posteriormente, 
+se desarrollaron otros métodos basados en PCA como dual PCA, SPCA y kernel PCA. 
+Este último, propuesto por Scholkpof, capaz de lidiar con datos que yacen en una variedad no-lineal.
+
+\subsubsection{Proyección Lineal de un Dato}
+Consideramos un conjunto de datos $\{(x_i, y_i)\ |\ i = 1, \ldots, n\}$ con $n$ el tamaño de la muestra
+y $x_i \in \mathbb{R}^d,\ y_i \in \mathbb{R}^l\ \forall i$. El conjunto $\{x_i\}_{i=1}^n$ contiene
+los datos de entrada, mientras que $\{y_i\}_{i=1}^n$ contiene las observaciones.
+
+Para futuras referencia, tenemos las siguientes definiciones
+\begin{definition}
+    \label{df:training_sets}
+    Definimos, el conjunto de entrenamiento como las siguientes matrices:
+    $$X = [x_1, \ldots, x_n] \in \mathbb{R}^{d \times n}$$
+
+    $$Y = [y_1, \ldots, y_n] \in \mathbb{R}^{l \times n}$$
+\end{definition}
+
+De forma similar, si $\{x_{t,i}\}_{i=1}^{n_t}$, donde $x_{t,i} \in \mathbb{R}^{n_t}\ \forall i$, son datos fuera del conjunto de entrenamiento.
+\begin{definition}
+    \label{df:outraining_set}
+    Definimos, los puntos fuera de la muestra de interés como 
+    $$X_t := [x_{t,1}, \ldots, x_{t,n_t}] \in \mathbb{R}^{d \times n_t}$$
+\end{definition}
+
+Empecemos por proyectar un dato $x \in \mathbb{R}^d$ en el espacio vectorial generado por los $p < d$ vectores columna de la matriz $U = [u_1, \ldots, u_p]$ donde $u_i \in \mathbb{R}^p$ 
+y por lo tanto $U \in \mathbb{R}^{d \times p}$. Denotamos, $col(U) \in \mathbb{R}^p$ al espacio generado por dichos vectores.
+Entonces, el problema de hallar la proyección $\hat{x}$ en $col(U)$, consiste en determinar los coeficientes $\beta \in \mathbb{R}^p$ en el sistema lineal:
+\begin{equation}
+    \label{eq1:linear_system}
+    \hat{x} = U \beta
+\end{equation}
+
+Si $x \in col(U)$, entonces (\ref{eq1:linear_system}) tiene solución exacta, $\hat{x} = x$.
+% TODO: Revisar la ultima oracion
+En caso, contrario definimos los residuos como $r = x - \hat{x} \neq 0$, la diferencia entre el punto observado y la proyección (y posterior reconstrucción) estimada.
+Evidentemente, queremos que el vector de residuos sea mínimo. En tal caso, tenemos el siguiente teorema.
+\begin{theorem}
+\label{t1:resmin_perp_colu}    
+El residuo más pequeño es perpendicular $col(U)$.
+\end{theorem}
+
+Con esto, podemos dar una expresión de los coeficientes en términos de $U$.
+
+\begin{corollary}
+    Dado el vector mínimo de residuos, los coeficientes están dados por
+    $$\beta = (U^\intercal U)^{-1} U^\intercal x$$
+\end{corollary}
+
+\begin{proof}
+Sea $r_{min}$ el residuo mínimo, entonces 
+$$r_{min} \perp U \implies x - U \beta \perp U$$
+de donde
+\begin{align*}
+    U^\intercal (x - U \beta) &= 0 \\
+    U^\intercal x - U^\intercal U \beta &= 0 \\
+    U^\intercal U \beta &= U^\intercal x 
+\end{align*}
+Por lo tanto, $\beta = (U^\intercal U)^{-1} U^\intercal x$.
+\end{proof}
+
+Reemplazando $\beta$ en (\ref{eq1:linear_system}) obtenemos
+\begin{equation}
+\label{eq2:x_projection}
+\hat{x} = U (U^\intercal U)^{-1} U^\intercal x
+\end{equation}
+
+A la matriz, $\Pi := U (U^\intercal U)^{-1} U^\intercal$ se le conoce como matriz de proyección o matriz \textit{hat}.
+Si además, $\{u_1, \ldots, u_p\}$ forman una base ortonormal, entonces $U$ es ortogonal y por lo tanto $U^\intercal U = I_p$. 
+De modo que $\beta = U^\intercal x$ y (\ref{eq2:x_projection}) se reduce a
+\begin{equation}
+    \label{eq3:x_projection_orthogonal}
+    \hat{x} = U U^\intercal x
+\end{equation}
+
+La ecuación anterior se conoce como la proyección de $x$ en el subespacio. 
+
+La proyección de $x$ en $col(U)$ se denota por $\tilde{x}$.
+
+\begin{equation}
+    \label{eq:x_projection_not_centered}
+    \tilde{x} = U^\intercal x \in \mathbb{R}^p
+\end{equation} 
+
+En PCA, es necesario que los datos estén centrados. En el caso de proyectar un solo dato, esto significa
+restar la media de las columnas. Dicha media está dada como sigue:
+
+\begin{equation}
+    \mu_x = \frac{1}{n} \sum_{i = 1}^n x_i
+\end{equation}
+
+Así, denotamos al dato centrado como $\breve{x}$, definido por
+\begin{align}
+    \breve{x} &= x - \mu_x
+\end{align}
+
+La ecuación (\ref{eq:x_projection_not_centered}) se convierte en
+
+\begin{equation}
+    \tilde{x} = U^\intercal \breve{x} 
+\end{equation}
+
+Finalmente, la proyección en el subespacio (\ref{eq3:x_projection_orthogonal}) es, por lo tanto
+\begin{equation}
+    \hat{x} = U U^\intercal x + \mu_x = \tilde{x} + \mu_x
+\end{equation}
+
+Note que la media se agrega de nuevo en la reconstrucción, pues se restó en la proyección.
+\subsubsection{Las matrices de centrado}
+En PCA, es un requisito que todos los puntos estén centrados. Por esta razón, son útiles las siguientes definiciones.
+Consideramos, el vector $\boldsymbol{1} = [1 \ldots 1]^\intercal \in \mathbb{R}^m$ de modo que $\boldsymbol{1} \boldsymbol{1}^\intercal \in \mathbb{R}^{m \times m}$
+es una matriz cuadrada de unos.
+
+\begin{definition}
+    \label{df:centering_matrix}
+    Definimos la matriz de centrado como
+    $$H = I - \frac{1}{m} \boldsymbol{1} \boldsymbol{1}^\intercal$$
+\end{definition}
+
+Recordemos que los datos de entrada, según (\ref{df:training_sets}), están agrupados en una matriz $X \in \mathbb{R}^{d \times p}$. 
+% TODO: Revisar estas frases
+Entonces, para $m$ de tamaño apropiado, el producto $H X$ resta a cada elemento de $X$ el promedio de su renglón.
+Mientras que $X H$ resta a cada elemento de $X$ el promedio de su columna. 
+Por lo tanto, tenemos las siguientes definiciones.
+
+\begin{definition}
+    Dada una matriz $A \in \mathbb{R}^{d \times p}$. 
+
+    Definimos a la matriz de centrado \textit{derecho} como el producto $AH$. 
+    Dicho producto puede ser escrito como
+    $$AH = (A^\intercal - \mu_{cols})$$
+    donde
+    $$\mu_{cols} = \frac{1}{d} \sum^d_{i = 1} r_i$$
+    y $r_i$ denota el renglón $i = 1, \ldots, d$ de $A$.
+
+    Definimos a la matriz de centrado \textit{izquierdo} como el producto $HA$. 
+    El cual, a su vez, puede ser escrito como
+    $$HA = (A^\intercal - \mu_{rows})^\intercal$$
+    donde
+    $$\mu_{rows} = \frac{1}{d} \sum^p_{i = 1} c_i$$
+    y $c_i$ denota la columna $i = 1, \ldots, p$ de $A$.
+\end{definition}
+
+\begin{note}
+    Las definiciones anteriores implican que la matriz de centrado es única solamente en el caso de que la matriz $A$ sea una matriz cuadrada. 
+    Sin embargo, la definición (\ref{df:centering_matrix}), funciona para definir tanto a la matriz de centrado izquierdo, como a la matriz de centrado
+    derecho, para un valor de $m$ apropiado.   
+\end{note}
+
+\subsubsection{La Proyección de Múltiples Datos}
+
 % \bibliography{ref}
+% Referencias
+\pagebreak
 \printbibliography
 \end{document}
