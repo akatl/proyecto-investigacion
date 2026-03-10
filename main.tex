@@ -202,11 +202,26 @@ para hacer sentido del conjunto de datos. En especial, cuando el conjunto es gra
 cantidad de variables. En dichos casos, las herramientas mencionadad anteriormente podrían 
 no ser suficientes, entonces, se utilizan herramientas más sofisticadas como el \textit{clustering} y la reducción de dimensión.
 
+% ------------------------------------------------------------------------------------------------------------------------------------
 \section{Reducción de Dimensión}
 En general, el objetivo de la Reducción de Dimensión es encontrar una representación en una 
 dimensión más baja de los datos y, que a su vez, preserve las propiedades clave para un problema
-dado. Dependiendo del enfoque usado, las propiedades que deseamos preservar son distintas.
-Nosotros, nos enfocaremos en el enfoque estadístico y en el enfoque geométrico.
+dado.
+
+Podemos usar técnicas de reducción de dimensión para:
+
+\begin{itemize}
+    \item Visualizar un conjunto de datos con muchas variables.
+    \item Mitigar la \textit{maldición de la dimensión}.
+    \item Mitigar los efectos de la colinealidad.
+\end{itemize}
+
+La visualización puede llevarse a cabo al empezar ---como parte del proceso de análisis exploratorio--- 
+o bien, como parte de la presentación de los resultados. En este contexto, la reducción de dimensión 
+es útil para visualizar un conjunto de datos con (posiblemente) decenas o cientos de variables.
+Ayudandonos a entender las relaciones entre las variables o a presentar visualmente los resultados de
+nuestro análisis.
+% TODO: Terminar esto item 2 y 3
 
 Suponiendo que nuestras observaciones son mediciones de $d$ características, es decir, $x \in \mathbb{R}^d$.
 Entonces, nuestro conjunto de datos es un conjunto de observaciones de dimensión $d$.
@@ -237,7 +252,8 @@ Originalmente fue propuesto por Pearson en 1901 en el artículo
 se desarrollaron otros métodos basados en PCA como dual PCA, SPCA y kernel PCA. 
 Este último, propuesto por Scholkpof, capaz de lidiar con datos que yacen en una variedad no-lineal.
 
-\subsubsection{Proyección Lineal de un Dato}
+% ------------------------------------------------------------------------------------------------------------------------------------
+\subsubsection{La proyección lineal de un dato}
 Consideramos un conjunto de datos $\{(x_i, y_i)\ |\ i = 1, \ldots, n\}$ con $n$ el tamaño de la muestra
 y $x_i \in \mathbb{R}^d,\ y_i \in \mathbb{R}^l\ \forall i$. El conjunto $\{x_i\}_{i=1}^n$ contiene
 los datos de entrada, mientras que $\{y_i\}_{i=1}^n$ contiene las observaciones.
@@ -325,23 +341,29 @@ restar la media de las columnas. Dicha media está dada como sigue:
 \end{equation}
 
 Así, denotamos al dato centrado como $\breve{x}$, definido por
-\begin{align}
-    \breve{x} &= x - \mu_x
-\end{align}
+\begin{equation}
+    \label{eq:x_breve}
+    \breve{x} = x - \mu_x
+\end{equation}
 
+% Notar que se resta la media de todo el conjunto de datos y no solo el de la columna actual
 La ecuación (\ref{eq:x_projection_not_centered}) se convierte en
 
 \begin{equation}
+    \label{eq:x_tilde}
     \tilde{x} = U^\intercal \breve{x} 
 \end{equation}
 
 Finalmente, la proyección en el subespacio (\ref{eq3:x_projection_orthogonal}) es, por lo tanto
 \begin{equation}
+    \label{eq:x_hat}
     \hat{x} = U U^\intercal x + \mu_x = \tilde{x} + \mu_x
 \end{equation}
 
 Note que la media se agrega de nuevo en la reconstrucción, pues se restó en la proyección.
-\subsubsection{Las matrices de centrado}
+
+% -------------------------------------------------------------------------------------------------------------------------------- %
+\subsubsection{Las matrices de centrado y la proyección de múltiples datos}
 En PCA, es un requisito que todos los puntos estén centrados. Por esta razón, son útiles las siguientes definiciones.
 Consideramos, el vector $\boldsymbol{1} = [1 \ldots 1]^\intercal \in \mathbb{R}^m$ de modo que $\boldsymbol{1} \boldsymbol{1}^\intercal \in \mathbb{R}^{m \times m}$
 es una matriz cuadrada de unos.
@@ -363,7 +385,7 @@ Por lo tanto, tenemos las siguientes definiciones.
 
     Definimos a la matriz de centrado \textit{derecho} como el producto $AH$. 
     Dicho producto puede ser escrito como
-    $$AH = (A^\intercal - \mu_{cols})$$
+    $$AH = A - \mu_{cols}$$
     donde
     $$\mu_{cols} = \frac{1}{d} \sum^d_{i = 1} r_i$$
     y $r_i$ denota el renglón $i = 1, \ldots, d$ de $A$.
@@ -372,7 +394,7 @@ Por lo tanto, tenemos las siguientes definiciones.
     El cual, a su vez, puede ser escrito como
     $$HA = (A^\intercal - \mu_{rows})^\intercal$$
     donde
-    $$\mu_{rows} = \frac{1}{d} \sum^p_{i = 1} c_i$$
+    $$\mu_{rows} = \frac{1}{p} \sum^p_{i = 1} c_i$$
     y $c_i$ denota la columna $i = 1, \ldots, p$ de $A$.
 \end{definition}
 
@@ -382,8 +404,124 @@ Por lo tanto, tenemos las siguientes definiciones.
     derecho, para un valor de $m$ apropiado.   
 \end{note}
 
-\subsubsection{La Proyección de Múltiples Datos}
 
+Con esto, podemos dar definiciones análogas a (\ref{eq:x_breve}), (\ref{eq:x_tilde}) y (\ref{eq:x_hat}), para múltiples datos.
+
+\begin{align}
+    \label{eq:X_breve}
+    \breve{X} &= XH  = X - \mu_{cols} \\
+    \label{eq:X_tilde}
+    \tilde{X} &= U^\intercal \breve{X} \\
+    \label{eq:X_hat}
+    \hat{X}   &= U U^\intercal \breve{X} + \mu_{cols} = U \tilde{X} + \mu_{cols}
+\end{align}
+
+Con interpretaciones análogas a sus versiones para un solo dato.
+% -------------------------------------------------------------------------------------------------------------------------------
+\subsubsection{La matriz de Covarianza y Descomposicón en Vectores Propios}
+
+La matriz de Covarianza surge naturalmente al proyectar un dato en una sola dirección.
+Para ello consideramos la proyección de $x \in \mathbb{R}^d$ en una sola direción $u \in \mathbb{R}^d$,
+es decir, $U = [u] \in \mathbb{R}^{d \times 1}$. 
+
+Proyectando en el subespacio, sin agregar la media, tenemos
+$$\hat{x} = u u^\intercal \breve{x}$$
+Con la norma $\ell_2$ al cuadrado
+
+\begin{align*}
+    \left\| \hat{x}\right\|^2_2 &= \left\|u u^\intercal \breve{x}\right\|^2_2 \\
+            &= (u u^\intercal \breve{x})^\intercal (u u^\intercal \breve{x}) \\
+            &= \breve{x} u u^\intercal u u^\intercal \breve{x} \\
+            &= \breve{x} u u^\intercal \breve{x} \\
+        \intertext{donde $u^\intercal u = 1$, pues $u$ es unitario} \\
+            &= (\breve{x}^\intercal u)(u^\intercal \breve{x})\\
+            &= (u^\intercal \breve{x})(\breve{x}^\intercal u)\\
+        \intertext{pues ambos términos son de tamaño $1 \times 1$}
+            &= u^\intercal \breve{x}\breve{x}^\intercal u\\
+\end{align*}
+
+Por lo tanto
+\begin{equation}
+    \label{eq:l2s_x}
+    \left\| \hat{x} \right\|^2_2 =  u^\intercal \breve{x}\breve{x}^\intercal u
+\end{equation}
+
+Ahora, consideramos $n$ datos $X$ y su correspondiende proyección $\hat{X}$ en una sola dirección $u$.
+Entonces
+
+\begin{align*}
+    \sum^n_{i=1} \left\| \hat{x_i} \right\|^2_2 &= \sum^n_{i=1} u^\intercal \breve{x}_i \breve{x}^\intercal_i u \\
+        &= u^\intercal \left( \sum^n_{i=1} \breve{x}_i \breve{x}^\intercal_i \right) u
+\end{align*}
+
+Es fácil verificar que $H$ es una matriz simétrica e idempotente.
+Teniendo esto en cuenta, note que la suma en la expresión es equivalente a:
+
+\begin{align*}
+    \sum^n_{i=1} \breve{x}_i \breve{x}^\intercal_i &= \breve{X} \breve{X}^\intercal \\
+        &= (XH)(H^\intercal X^\intercal) \\
+        &= XH HX^\intercal \\
+        &= X H X^\intercal
+\end{align*}
+
+Que es justamente la matriz de covarianza.
+
+\begin{definition}
+    \label{df:covariance_matrix} 
+    Definimos la matriz de covarianza como:
+    $$S = X H X^\intercal$$
+\end{definition}
+
+Finalmente, consideramos el caso de la proyección de múltiples datos $X \in \mathbb{R}^{d \times n}$ 
+en múltiples direcciones $U \in \mathbb{R}^{d \times p}, p > 1$.
+Si $\breve{X}$ es la proyección de $X$ en $col(U)$, sin agregar la media, entonces
+
+$$\hat{X} = U U^\intercal \breve{X}$$
+
+En este caso, usamos el cuadrado de la norma de Frobenius:
+
+\begin{align*}
+    \left\| \hat{X} \right\|^2_F &= \left\| U U^\intercal \breve{X}  \right\| \\
+        &= tr(\breve{X}^\intercal U U^\intercal U U^\intercal \breve{X}) \\
+        &= tr(\breve{X}^\intercal U (U^\intercal U) U^\intercal \breve{X}) \\
+    \intertext{Como $U$ es ortogonal $U^\intercal U = I$} \\
+        &= tr(\breve{X}^\intercal U U^\intercal \breve{X}) \\
+        &= tr(U^\intercal \breve{X} \breve{X}^\intercal U)
+\end{align*}
+
+Por (\ref{df:covariance_matrix}), tenemos que
+
+\begin{equation}
+    \label{eq:max_variance}
+    \left\| \hat{X} \right\|^2_F = tr(U^\intercal S U)
+\end{equation}
+
+El siguiente problema de optimización se reduce a una descomposición en eigenvectores. 
+Encuentra las direcciones principales $\{u_i\}_{i=1}^p$ que maximizan $\left\|\hat{X}\right\|_F^2$.
+
+\begin{equation*}
+    \label{eq:pca_optimization}
+    \begin{aligned}
+        \max{U} \quad & tr(U^\intercal S U) \\
+        \textrm{sujeto a} \quad & U^\intercal U = I \\
+    \end{aligned}
+\end{equation*}
+
+El cual se reduce a la descomposición en valores propios de $S$:
+
+\begin{equation}
+    \label{eq:eigen_decomposition}
+    SU = U \Lambda
+\end{equation}
+
+donde $\Lambda \in \mathbb{R}^{p \times p}$ es una matriz diagonal de los valores propios de $S$, en orden decreciente, y $U$ la matriz de vectores propios.
+
+Tenemos las siguientes interpretaciones sobre estos resultados:
+\begin{itemize}
+    \item La matriz $U$ maximiza la longitud de la reconstrucción $||\hat{X}||$ y por (\ref{eq:max_variance}) maximiza la varianza de $X$.
+    \item La reestricción de (\ref{eq:pca_optimization}), asegura que $U$ es ortogonal.
+    \item A la columnas de la proyección $\breve{X}$ se les conoce como componentes principales.
+\end{itemize}
 % \bibliography{ref}
 % Referencias
 \pagebreak

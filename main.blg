@@ -1,17 +1,17 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'main.blg'
-[115] biber:340> INFO - === Thu Mar  5, 2026, 00:31:12
-[130] Biber.pm:418> INFO - Reading 'main.bcf'
-[210] Biber.pm:969> INFO - Using all citekeys in bib section 0
-[224] Biber.pm:4383> INFO - Processing section 0
-[234] Biber.pm:4574> INFO - Looking for bibtex file 'ref.bib' for section 0
-[236] bibtex.pm:1713> INFO - LaTeX decoding ...
-[244] bibtex.pm:1518> INFO - Found BibTeX data source 'ref.bib'
-[331] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
-[332] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[332] Biber.pm:4203> INFO - Sorting list 'apa/global//global/global' of type 'entry' with template 'apa' and locale 'es-ES'
-[345] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[351] bbl.pm:757> INFO - Output to main.bbl
-[351] Biber.pm:130> WARN - legacy month field 'Oct' in entry 'Fullstory_2024' is not an integer - this will probably not sort properly.
-[351] Biber.pm:130> WARN - legacy month field 'Nov' in entry 'IBM_2025' is not an integer - this will probably not sort properly.
-[351] Biber.pm:132> INFO - WARNINGS: 2
+[87] biber:340> INFO - === Tue Mar 10, 2026, 01:07:28
+[102] Biber.pm:418> INFO - Reading 'main.bcf'
+[190] Biber.pm:969> INFO - Using all citekeys in bib section 0
+[204] Biber.pm:4383> INFO - Processing section 0
+[217] Biber.pm:4574> INFO - Looking for bibtex file 'ref.bib' for section 0
+[218] bibtex.pm:1713> INFO - LaTeX decoding ...
+[226] bibtex.pm:1518> INFO - Found BibTeX data source 'ref.bib'
+[312] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
+[312] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[313] Biber.pm:4203> INFO - Sorting list 'apa/global//global/global' of type 'entry' with template 'apa' and locale 'es-ES'
+[325] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[331] bbl.pm:757> INFO - Output to main.bbl
+[331] Biber.pm:130> WARN - legacy month field 'Nov' in entry 'IBM_2025' is not an integer - this will probably not sort properly.
+[331] Biber.pm:130> WARN - legacy month field 'Oct' in entry 'Fullstory_2024' is not an integer - this will probably not sort properly.
+[331] Biber.pm:132> INFO - WARNINGS: 2
