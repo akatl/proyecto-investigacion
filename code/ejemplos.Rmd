@@ -1,0 +1,50 @@
+---
+title: "Ejemplos"
+author: "Hugo Missael González Cruz"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Bank notes
+
+```{r}
+library(tidyverse)
+library(factoextra)
+
+data(banknote, package = "mclust")
+swissTib <- as_tibble(banknote)
+
+head(swissTib)
+
+pca <- select(swissTib, -Status) %>%
+  prcomp(center = TRUE, scale = TRUE)
+
+fpca <- get_pca(pca)
+
+fviz_screeplot(pca, choice="variance", addlabels=TRUE)
+
+swissPca <- swissTib %>%
+  mutate(PCA1 = pca$x[, 1], PCA2 = pca$x[, 2])
+
+ggplot(swissPca, aes(PCA1, PCA2, col = Status)) +
+  geom_point() +
+  theme_bw()
+```
+
+# Agregar nuevos datos
+```{r}
+newBanknotes <- tibble(
+  Length = c(214, 216),
+  Left = c(130, 128),
+  Right = c(132, 129),
+  Bottom = c(12, 7),
+  Top = c(12, 8),
+  Diagonal = c(138, 142)
+)
+predict(pca, newBanknotes)
+```
+
