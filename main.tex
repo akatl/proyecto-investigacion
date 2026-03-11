@@ -199,7 +199,7 @@ El conjunto de herramientas para hacer análisis exploratorio de datos incluye:
 Un problema que surge cuando se tienen una gran cantidad de datos es hacerla entendible. 
 La visualización de datos es un enfoque del análisis exploratorio que utiliza métodos gráficos 
 para hacer sentido del conjunto de datos. En especial, cuando el conjunto es grande o tienen una
-cantidad de variables. En dichos casos, las herramientas mencionadad anteriormente podrían 
+cantidad de variables. En dichos casos, las herramientas mencionadas anteriormente podrían 
 no ser suficientes, entonces, se utilizan herramientas más sofisticadas como el \textit{clustering} y la reducción de dimensión.
 
 % ------------------------------------------------------------------------------------------------------------------------------------
@@ -219,7 +219,7 @@ Podemos usar técnicas de reducción de dimensión para:
 La visualización puede llevarse a cabo al empezar ---como parte del proceso de análisis exploratorio--- 
 o bien, como parte de la presentación de los resultados. En este contexto, la reducción de dimensión 
 es útil para visualizar un conjunto de datos con (posiblemente) decenas o cientos de variables.
-Ayudandonos a entender las relaciones entre las variables o a presentar visualmente los resultados de
+Ayudándonos a entender las relaciones entre las variables o a presentar visualmente los resultados de
 nuestro análisis.
 % TODO: Terminar esto item 2 y 3
 
@@ -248,9 +248,25 @@ reconstruidos, lo que hace al cuello de botella ideal para reducir la dimensión
 
 Principal Component Analysis (PCA), es un método lineal de reducción de dimensión. 
 Originalmente fue propuesto por Pearson en 1901 en el artículo 
-``\textit{On lines and planes of closest fit to systems of points in space}''. Posteriormente, 
+``\textit{On lines and planes of closest fit to systems of points in space}'' (\textcite{Pearson}). Posteriormente, 
 se desarrollaron otros métodos basados en PCA como dual PCA, SPCA y kernel PCA. 
-Este último, propuesto por Scholkpof, capaz de lidiar con datos que yacen en una variedad no-lineal.
+
+Las ventajas son:
+\begin{itemize}
+    \item Los componentes principales ($\breve{x}_i$) son interpretables en términos de las variables originales ($x_i$).
+    \item Podemos proyectar nuevos datos en los ejes principales.
+    \item Crea nuevas variables, no correlacionadas.
+\end{itemize}
+
+Mientras que algunas desventajas son:
+\begin{itemize}
+    \item No puede manejar variables categóricas.
+    \item Funciona mejor si las variables están relacionadas linealmente.
+    \item Normalmente, los componentes principales con valores propios más chicos son desechados, entonces, 
+        debemos decidir el número de componentes principales a retener.
+\end{itemize}
+
+
 
 % ------------------------------------------------------------------------------------------------------------------------------------
 \subsubsection{La proyección lineal de un dato}
@@ -470,18 +486,22 @@ Que es justamente la matriz de covarianza.
     \label{df:covariance_matrix} 
     Definimos la matriz de covarianza como:
     $$S = X H X^\intercal$$
+    Si los datos ya están centrados, se reduce a:
+    $$S = X X^\intercal$$
+    Además, $S \in \mathbb{R}^{d \times d}$.
 \end{definition}
 
 Finalmente, consideramos el caso de la proyección de múltiples datos $X \in \mathbb{R}^{d \times n}$ 
 en múltiples direcciones $U \in \mathbb{R}^{d \times p}, p > 1$.
-Si $\breve{X}$ es la proyección de $X$ en $col(U)$, sin agregar la media, entonces
+Si $\tilde{X}$ es la proyección de $X$ en $col(U)$, sin agregar la media, entonces
 
 $$\hat{X} = U U^\intercal \breve{X}$$
 
 En este caso, usamos el cuadrado de la norma de Frobenius:
 
 \begin{align*}
-    \left\| \hat{X} \right\|^2_F &= \left\| U U^\intercal \breve{X}  \right\| \\
+    \left\| \hat{X} \right\|^2_F &= \left\| U U^\intercal \breve{X}  \right\|^2_F \\
+        &= tr((U U^\intercal \breve{X})^\intercal (U U^\intercal \breve{X})) \\
         &= tr(\breve{X}^\intercal U U^\intercal U U^\intercal \breve{X}) \\
         &= tr(\breve{X}^\intercal U (U^\intercal U) U^\intercal \breve{X}) \\
     \intertext{Como $U$ es ortogonal $U^\intercal U = I$} \\
@@ -496,8 +516,12 @@ Por (\ref{df:covariance_matrix}), tenemos que
     \left\| \hat{X} \right\|^2_F = tr(U^\intercal S U)
 \end{equation}
 
-El siguiente problema de optimización se reduce a una descomposición en eigenvectores. 
-Encuentra las direcciones principales $\{u_i\}_{i=1}^p$ que maximizan $\left\|\hat{X}\right\|_F^2$.
+El siguiente problema de optimización se reduce a una descomposición en valores propios de la matriz de covarianza, $S$. 
+A la vez que encuentra las direcciones principales $\{u_i\}_{i=1}^p$ que maximizan $\left\|\hat{X}\right\|_F^2$.
+Es decir, la matriz $U$ maximiza la longitud de la reconstrucción $||\hat{X}||_F^2$ y por (\ref{eq:max_variance}) maximiza la varianza de $X$.
+
+% Si en su lugar cosideramos el problema de minimizar los residuos X - \hat{X} ---con la misma reestriccion--- el problema se reduce a la misma
+% descomposicion en valores propios. Por lo tanto, col(U) es el mejor subespacio en el sentido de que tiene el menor error al cuadrado.
 
 \begin{equation*}
     \label{eq:pca_optimization}
@@ -507,6 +531,8 @@ Encuentra las direcciones principales $\{u_i\}_{i=1}^p$ que maximizan $\left\|\h
     \end{aligned}
 \end{equation*}
 
+Donde la restricción asegura que $U$ es ortogonal.
+
 El cual se reduce a la descomposición en valores propios de $S$:
 
 \begin{equation}
@@ -514,14 +540,48 @@ El cual se reduce a la descomposición en valores propios de $S$:
     SU = U \Lambda
 \end{equation}
 
-donde $\Lambda \in \mathbb{R}^{p \times p}$ es una matriz diagonal de los valores propios de $S$, en orden decreciente, y $U$ la matriz de vectores propios.
+Donde $\Lambda \in \mathbb{R}^{p \times p}$ es una matriz diagonal de los valores propios de $S$, en orden decreciente, y $U$ la matriz de vectores propios.
+Llámanos a las columnas de la proyección $\tilde{X}$, componentes principales.
 
-Tenemos las siguientes interpretaciones sobre estos resultados:
-\begin{itemize}
-    \item La matriz $U$ maximiza la longitud de la reconstrucción $||\hat{X}||$ y por (\ref{eq:max_variance}) maximiza la varianza de $X$.
-    \item La reestricción de (\ref{eq:pca_optimization}), asegura que $U$ es ortogonal.
-    \item A la columnas de la proyección $\breve{X}$ se les conoce como componentes principales.
-\end{itemize}
+En este punto, no necesariamente hemos reducido la dimensión. En PCA, la reducción de dimensión no se realiza con la descomposición 
+en valores propios de $S$, sino con la cantidad columnas de componentes principales que decidimos conservar.
+
+\subsubsection{El rango de la matriz de covarianza y los componentes a retener}
+Hay dos casos para $\breve{X} \in \mathbb{R}^{d \times p}$:
+\begin{enumerate}
+    \item Si $d \geq n$, es decir, la dimensión de los datos originales es mayor que el número de puntos.
+          En este caso $rank(S) = rank(\breve{X} \breve{X}^\intercal) \leq n - 1$.
+    \item Si $d \leq n - 1$, entonces $rank(\breve{X}) = rank(\breve{X}^\intercal)$ y por lo tanto $rank(S) \leq d$.
+\end{enumerate}
+
+Los anteriores casos imponen restricciones al rango de la matriz de covarianza $S$. Como se expone a
+continuación, el rango de $S$ tiene consecuencias directas sobre $U$. 
+
+\begin{enumerate}
+\item Si $rank(S) = p$, entonces $U \in \mathbb{R}^{d \times d}$. Es decir, la dimensión del subespacio es
+la misma que la del espacio original.
+En este caso, como $U$ es una matriz cuadrada ortogonal tiene determinante $+1$ o $-1$, en el primer
+caso se trata de una rotación, mientras que en el segundo de una reflexión.
+
+\item Si $rank(S) < d$ y $n > d$, decimos que hay suficientes puntos, pero yacen en un subespacio y no llenan el 
+espacio original es cada dirección. Así, $U \in \mathbb{R}^{d \times p}$ y $rank(U) = p < d$, por lo tanto,
+$rank(U U^\intercal) = p < d$.
+
+\item Si $rank(S) \leq n - 1 < d$, no hay suficientes puntos para representar el espacio original. De forma idéntica
+al caso anterior, $U \in \mathbb{R}^{d \times p}$ y $rank(U) = p < d$, por lo tanto,
+$rank(U U^\intercal) = p < d$.
+\end{enumerate}
+
+En cualquier caso, puede ser necesario truncar $U \in \mathbb{R}^{d \times q}, q < p$. Cuando truncamos $U$, buscamos preservar los
+vectores propios más relevantes. Este puede ser el caso, cuando la varianza es significativamente más grande en 
+$q < rank(S)$ direcciones, por lo que decidimos ignorar las direcciones restantes. Siempre que $U \in \mathbb{R}^{d \times q}$ sea 
+ortonormal, es posible hallar $U^\intercal \in \mathbb{R}^{q \times p}$ tal que $U^\intercal U = I$.
+
+Para decidir si debemos truncar $U$, existen métodos gráficos como \textit{scree plot} que grafica los valores propios contra los 
+componentes pricipales ordenados por valores propios. Otra forma es usar la razón:
+$$\frac{\lambda_j}{\sum^d_{k = 1}\lambda_k}$$
+En cualquier caso, debemos definir un valor a partir del cual empezamos a descartar proporciones principales.
+\subsection{Kernel PCA}
 % \bibliography{ref}
 % Referencias
 \pagebreak

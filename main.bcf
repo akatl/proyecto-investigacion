@@ -2798,8 +2798,11 @@
     <bcf:citekey order="4">Garzon2022</bcf:citekey>
     <bcf:citekey order="5">Tukey_1977</bcf:citekey>
     <bcf:citekey order="6">Tukey_1977</bcf:citekey>
-    <bcf:citekey order="7">Garzon2022</bcf:citekey>
-    <bcf:citekey order="8">Tukey_1977</bcf:citekey>
+    <bcf:citekey order="7">Pearson</bcf:citekey>
+    <bcf:citekey order="8">Pearson</bcf:citekey>
+    <bcf:citekey order="9">Garzon2022</bcf:citekey>
+    <bcf:citekey order="10">Tukey_1977</bcf:citekey>
+    <bcf:citekey order="11">Pearson</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="apa">
