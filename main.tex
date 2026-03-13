@@ -580,8 +580,15 @@ ortonormal, es posible hallar $U^\intercal \in \mathbb{R}^{q \times p}$ tal que 
 Para decidir si debemos truncar $U$, existen métodos gráficos como \textit{scree plot} que grafica los valores propios contra los 
 componentes pricipales ordenados por valores propios. Otra forma es usar la razón:
 $$\frac{\lambda_j}{\sum^d_{k = 1}\lambda_k}$$
-En cualquier caso, debemos definir un valor a partir del cual empezamos a descartar proporciones principales.
+En cualquier caso, debemos definir un valor a partir del cual empezamos a descartar vectores principales.
+
 \subsection{Kernel PCA}
+Principal Component Analysis (PCA), Multidimensional Scaling (MDS), Isomap, spectral clustering, Laplacian eigenmap, diffusion map, and Locally Linear Embedding (LLE)
+son algunos de los métodos espectrales más populares de reducción de dimensión. Podemos unificar los métodos anteriores con kernel PCA, solamente modificando el kernel.
+Por ejemplo, usando el kernel $K = X^\intercal X$ obtenemos PCA visto en la sección anterior. Mientras que, con el kernel $k = \frac{1}{2} HDH$ obtenemos MDS.
+Esto es posible porque los métodos espectrales de reducción de dimensión se reducen a un problema de valores propios o valores propios generalizados.
+Esto da pie a los métodos de \textit{maximum variance unfolding} (MVU) que buscan desdoblar la variedad a su máxima varianza sobre la dimensión intrínseca al conjunto de datos, 
+es decir, buscan el mejor kernel para el conjunto de datos.
 % \bibliography{ref}
 % Referencias
 \pagebreak

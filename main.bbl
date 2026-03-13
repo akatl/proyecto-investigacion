@@ -19,6 +19,57 @@
 
 \refsection{0}
   \datalist[entry]{apa/global//global/global}
+    \entry{FNCJ}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=0980b185bcce72e89bbd71ce0a25df18}{%
+           family={Driscoll},
+           familyi={D\bibinitperiod},
+           given={Tobin\bibnamedelima A.},
+           giveni={T\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6d81eb69ccd13e47ce8987c0712efff8}{%
+           family={Braun},
+           familyi={B\bibinitperiod},
+           given={Richard\bibnamedelima J.},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Philadelphia}%
+      }
+      \list{publisher}{2}{%
+        {Society for Industrial}%
+        {Applied Mathematics}%
+      }
+      \strng{namehash}{4cccb196be69502ccef00722f069b853}
+      \strng{fullhash}{4cccb196be69502ccef00722f069b853}
+      \strng{bibnamehash}{4cccb196be69502ccef00722f069b853}
+      \strng{authorbibnamehash}{4cccb196be69502ccef00722f069b853}
+      \strng{authornamehash}{4cccb196be69502ccef00722f069b853}
+      \strng{authorfullhash}{4cccb196be69502ccef00722f069b853}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Fundamentals of Numerical Computation: Julia Edition}
+      \field{year}{2022}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.1137/1.9781611977011
+      \endverb
+      \verb{eprint}
+      \verb https://epubs.siam.org/doi/pdf/10.1137/1.9781611977011
+      \endverb
+      \verb{urlraw}
+      \verb https://epubs.siam.org/doi/abs/10.1137/1.9781611977011
+      \endverb
+      \verb{url}
+      \verb https://epubs.siam.org/doi/abs/10.1137/1.9781611977011
+      \endverb
+    \endentry
     \entry{Fullstory_2024}{misc}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=ae92f3cc8a0b84cd4cca07509b0876bd}{%
@@ -233,6 +284,35 @@
       \verb{url}
       \verb https://doi.org/10.1080/14786440109462720
       \endverb
+    \endentry
+    \entry{MLRtidy}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=28e4eb851b1005cabfd70d9257dbc14c}{%
+           family={Rhys},
+           familyi={R\bibinitperiod},
+           given={Hefin},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Manning Publications}%
+      }
+      \strng{namehash}{28e4eb851b1005cabfd70d9257dbc14c}
+      \strng{fullhash}{28e4eb851b1005cabfd70d9257dbc14c}
+      \strng{bibnamehash}{28e4eb851b1005cabfd70d9257dbc14c}
+      \strng{authorbibnamehash}{28e4eb851b1005cabfd70d9257dbc14c}
+      \strng{authornamehash}{28e4eb851b1005cabfd70d9257dbc14c}
+      \strng{authorfullhash}{28e4eb851b1005cabfd70d9257dbc14c}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Machine learning with R, the Tidyverse, and MLR}
+      \field{year}{2020}
+      \true{nocite}
     \endentry
     \entry{doingDT}{book}{}
       \name{author}{2}{}{%
