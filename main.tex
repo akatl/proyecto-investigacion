@@ -232,10 +232,13 @@ la hipótesis de la variedad postula que los puntos de un conjunto de datos, yac
 de dimensión menor que $d$.
 Por lo anterior, a la reducción de dimensión también se le conoce como aprendizaje de variedades (subvariedades).
 
+Desde este punto de vista, el aprendizaje de variedades se puede ver como una clase de algoritmos que intenta recuperar una variedad
+de dimensión baja inmersa en un espacio ambiente de dimensión alta.
+
 Podemos clasificar las técnicas de reducción de dimensión en tres: métodos espectrales, métodos probabilísticos y métodos 
 basados en redes neuronales.
-Los métodos espectrales intentan encontrar la subvariedad, ya sea lineal o no-lineal, de los datos. Usualmente, el problema
-se reduce a un problema de eigenvectores generalizados.
+Los métodos espectrales intentan encontrar la variedad ---ya sea lineal o no-lineal--- de los datos. Usualmente, el problema
+se reduce a un problema de vectores propios generalizados.
 En los métodos probabilísticos, se considera que los datos son variables aleatorias multidimensionales. Es posible hallar 
 una variable latente en la cual, la variable aleatoria, está condicionada. El problema es hallar una representación de menor
 dimensión de dicha variable latente.
@@ -246,28 +249,51 @@ reconstruidos, lo que hace al cuello de botella ideal para reducir la dimensión
 
 \subsection{PCA}
 
-Principal Component Analysis (PCA), es un método lineal de reducción de dimensión. 
+Análisis de Componentes Pricipales (PCA), es un método lineal de reducción de dimensión. 
 Originalmente fue propuesto por Pearson en 1901 en el artículo 
-``\textit{On lines and planes of closest fit to systems of points in space}'' (\textcite{Pearson}). Posteriormente, 
-se desarrollaron otros métodos basados en PCA como dual PCA, SPCA y kernel PCA. 
+``\textit{On lines and planes of closest fit to systems of points in space}'' (\textcite{Pearson}). 
+Siguiendo con la hipótesis de la variedad, PCA asume que los datos en una dimensión grande 
+$x \in \mathbb{R}^D$ yacen en un subespacio lineal de $\mathbb{RR}^d$ e intenta encontrar el subespacio 
+tal que la proyección y posterior reconstrucción de los datos tienen el menor error de reconstrucción.
+
+Posteriormente, se desarrollaron otros métodos basados en PCA como dual PCA, PCA supervisado (SPCA) y kernel PCA.
+Este último generaliza una gran cantidad de métodos espectrales de reducción de dimensión mediante el uso de \textit{kernels} y matrices de Mercer. 
+Por ejemplo, usando el kernel $K = X^\intercal X$ obtenemos PCA que se explica en la siguiente sección. Mientras que, con el kernel $K = \frac{1}{2} HDH$ obtenemos MDS.
+Entre los métodos generalizados por kernel PCA están: Principal Component Analysis (PCA), Multidimensional Scaling (MDS), Isomap, spectral clustering, 
+Laplacian eigenmap, diffusion map, y Locally Linear Embedding (LLE).
+
+Esto da pie a los métodos de \textit{Maximum Variance Unfolding} (MVU) que buscan desdoblar la variedad a su máxima varianza sobre la dimensión intrínseca al conjunto de datos, 
+es decir, buscan el mejor kernel para el conjunto de datos.
+
+Lo anterior ejemplifica mejor el panorama de los métodos espectrales pero, a partir de ahora, limitamos la discusión a PCA.
 
 Las ventajas son:
 \begin{itemize}
-    \item Los componentes principales ($\breve{x}_i$) son interpretables en términos de las variables originales ($x_i$).
+    \item Los componentes principales ($\breve{x}_i$) son combinaciones lineales de las variables originales ($x_i$).
     \item Podemos proyectar nuevos datos en los ejes principales.
     \item Crea nuevas variables, no correlacionadas.
 \end{itemize}
 
 Mientras que algunas desventajas son:
 \begin{itemize}
-    \item No puede manejar variables categóricas.
     \item Funciona mejor si las variables están relacionadas linealmente.
     \item Normalmente, los componentes principales con valores propios más chicos son desechados, entonces, 
         debemos decidir el número de componentes principales a retener.
 \end{itemize}
 
+Como se verá a continuación, PCA hace uso de la distancia euclidiana. Si los datos no yacen en una variedad lineal,
+es probable que PCA no ``desdoble'' apropiadamente la variedad, ver la figura (\ref{fig:manifold_unfolding}). 
 
+En este caso, aún podemos usar PCA si aplicamos una transformación apropiada a los datos que los linearice.
+Aunque probablemente, sea más apropidado usar un método no lineal.
 
+\begin{figure}
+\centering
+    \includegraphics[width=0.6\linewidth]{manifold_unfolding.png} 
+    \caption{(a) La variedad original (b) La variedad desdoblada correctamente (c) El espacio lineal hallado por PCA} 
+    \label{fig:manifold_unfolding} 
+
+\end{figure}
 % ------------------------------------------------------------------------------------------------------------------------------------
 \subsubsection{La proyección lineal de un dato}
 Consideramos un conjunto de datos $\{(x_i, y_i)\ |\ i = 1, \ldots, n\}$ con $n$ el tamaño de la muestra
@@ -300,7 +326,7 @@ Entonces, el problema de hallar la proyección $\hat{x}$ en $col(U)$, consiste e
 
 Si $x \in col(U)$, entonces (\ref{eq1:linear_system}) tiene solución exacta, $\hat{x} = x$.
 % TODO: Revisar la ultima oracion
-En caso, contrario definimos los residuos como $r = x - \hat{x} \neq 0$, la diferencia entre el punto observado y la proyección (y posterior reconstrucción) estimada.
+En caso, contrario definimos los residuos como $r = x - \hat{x} \neq 0$, la diferencia entre el punto observado y la proyección (y posterior reconstrucción).
 Evidentemente, queremos que el vector de residuos sea mínimo. En tal caso, tenemos el siguiente teorema.
 \begin{theorem}
 \label{t1:resmin_perp_colu}    
@@ -340,8 +366,6 @@ De modo que $\beta = U^\intercal x$ y (\ref{eq2:x_projection}) se reduce a
     \hat{x} = U U^\intercal x
 \end{equation}
 
-La ecuación anterior se conoce como la proyección de $x$ en el subespacio. 
-
 La proyección de $x$ en $col(U)$ se denota por $\tilde{x}$.
 
 \begin{equation}
@@ -370,7 +394,7 @@ La ecuación (\ref{eq:x_projection_not_centered}) se convierte en
     \tilde{x} = U^\intercal \breve{x} 
 \end{equation}
 
-Finalmente, la proyección en el subespacio (\ref{eq3:x_projection_orthogonal}) es, por lo tanto
+Finalmente, la reconstrucción en el subespacio (\ref{eq3:x_projection_orthogonal}) es, por lo tanto
 \begin{equation}
     \label{eq:x_hat}
     \hat{x} = U U^\intercal x + \mu_x = \tilde{x} + \mu_x
@@ -583,12 +607,7 @@ $$\frac{\lambda_j}{\sum^d_{k = 1}\lambda_k}$$
 En cualquier caso, debemos definir un valor a partir del cual empezamos a descartar vectores principales.
 
 \subsection{Kernel PCA}
-Principal Component Analysis (PCA), Multidimensional Scaling (MDS), Isomap, spectral clustering, Laplacian eigenmap, diffusion map, and Locally Linear Embedding (LLE)
-son algunos de los métodos espectrales más populares de reducción de dimensión. Podemos unificar los métodos anteriores con kernel PCA, solamente modificando el kernel.
-Por ejemplo, usando el kernel $K = X^\intercal X$ obtenemos PCA visto en la sección anterior. Mientras que, con el kernel $k = \frac{1}{2} HDH$ obtenemos MDS.
-Esto es posible porque los métodos espectrales de reducción de dimensión se reducen a un problema de valores propios o valores propios generalizados.
-Esto da pie a los métodos de \textit{maximum variance unfolding} (MVU) que buscan desdoblar la variedad a su máxima varianza sobre la dimensión intrínseca al conjunto de datos, 
-es decir, buscan el mejor kernel para el conjunto de datos.
+
 % \bibliography{ref}
 % Referencias
 \pagebreak

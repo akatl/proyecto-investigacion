@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```{r}
 library(tidyverse)
 library(factoextra)
-library(webshot2)
+#library(webshot2)
 
 data(banknote, package = "mclust")
 swissTib <- as_tibble(banknote)
@@ -30,6 +30,33 @@ pca <- select(swissTib, -Status) %>%
   prcomp(center = TRUE, scale = TRUE)
 # Los datos estan centrados y escalados (normalizados) [como normalizar un vector]
 ```
+Algunas graficas:
+```{r}
+library(plotly)
+library(lattice)
+#plot_ly(data=swissTib, x=~Top, y=~Bottom, z=~Left)
+
+fig <-swissTib %>% plot_ly() 
+fig <- fig %>%
+  add_trace(
+    type="splom",
+    dimensions = list(
+      list(label='Length', values=~Length),
+      list(label='Left', values=~Left),
+      list(label='Right', values=~Right),
+      list(label='Top', values=~Top),
+      list(label='Diagonal', values=~Diagonal)
+      ),
+      color=~Status,
+      text=~Status
+  )
+fig
+
+#splom(swissTib[2:7], main="Lattice")
+```
+En algunas se puede ver una separación. Esto ejemplifica un punto a menudo mal interpretado de PCA, 
+las separaciones ya están de alguna forma en los datos, PCA solo los hace más evidentes.
+
 Las proyecciones están en:
 ```{r}
 pca$x %>% head
@@ -56,46 +83,64 @@ La desviación estándar acumulada con:
 ```{r}
 summary(pca)
 ```
-
-Graficamos las primeras dos componentes principales:
+Graficas de PCA:
 ```{r}
-library(plotly)
-fpca <- get_pca(pca)
+fig2 <-swiss3PCA %>% plot_ly() 
+fig2 <- fig2 %>%
+  add_trace(
+    type="splom",
+    dimensions = list(
+      list(label='PCA1', values=~PCA1),
+      list(label='PCA2', values=~PCA2),
+      list(label='PCA3', values=~PCA3)
+      ),
+      color=~Status,
+      text=~Status
+  )
+fig2
 
-fviz_screeplot(pca, choice="variance", addlabels=TRUE)
-
-swiss2Pca <- swissTib %>%
-  mutate(PCA1 = pca$x[, 1], PCA2 = pca$x[, 2])
-
-plot_ly(data=swiss2Pca, x=~PCA1, y=~PCA2, color=~Status)
 ```
-Graficamos tres componentes principales:
+PCA hace evidente la separación entre billetes genuinos y falsos.
+Note que los gráficos que contienen PCA1 tienen una separación evidente. Esto era de esperarse, pues explica
+la mayoría de la varianza, ~50%.
+Las gráficas que no contienen PCA1, no hay separación de grupos. Apenas explican ~30% de la varianza.
+
 
 ```{r}
-library(htmlwidgets)
+
+swissFullPCA <- swissTib %>%
+  mutate(PCA1 = pca$x[, 1], PCA2 = pca$x[, 2], PCA3 = pca$x[, 3],
+         PCA4 = pca$x[, 4], PCA5 = pca$x[, 5], PCA6 = pca$x[, 6]
+         )
+
+fig3 <-swissFullPCA %>% plot_ly() 
+fig3 <- fig3 %>%
+  add_trace(
+    type="splom",
+    dimensions = list(
+      list(label='PCA1', values=~PCA1),
+      list(label='PCA2', values=~PCA2),
+      list(label='PCA3', values=~PCA3),
+      list(label='PCA4', values=~PCA3),
+      list(label='PCA5', values=~PCA3),
+      list(label='PCA6', values=~PCA3)
+      ),
+      color=~Status,
+      text=~Status
+  )
+fig3
+
+```
+
+
+Graficamos tres componentes principales:
+```{r}
 library(plotly)
-library(webshot2)
-Sys.setenv(CHROMOTE_CHROME = "/usr/bin/google-chrome")
 
 swiss3PCA <- swissTib %>%
   mutate(PCA1 = pca$x[, 1], PCA2 = pca$x[, 2], PCA3 = pca$x[, 3])
 p <- plot_ly(data=swiss3PCA, x=~PCA1, y=~PCA2, z=~PCA3, color=~Status)
-
-# 2. Save the plotly object as a standalone HTML file
-temp_html <- "temp_plot.html"
-saveWidget(p, temp_html, selfcontained = TRUE)
-
-# 3. Use webshot2 to take the picture (where delay/zoom actually work!)
-webshot2::webshot(
-  url = temp_html, 
-  file = "3d_snapshot.png", 
-  delay = 3,    # Wait 3 seconds for WebGL to load
-  zoom = 2,     # Double the resolution for the PDF
-  vwidth = 1000, 
-  vheight = 700
-)
-
-#knitr::include_graphics("3d_snapshot.png")
+p
 ```
 
 # Agregar nuevos datos
@@ -109,5 +154,217 @@ newBanknotes <- tibble(
   Diagonal = c(138, 142)
 )
 predict(pca, newBanknotes)
+```
+
+# Regresion Lineal
+
+## Todas las regresiones lineales con 2 componentes principales
+**No es un buen modelo**
+```{r}
+library(leaps)
+library(olsrr)
+source("https://raw.githubusercontent.com/fhernanb/Trabajos_Est_2/main/Trabajo%201/funciones.R")
+
+# Agrega columna target = 1 si Status = genuine y 0 de otro modo
+swiss2Pca <- swiss2Pca |> 
+  mutate(target = if_else(Status == "genuine", 1, 0))
+
+mod2 <- lm(data=swiss2Pca, target ~ PCA1 + PCA2)
+ols_step_all_possible(mod2)
+```
+## Regresion Logistica
+```{r}
+# 1. Ajustar el modelo logístico
+# family = binomial(link = "logit") es lo que define la regresión logística
+mod2_logit <- glm(target ~ PCA1 + PCA2, 
+                  data = swiss2Pca, 
+                  family = binomial(link = "logit"))
+
+# 2. Ver el resumen estadístico
+summary(mod2_logit)
+
+# 3. Diagnósticos específicos para modelos GLM
+# Los gráficos de plot(lm) no funcionan igual para logística.
+# Es mejor usar la librería performance.
+# install.packages("performance")
+library(performance)
+check_model(mod2_logit)
+```
+```{r}
+# Preparar la rejilla (usando el mismo grid_df que creamos antes)
+grid_df$pred_logit <- predict(mod2_logit, newdata = grid_df, type = "response")
+
+# Convertir a matriz
+matriz_logit <- matrix(grid_df$pred_logit, nrow = 50, ncol = 50, byrow = TRUE)
+
+# Graficar en Plotly
+plot_ly() %>%
+  add_surface(x = ~grid_x, y = ~grid_y, z = ~matriz_logit, colorscale = 'Viridis', opacity = 0.8) %>%
+  add_markers(data = swiss2Pca, x = ~PCA1, y = ~PCA2, z = ~target, 
+              color = ~as.factor(target), marker = list(size = 4)) %>%
+  layout(title = "Superficie de Probabilidad Logística")
+```
+## Errores
+```{r}
+# Seleccionamos los puntos en el espacio lineal, U^t X
+scores <- as.matrix(swiss2Pca %>% select(starts_with("PCA")))
+
+# Matriz de rotacion U
+loadings <- pca$rotation[, 1:ncol(scores)] 
+
+# Reconstruccion U U^t X
+# X_hat = Scores * t(Loadings)
+reconstruccion <- scores %*% t(loadings)
+
+# Residuales r = X - \hat{X} al cuadrado
+datos_originales_escalados <- scale(swissTib[,2:7])
+
+error_reconst <- rowSums((datos_originales_escalados - reconstruccion)^2)
+
+# Añadir a un dataframe para analizar
+swiss2Pca <- swiss2Pca %>%
+  mutate(error_manifold = error_reconst)
+
+# Visualización: ¿Los billetes falsos se alejan más del manifold lineal?
+ggplot(swiss2Pca, aes(x = as.factor(target), y = error_manifold, fill = as.factor(target))) +
+  geom_boxplot() +
+  labs(title = "Error de Reconstrucción: Distancia al Manifold PCA",
+       x = "Estado (0=Falso, 1=Genuino)",
+       y = "Error (Varianza no capturada)") +
+  theme_minimal()
+```
+
+# Esfera
+
+```{r}
+# Función para generar puntos en S^n
+# n_puntos: cuántas muestras quieres
+# dimension: la 'n' de S^n (ej: dimension=2 genera puntos en 3D)
+generar_esfera <- function(n_puntos, dimension) {
+  # 1. Generar matriz de normales (n_puntos filas, dimension+1 columnas)
+  matriz_normal <- matrix(rnorm(n_puntos * (dimension + 1)), 
+                          nrow = n_puntos, 
+                          ncol = dimension + 1)
+  
+  # 2. Calcular la norma de cada fila (cada punto)
+  normas <- sqrt(rowSums(matriz_normal^2))
+  
+  # 3. Normalizar cada punto para que su distancia al origen sea exactamente 1
+  esfera <- matriz_normal / normas
+  
+  return(as.data.frame(esfera))
+}
+
+# Ejemplo: Generar 1000 puntos en S^2 (una esfera normal en espacio 3D)
+puntos_esfera <- generar_esfera(1000, 2)
+colnames(puntos_esfera) <- c("x", "y", "z")
+```
+
+```{r}
+plot_ly(puntos_esfera, x = ~x, y = ~y, z = ~z, 
+        type = "scatter3d", mode = "markers",
+        marker = list(size = 2, opacity = 0.5))
+```
+
+## PCA
+
+```{r}
+esfera.modpca <- prcomp(puntos_esfera, center=TRUE, scale=TRUE)
+
+esfera.pca <- puntos_esfera %>% mutate(PCA1=esfera.modpca$x[,1], PCA2=esfera.modpca$x[,2], PCA3=esfera.modpca$x[,3])
+
+plot_ly(esfera.pca, x=~PCA1, y=~PCA2, z=~PCA3, mode="markers", marker = list(size = 2, opacity = 0.5))
+```
+No hay reducción de dimensión, la varainza es aproximadamente la misma en todas las direcciones.
+
+```{r}
+fig.esfera <- esfera.pca %>% plot_ly() 
+fig.esfera <- fig.esfera %>%
+  add_trace(
+    type="splom",
+    dimensions = list(
+      list(label='PCA1', values=~PCA1),
+      list(label='PCA2', values=~PCA2),
+      list(label='PCA3', values=~PCA3)
+      )
+  )
+fig.esfera
+```
+
+
+# Helicoide
+
+```{r}
+# Función para generar puntos de un helicoide
+# n_puntos: número total de puntos a generar
+# vueltas: cuántas rotaciones completas (2*pi) da la espiral
+# radio_max: el ancho de la escalera
+# altura_max: la altura total de la escalera
+generar_helicoide <- function(n_puntos = 200, vueltas = 1, radio_max = 1, altura_max = 2) {
+  
+  # 1. Generar los parámetros intrínsecos de la superficie (r, theta)
+  # r controla el ancho (de 0 al radio máximo)
+  r <- runif(n_puntos, min = 0, max = radio_max)
+  
+  # theta controla el giro (de 0 a vueltas * 2*pi)
+  theta <- runif(n_puntos, min = 0, max = vueltas * 2 * pi)
+  
+  # 2. Parametrización del Helicoide (mapeo de (r, theta) a (x, y, z))
+  x <- r * cos(theta)
+  y <- r * sin(theta)
+  
+  # La altura (z) es proporcional al ángulo de giro
+  # Usamos theta / (vueltas * 2*pi) para normalizar la altura entre 0 y altura_max
+  z <- altura_max * (theta / (vueltas * 2 * pi))
+  
+  # 3. Crear el dataframe
+  df_helicoide <- data.frame(x = x, y = y, z = z, r = r, theta = theta)
+  
+  return(df_helicoide)
+}
+
+# Generar los datos
+datos_helicoide <- generar_helicoide(n_puntos = 300, vueltas = 2, altura_max = 3)
+```
+
+```{r}
+# Graficar en 3D
+# Usamos el radio 'r' para el color para resaltar la estructura
+plot_ly(datos_helicoide, x = ~x, y = ~y, z = ~z, 
+        type = "scatter3d", mode = "markers",
+        marker = list(size = 5, color = ~g, opacity = 0.6)) %>%
+  layout(title = "Helicoide",
+         scene = list(aspectmode = "data")) # Mantiene la proporción real de los ejes
+```
+
+## PCA
+
+```{r}
+helicoide.modpca <- prcomp(datos_helicoide[,1:3], center=TRUE, scale=FALSE)
+
+helicoide.pca <- datos_helicoide %>% mutate(PCA1=helicoide.modpca$x[,1], PCA2=helicoide.modpca$x[,2], PCA3=helicoide.modpca$x[,3])
+
+summary(helicoide.modpca)
+helicoide.var
+helicoide.var <- (helicoide.modpca$sdev)^2
+helicoide.sum <- sum(helicoide.var)
+helicoide.var[[1]]/helicoide.sum
+plot_ly(helicoide.pca, x=~PCA2, y=~PCA3, z=~PCA1, marker = list(size = 5, color = ~g, colorscale = 'Viridis', opacity = 0.6)) 
+```
+```{r}
+fig.helicoide <- helicoide.pca %>% plot_ly() 
+fig.helicoide <- fig.helicoide %>%
+  add_trace(
+    type="splom",
+    mode="markers",
+    dimensions = list(
+      list(label='PCA1', values=~PCA1),
+      list(label='PCA2', values=~PCA2),
+      list(label='PCA3', values=~PCA3)
+      ),
+     marker = list(size = 5, colorscale='Viridis', color=~g)
+
+  )
+fig.helicoide
 ```
 

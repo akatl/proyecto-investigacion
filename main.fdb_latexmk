@@ -1,13 +1,12 @@
 # Fdb version 3
-["biber main"] 1773343328 "main.bcf" "main.bbl" "main" 1773376789
-  "main.bcf" 1773376789 124178 d1d9686a471fd34328170a7c820548ef "pdflatex"
-  "ref.bib" 1773343340 2535 bcedfb63ae0df16d1d9464de8e0d1ee6 ""
+["biber main"] 1773343328 "main.bcf" "main.bbl" "main" 1774157556
+  "main.bcf" 1774157556 124178 d1d9686a471fd34328170a7c820548ef "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1773376787 "/home/akatl/Lambda/proyecto-terminal/main.tex" "main.pdf" "main" 1773376789
+["pdflatex"] 1774157555 "/home/akatl/Lambda/proyecto-terminal/main.tex" "main.pdf" "main" 1774157556
   "/etc/texmf/web2c/texmf.cnf" 1727824929 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/akatl/Lambda/proyecto-terminal/main.tex" 1773376787 29814 bec589c9dfef56040347d72be4adf5c8 ""
+  "/home/akatl/Lambda/proyecto-terminal/main.tex" 1774157554 30903 365fe8bca86912a6bae6192aee97d925 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1246382020 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -138,11 +137,12 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1730238603 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1769822775 1456670 93b3e9f155a4172f5cfa928cddc60cac ""
   "img//data_science_process.png" 1771293221 57889 fcdf1ae314be89f4f30ae62321b385e0 ""
-  "main.aux" 1773376789 5830 4c28b42d81603b430682afb41bbc075d "pdflatex"
+  "img//manifold_unfolding.png" 1774151724 58675 bece6c07b82675edfee16f4d87a4e769 ""
+  "main.aux" 1774157556 6204 368f057eb8e6c01ddc0e3ca432ebf5fb "pdflatex"
   "main.bbl" 1773343329 14392 025e881a967d92a42b4651d259eb2b2c "biber main"
-  "main.out" 1773376789 2217 88480e4bd46a8aa70451810d59532a0f "pdflatex"
-  "main.run.xml" 1773376789 2352 0512f6c3036cb397f68cbbab3d6e4b7f "pdflatex"
-  "main.tex" 1773376787 29814 bec589c9dfef56040347d72be4adf5c8 ""
+  "main.out" 1774157556 2217 88480e4bd46a8aa70451810d59532a0f "pdflatex"
+  "main.run.xml" 1774157556 2352 0512f6c3036cb397f68cbbab3d6e4b7f "pdflatex"
+  "main.tex" 1774157554 30903 365fe8bca86912a6bae6192aee97d925 ""
   (generated)
   "main.aux"
   "main.bcf"
