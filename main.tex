@@ -458,10 +458,10 @@ Con esto, podemos dar definiciones análogas a (\ref{eq:x_breve}), (\ref{eq:x_ti
 
 Con interpretaciones análogas a sus versiones para un solo dato.
 % -------------------------------------------------------------------------------------------------------------------------------
-\subsubsection{La matriz de Covarianza y Descomposicón en Vectores Propios}
+\subsubsection{La matriz de Covarianza y Descomposición en Vectores Propios}
 
 La matriz de Covarianza surge naturalmente al proyectar un dato en una sola dirección.
-Para ello consideramos la proyección de $x \in \mathbb{R}^d$ en una sola direción $u \in \mathbb{R}^d$,
+Para ello consideramos la proyección de $x \in \mathbb{R}^d$ en una sola dirección $u \in \mathbb{R}^d$,
 es decir, $U = [u] \in \mathbb{R}^{d \times 1}$. 
 
 Proyectando en el subespacio, sin agregar la media, tenemos
@@ -602,11 +602,9 @@ $q < rank(S)$ direcciones, por lo que decidimos ignorar las direcciones restante
 ortonormal, es posible hallar $U^\intercal \in \mathbb{R}^{q \times p}$ tal que $U^\intercal U = I$.
 
 Para decidir si debemos truncar $U$, existen métodos gráficos como \textit{scree plot} que grafica los valores propios contra los 
-componentes pricipales ordenados por valores propios. Otra forma es usar la razón:
+componentes principales ordenados por valores propios. Otra forma es usar la razón:
 $$\frac{\lambda_j}{\sum^d_{k = 1}\lambda_k}$$
 En cualquier caso, debemos definir un valor a partir del cual empezamos a descartar vectores principales.
-
-\subsection{Kernel PCA}
 
 % \bibliography{ref}
 % Referencias
