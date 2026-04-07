@@ -90,7 +90,6 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Qualitative vs. Quantitative Data in Research: The Difference}
-      \field{month}{10}
       \field{title}{Qualitative vs. quantitative data in research: The difference}
       \field{year}{2024}
       \true{nocite}
@@ -229,7 +228,6 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{IBM}
-      \field{month}{11}
       \field{title}{What is exploratory data analysis?}
       \field{year}{2025}
       \true{nocite}
@@ -239,6 +237,41 @@
       \verb{url}
       \verb https://www.ibm.com/think/topics/exploratory-data-analysis
       \endverb
+    \endentry
+    \entry{Ma_Fu_2012}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=19b8b7adc1376a6a3a66c3a5f24c61c9}{%
+           family={Ma},
+           familyi={M\bibinitperiod},
+           given={Yunqian},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=af5bb174cec505de4887d6186d3823ae}{%
+           family={Fu},
+           familyi={F\bibinitperiod},
+           given={Yun},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor Francis distributor}%
+      }
+      \strng{namehash}{9d3ee17b96f43ff8e60453d9a5ed66d5}
+      \strng{fullhash}{9d3ee17b96f43ff8e60453d9a5ed66d5}
+      \strng{bibnamehash}{9d3ee17b96f43ff8e60453d9a5ed66d5}
+      \strng{authorbibnamehash}{9d3ee17b96f43ff8e60453d9a5ed66d5}
+      \strng{authornamehash}{9d3ee17b96f43ff8e60453d9a5ed66d5}
+      \strng{authorfullhash}{9d3ee17b96f43ff8e60453d9a5ed66d5}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Manifold learning theory and applications}
+      \field{year}{2012}
+      \true{nocite}
     \endentry
     \entry{Pearson}{article}{}
       \name{author}{1}{}{%

@@ -1,0 +1,9 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introducción al Análisis de Datos}{1}{section.1}%
+\contentsline {section}{\numberline {2}Análisis Exploratorio de Datos}{4}{section.2}%
+\contentsline {section}{\numberline {3}Reducción de Dimensión}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}PCA}{6}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}La proyección lineal de un dato}{7}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Las matrices de centrado y la proyección de múltiples datos}{9}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}La matriz de Covarianza y Descomposición en Vectores Propios}{10}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.4}El rango de la matriz de covarianza y los componentes a retener}{13}{subsubsection.3.1.4}%
