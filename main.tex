@@ -5,6 +5,8 @@
 \usepackage[backend=biber,style=apa]{biblatex}
 \usepackage{parskip}
 \usepackage{csquotes}
+\usepackage{enumerate}
+\usepackage{bm}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -286,7 +288,7 @@ Como se verá a continuación, PCA hace uso de la distancia euclidiana. Si los d
 es probable que PCA no ``desdoble'' apropiadamente la variedad, ver la figura (\ref{fig:manifold_unfolding}). 
 
 En este caso, aún podemos usar PCA si aplicamos una transformación apropiada a los datos que los linearice.
-Aunque probablemente, sea más apropidado usar un método no lineal.
+Aunque probablemente, sea más apropiado usar un método no lineal.
 
 \begin{figure}
 \centering
@@ -487,7 +489,7 @@ Por lo tanto
     \left\| \hat{x} \right\|^2_2 =  u^\intercal \breve{x}\breve{x}^\intercal u
 \end{equation}
 
-Ahora, consideramos $n$ datos $X$ y su correspondiende proyección $\hat{X}$ en una sola dirección $u$.
+Ahora, consideramos $n$ datos $X$ y su correspondiente proyección $\hat{X}$ en una sola dirección $u$.
 Entonces
 
 \begin{align*}
@@ -603,12 +605,76 @@ $q < rank(S)$ direcciones, por lo que decidimos ignorar las direcciones restante
 ortonormal, es posible hallar $U^\intercal \in \mathbb{R}^{q \times p}$ tal que $U^\intercal U = I$.
 
 Para decidir si debemos truncar $U$, existen métodos gráficos como \textit{scree plot} que grafica los valores propios contra los 
-componentes principales ordenados por valores propios. Otra forma es usar la razón:
+componentes principales ordenados por valores propios. Otra forma es usar la proporción:
 $$\frac{\lambda_j}{\sum^d_{k = 1}\lambda_k}$$
 En cualquier caso, debemos definir un valor a partir del cual empezamos a descartar vectores principales.
 
+\section{Kernelización}
+En 1904, David Hilbert propusó su trabajo acerca de kernels, más tarde, Erhard Schmidt's propuso
+ecuaciones integrales del tipo Fredholm. Está fue la introducción del espacio de Hilbert. 
+Posterioremente, James Mercer trabajó también en espacios de Hilbert y enunció su teorema en 1909 (\parencite{reproducingKHS}).
+En Machine Learning, los espacios de Hilbert con kernel reproducible (RKHS) resultaron ser de gran 
+utilidad pues, un kernel, funciona como medida de similaridad (\parencite{Ghojogh_Elements}).
+
+En esta sección se desarrolla la
+teoría esencial sobre espacios de Hilbert con dos fines: generalizar el algoritmo de análisis de
+componentes principales (PCA) ---desarrollado en la sección anterior--- y desarrollar el algoritmo
+de \textit{spectral clustering}. El primero, sirve para demostrar la aplicación de los kernels en la 
+reducción de dimensión; mientras que el segundo, nos permite ver que los kernels tienen aplicaciones
+también fuera de la reducción de dimensión y son herramientas útiles en otras (muchas) áreas del análisis
+de datos.
+
+\subsection{Espacios de Hilbert con Kernel Reproducible (RKHS)}
+
+Como indica el nombre, un espacio de Hilbert con kernel reproducible (RKHS a partir de ahora) tiene tres características: Es un espacio Hilbert, 
+contiene Kernels y los kernels son reproducibles. Por lo tanto, estas tres propiedades serán nuestro punto de partida.
+
+\begin{definition}
+\label{df:hilbert_space}
+Un conjunto $\mathcal{H}$ es un espacio de Hilbert si cumple las siguientes propiedades:
+
+\begin{enumerate}[I]
+    \item Es un espacio lineal.
+    \item Es un espacio con producto interno, denotado $\langle,\rangle$.
+    \item Es un espacio métrico completo, con la métrica $\rho(f, g) = ||f - g||$, donde $||f|| = \sqrt{\langle f, f\rangle}$.
+    \item Es un espacio de dimensión infinita, es decir, $\forall n \in \mathbb{R}$, $\mathcal{H}$ contiene $n$ vectores linealmente independientes.
+    \item Es un espacio separable.
+\end{enumerate}
+
+\end{definition}
+Son necesarios algunos comentarios sobre la definición anterior. En primera, las condiciones (I) y (II) implican que $\mathcal{H}$ es un espacio euclideano.
+Luego, la condición (V) a menudo se omite, de forma que $\mathcal{H}$ puede no ser separable; en cuyo caso, contiene un subconjunto denso numerable.
+
+Siguiendo el programa que hemos trazado, damos la definición de kernel (de Mercer).
+\begin{definition}
+    \label{df:kernel_kernel_matrix}
+    Una función $k: \mathcal{X}^2 \to \mathbb{R}$ es un kernel (de Mercer) o función kernel si:
+    \begin{enumerate}[I]
+        \item Es simétrica, es decir, $k(x, y) = k(y, x)$.
+        \item Su matriz kernel correspondiente $\bm{K}(i, j) := k(x_i, x_j)$ $\forall i, j \in \{1, \ldots, n\}$ es positiva semi-definida: $\bm{K} \succeq 0$.
+    \end{enumerate}
+\end{definition}
+
+La matriz kernel en (II), es una matriz cuadrada $\bm{K} \in \mathbb{R}^{n \times n}$ también llamada matriz
+de Gram o matriz Gramiana.
+
 % \bibliography{ref}
 % Referencias
+\section{Conclusiones}
+A lo largo del trabajo, hemos explorado el flujo del proceso de ciencia de datos ---desde la recolección de datos en crudo hasta la toma de decisiones 
+basada en modelos y visualizaciones--- enfocándonos en la reducción de dimensión, una etapa crítica tanto para la exploración 
+como para la interpretación de conjuntos de datos con una gran cantidad de variables. 
+
+El Análisis de Componentes Principales (PCA) es un algoritmo indispensable por ser el método lineal de reducción de dimensión por excelencia. 
+Comprender su mecánica —basada en encontrar el subespacio que minimiza el error de reconstrucción y maximiza la varianza— establece la base conceptual necesaria para abordar 
+técnicas más complejas. Aunque se trata de un algoritmo relativamente simple, su estudio es importante pues, mediante el uso de funciones kernel y matrices de Mercer,
+puede construirse una generalización de PCA: kernel PCA. Dicho algoritmo, mantiene una estructura 
+muy similar a PCA desarrollado en este trabajo, con la diferencia de reducirse a un problema de descomposición en valores propios generalizados.
+
+Si bien PCA y sus variantes son herramientas poderosas, limitarnos al estudio de métodos espectrales nos presenta un panorama limitado de los algoritmos
+de reducción de dimensión. Por ello, en lo consecuente ---como continuación al proyecto de Investigación--- la intención es explorar algoritmos de reducción de dimensión 
+no lineales. Por ejemplo, UMAP (Uniform Manifold Approximation and Projection), 
+un método probabilístico que complementará los temas vistos durante esta primera parte del proyecto.
 \pagebreak
 \printbibliography
 \end{document}

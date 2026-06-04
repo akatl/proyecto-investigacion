@@ -197,6 +197,7 @@
       \strng{authorbibnamehash}{3ddde5c1d0900709b96904e291b65445}
       \strng{authornamehash}{479ead23f1ea5286b833ac9a7b16e44a}
       \strng{authorfullhash}{3ddde5c1d0900709b96904e291b65445}
+      \field{extraname}{1}
       \field{sortinit}{G}
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{extradatescope}{labelyear}
@@ -206,7 +207,61 @@
       \field{labeltitlesource}{title}
       \field{title}{Elements of dimensionality reduction and manifold learning}
       \field{year}{2023}
-      \true{nocite}
+    \endentry
+    \entry{reproducingKHS}{misc}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=e74dc8a436d8f62a0f4eec19eb8d8b9f}{%
+           family={Ghojogh},
+           familyi={G\bibinitperiod},
+           given={Benyamin},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=dfd14c69d2338ce9cf556c819a32d286}{%
+           family={Ghodsi},
+           familyi={G\bibinitperiod},
+           given={Ali},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=47d3fd1a2122cf0752c2e376cd8a613d}{%
+           family={Karray},
+           familyi={K\bibinitperiod},
+           given={Fakhri},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ca82b846a197d41722abe45110716a6d}{%
+           family={Crowley},
+           familyi={C\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{479ead23f1ea5286b833ac9a7b16e44a}
+      \strng{fullhash}{ccf0bbebe124b6ed240d1fb7a1a687da}
+      \strng{bibnamehash}{ccf0bbebe124b6ed240d1fb7a1a687da}
+      \strng{authorbibnamehash}{ccf0bbebe124b6ed240d1fb7a1a687da}
+      \strng{authornamehash}{479ead23f1ea5286b833ac9a7b16e44a}
+      \strng{authorfullhash}{ccf0bbebe124b6ed240d1fb7a1a687da}
+      \field{extraname}{2}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{stat.ML}
+      \field{eprinttype}{arXiv}
+      \field{title}{Reproducing Kernel Hilbert Space, Mercer's Theorem, Eigenfunctions, Nyström Method, and Use of Kernels in Machine Learning: Tutorial and Survey}
+      \field{year}{2021}
+      \verb{eprint}
+      \verb 2106.08443
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2106.08443
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2106.08443
+      \endverb
     \endentry
     \entry{IBM_2025}{misc}{}
       \name{author}{1}{}{%
@@ -409,6 +464,45 @@
       \field{labeltitlesource}{title}
       \field{title}{Exploratory Data Analysis}
       \field{year}{1977}
+    \endentry
+    \entry{tutorialspectralclustering}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=86714cf89fed80215d15171e9ed5f412}{%
+           family={Luxburg},
+           familyi={L\bibinitperiod},
+           given={Ulrike},
+           giveni={U\bibinitperiod},
+           givenun=0,
+           prefix={von},
+           prefixi={v\bibinitperiod}}}%
+      }
+      \strng{namehash}{86714cf89fed80215d15171e9ed5f412}
+      \strng{fullhash}{86714cf89fed80215d15171e9ed5f412}
+      \strng{bibnamehash}{86714cf89fed80215d15171e9ed5f412}
+      \strng{authorbibnamehash}{86714cf89fed80215d15171e9ed5f412}
+      \strng{authornamehash}{86714cf89fed80215d15171e9ed5f412}
+      \strng{authorfullhash}{86714cf89fed80215d15171e9ed5f412}
+      \field{sortinit}{v}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.DS}
+      \field{eprinttype}{arXiv}
+      \field{title}{A Tutorial on Spectral Clustering}
+      \field{year}{2007}
+      \true{nocite}
+      \verb{eprint}
+      \verb 0711.0189
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/0711.0189
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/0711.0189
+      \endverb
     \endentry
   \enddatalist
 \endrefsection
