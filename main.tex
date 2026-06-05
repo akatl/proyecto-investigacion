@@ -630,7 +630,6 @@ Como indica el nombre, un espacio de Hilbert con kernel reproducible (RKHS a par
 contiene Kernels y los kernels son reproducibles. Por lo tanto, estas tres propiedades serán nuestro punto de partida.
 
 \begin{definition}
-\label{df:hilbert_space}
 Un conjunto $\mathcal{H}$ es un espacio de Hilbert si cumple las siguientes propiedades:
 
 \begin{enumerate}[I]
@@ -642,8 +641,23 @@ Un conjunto $\mathcal{H}$ es un espacio de Hilbert si cumple las siguientes prop
 \end{enumerate}
 
 \end{definition}
-Son necesarios algunos comentarios sobre la definición anterior. En primera, las condiciones (I) y (II) implican que $\mathcal{H}$ es un espacio euclideano.
-Luego, la condición (V) a menudo se omite, de forma que $\mathcal{H}$ puede no ser separable; en cuyo caso, contiene un subconjunto denso numerable.
+Son necesarios algunos comentarios sobre la definición anterior. En primera, las condiciones (I) y (II) 
+son equivalentes a decir que $\mathcal{H}$ es un espacio euclideano.
+Luego, la condición (V) a menudo se omite, de forma que $\mathcal{H}$ puede no ser separable; 
+pero, si es separable, contiene un subconjunto denso numerable.
+
+Por lo anterior podemos dar la siguiente definición de espacio de Hilbert.
+
+\begin{definition}
+    \label{df:hilbert_space}
+    Un espacio de Hilbert $\mathcal{H}$ es un espacio con producto interno que es un espacio
+    métrico completo con respecto a la norma inducida por el producto interno.
+\end{definition}
+
+Una proposición importante sobre los espacios de Hilbert es que todos ellos son isomorfos,
+por esta razón a menudo se identifica al espacio $l_2$ como el espacio de Hilbert.
+Si embargo, es importante notar que esto no es cierto en el caso de los RKHS donde
+cada kernel genera un RKHS nuevo.
 
 Siguiendo el programa que hemos trazado, damos la definición de kernel (de Mercer).
 \begin{definition}
@@ -658,6 +672,35 @@ Siguiendo el programa que hemos trazado, damos la definición de kernel (de Merc
 La matriz kernel en (II), es una matriz cuadrada $\bm{K} \in \mathbb{R}^{n \times n}$ también llamada matriz
 de Gram o matriz Gramiana.
 
+Antes de enunciar la propiedad reproducible, es conveniente dar la definición de RKHS y un par de propiedades 
+del mismo.
+
+\begin{definition}
+    \label{df:rkhs}
+    Un espacio de Hilbert con kernel reproducible es un espacio de Hilbert $\mathcal{H}$ que 
+    consta de funciones $f:\mathcal{X} \to \mathbb{R}$ con kernel reproducible 
+    $k:\mathcal{X}^2 \to \mathbb{R}$ donde $k(x, .) \in \mathcal{H}$ y $f(x) = \langle k(x, .), f \rangle$.
+\end{definition}
+
+Un primer resultado importante involucra la base de los RKHS. En específico,
+\begin{align}
+\label{eq:rkhs_basis}
+    \begin{split}
+        \mathcal{H} &= \{f(.) = \sum_{i = 1}^n \alpha_i k(x_i, .)\} \\
+                    &= \{f(.) = \sum_{i = 1}^n \alpha_i k_{x_i}(.)\}
+    \end{split}
+\end{align}
+
+donde $\alpha_i$ son escalares.
+Este primer resultado (sin demostración) muestra que un RKHS tiene una base de kernels. Aunque
+estos son vistos como funciones de una sola variable $k_{x_i}(.) = k(x_i, .)$.
+
+
+\subsection{Kernel PCA}
+\subsubsection{Centrado del Kernel}
+\subsubsection{Proyección en el espacio de características}
+\subsection{MDS, Isomap y otras generalizaciones}
+\subsection{Spectral Clustering}
 % \bibliography{ref}
 % Referencias
 \section{Conclusiones}

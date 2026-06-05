@@ -9,4 +9,9 @@
 \contentsline {subsubsection}{\numberline {3.1.4}El rango de la matriz de covarianza y los componentes a retener}{13}{subsubsection.3.1.4}%
 \contentsline {section}{\numberline {4}Kernelización}{14}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Espacios de Hilbert con Kernel Reproducible (RKHS)}{14}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Conclusiones}{15}{section.5}%
+\contentsline {subsection}{\numberline {4.2}Kernel PCA}{16}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Centrado del Kernel}{16}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Proyección en el espacio de características}{16}{subsubsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.3}MDS, Isomap y otras generalizaciones}{16}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Spectral Clustering}{16}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Conclusiones}{16}{section.5}%

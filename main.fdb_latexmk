@@ -1,13 +1,13 @@
 # Fdb version 3
-["biber main"] 1780549966 "main.bcf" "main.bbl" "main" 1780550328
-  "main.bcf" 1780550328 124410 00c8574ba513a6950000175e2f9562c4 "pdflatex"
+["biber main"] 1780639773 "main.bcf" "main.bbl" "main" 1780640199
+  "main.bcf" 1780640199 124410 00c8574ba513a6950000175e2f9562c4 "pdflatex"
   "ref.bib" 1780547022 3407 2d3ad8bdbf01c52e9fe0bdb354a76205 ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1780550327 "/home/akatl/Lambda/proyecto-terminal/main.tex" "main.pdf" "main" 1780550328
+["pdflatex"] 1780640198 "/home/akatl/Lambda/proyecto-terminal/main.tex" "main.pdf" "main" 1780640199
   "/etc/texmf/web2c/texmf.cnf" 1727824929 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/akatl/Lambda/proyecto-terminal/main.tex" 1780550327 35614 2d78b6cedeeb4b8ec4167c77fdcfb482 ""
+  "/home/akatl/Lambda/proyecto-terminal/main.tex" 1780640197 37404 4e564e815536d96b05543a3a55d719d1 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -148,12 +148,12 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1769822775 1456670 93b3e9f155a4172f5cfa928cddc60cac ""
   "img//data_science_process.png" 1771293221 57889 fcdf1ae314be89f4f30ae62321b385e0 ""
   "img//manifold_unfolding.png" 1774151724 58675 bece6c07b82675edfee16f4d87a4e769 ""
-  "main.aux" 1780550328 7070 f0b71df97cdb5462a53d5c9f293c7718 "pdflatex"
-  "main.bbl" 1780549967 19219 9697ddec79eb277c40f6d7f11924b67f "biber main"
-  "main.out" 1780550328 2659 089aa717342d42921910b9631f6a61a9 "pdflatex"
-  "main.run.xml" 1780550328 2352 0512f6c3036cb397f68cbbab3d6e4b7f "pdflatex"
-  "main.tex" 1780550327 35614 2d78b6cedeeb4b8ec4167c77fdcfb482 ""
-  "main.toc" 1780550328 1137 503cf5915048d263eeed204700dc386c "pdflatex"
+  "main.aux" 1780640199 7909 564c240c7d38f291e709d6327e68c93e "pdflatex"
+  "main.bbl" 1780639775 19219 9697ddec79eb277c40f6d7f11924b67f "biber main"
+  "main.out" 1780640199 3649 d93ce4d1970658be208188d9c8b6926a "pdflatex"
+  "main.run.xml" 1780640199 2352 0512f6c3036cb397f68cbbab3d6e4b7f "pdflatex"
+  "main.tex" 1780640197 37404 4e564e815536d96b05543a3a55d719d1 ""
+  "main.toc" 1780640199 1621 05d2ccbb4a1f740aaff402ed9f4440e3 "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"
