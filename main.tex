@@ -19,6 +19,7 @@
 \numberwithin{equation}{section}
 
 \newtheorem{theorem}{Teorema}
+\newtheorem{proposition}{Proposición}
 
 \theoremstyle{remark}
 \newtheorem{example}{Ejemplo}
@@ -609,6 +610,10 @@ componentes principales ordenados por valores propios. Otra forma es usar la pro
 $$\frac{\lambda_j}{\sum^d_{k = 1}\lambda_k}$$
 En cualquier caso, debemos definir un valor a partir del cual empezamos a descartar vectores principales.
 
+% ----------------------------------------------------------------------------------------------
+\pagebreak
+% ----------------------------------------------------------------------------------------------
+
 \section{Kernelización}
 En 1904, David Hilbert propusó su trabajo acerca de kernels, más tarde, Erhard Schmidt's propuso
 ecuaciones integrales del tipo Fredholm. Está fue la introducción del espacio de Hilbert. 
@@ -694,6 +699,64 @@ Un primer resultado importante involucra la base de los RKHS. En específico,
 donde $\alpha_i$ son escalares.
 Este primer resultado (sin demostración) muestra que un RKHS tiene una base de kernels. Aunque
 estos son vistos como funciones de una sola variable $k_{x_i}(.) = k(x_i, .)$.
+
+El siguiente resultado es de utilidad para calcular el producto interno de dos miembros en
+$\mathcal{H}$.
+
+\begin{proposition}
+    \label{pp:inner_product_rkhs}
+    Si $\mathcal{H}$ en un RKHS y $f, g \in \mathcal{H}$ entonces
+    $$\langle f, g \rangle = \sum_{j = 1}^n \sum_{i = 1}^n \alpha_i \beta_i k(x_i, y_j)$$
+\end{proposition}
+
+\textbf{Demostración}
+Por (\ref{eq:rkhs_basis}), podemos escribir
+\begin{align*}
+f(x) &= \sum_{i=1}^n \alpha_i k(x_i, x)\\
+g(y) &= \sum_{i=1}^n \beta_j k(y_i, y)
+\end{align*}
+
+Reemplazando en el producto interno obtenemos
+
+\begin{align*}
+    \langle f, g \rangle &= \langle \sum_{i=1}^n \alpha_i k(x_i, x), \sum_{i=1}^n \beta_j k(y_i, y) \rangle \\
+        \intertext{por simetría de $k$}
+        &= \langle \sum_{i=1}^n \alpha_i k(x_i, x), \sum_{i=1}^n \beta_j k(y, y_i) \rangle \\
+        &= \sum_{i=1}^n  \sum_{i=1}^n \alpha_i \beta_j \langle k(x_i, x),  k(y, y_i) \rangle \\
+        &= \sum_{i=1}^n  \sum_{i=1}^n \alpha_i \beta_j \langle k_{x_i}(.),  k_{y_i}(.) \rangle \\
+        \intertext{Note que $h(z) = k_{y_i}(z) \in \mathcal{H}$ y por lo tanto podemos aplicar la propiedad al final de la 
+definición (\ref{df:rkhs}), es decir, $h(z) = \langle k(z, .), h \rangle$}
+        &= \sum_{i=1}^n  \sum_{i=1}^n \alpha_i \beta_j h(x_i) \\
+        &= \sum_{i=1}^n  \sum_{i=1}^n \alpha_i \beta_j k(x_i, y_i) \\
+        &\blacksquare
+\end{align*}
+
+Con esto, podemos dar la propiedad reproducible.
+
+\begin{proposition}
+    \label{pp:reproducing_property}
+    Si $\mathcal{H}$ es un RKHS, entonces para cada $f \in \mathcal{H}$ 
+    existe un kernel $g \in \mathcal{H}$ tal que
+    $$\langle f(x), g(x) \rangle = f(x)$$
+\end{proposition}
+
+\textbf{Demostración}
+Por (\ref{eq:rkhs_basis}), podemos escribir
+$$f(x) = \sum_{i=1}^n \alpha_i k(x_i, x)$$
+
+Consideramos el kernel $g(x) = k(x, x)$ ó $g(x) = k_x(x)$.
+Entonces
+\begin{align*}
+\langle f, g \rangle &= \langle \sum_{i=1}^n \alpha_i k(x_i, x), g(x) \rangle \\
+        &= \langle \sum_{i=1}^n \alpha_i k(x_i, x), k(x, x) \rangle \\
+        \intertext{por la proposición anterior}
+        &= \sum_{i=1}^n \alpha_i  k(x_i, x) \\
+        &= f(x) \\
+        &\blacksquare
+\end{align*}
+
+Finalizamos esta sección con un par de ejemplos y una discusión sobre el término 
+\textit{Kernelización}.
 
 
 \subsection{Kernel PCA}
