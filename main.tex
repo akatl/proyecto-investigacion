@@ -252,6 +252,7 @@ reconstruidos, lo que hace al cuello de botella ideal para reducir la dimensión
 
 
 \subsection{PCA}
+\label{ss:pca}
 
 Análisis de Componentes Pricipales (PCA), es un método lineal de reducción de dimensión. 
 Originalmente fue propuesto por Pearson en 1901 en el artículo 
@@ -677,8 +678,7 @@ Siguiendo el programa que hemos trazado, damos la definición de kernel (de Merc
 La matriz kernel en (II), es una matriz cuadrada $\bm{K} \in \mathbb{R}^{n \times n}$ también llamada matriz
 de Gram o matriz Gramiana.
 
-Antes de enunciar la propiedad reproducible, es conveniente dar la definición de RKHS y un par de propiedades 
-del mismo.
+Antes de enunciar la propiedad reproducible, es conveniente dar la definición de RKHS.
 
 \begin{definition}
     \label{df:rkhs}
@@ -687,7 +687,31 @@ del mismo.
     $k:\mathcal{X}^2 \to \mathbb{R}$ donde $k(x, .) \in \mathcal{H}$ y $f(x) = \langle k(x, .), f \rangle$.
 \end{definition}
 
-Un primer resultado importante involucra la base de los RKHS. En específico,
+Una definición equivalente a la anterior de RKHS es la siguiente.
+
+\begin{definition}
+    \label{df:rkhs_formal}
+    Sea $\mathcal{H}$ un espacio de Hilbert que consiste de funciones reales en un subconjunto 
+    $\mathcal{X} \subset \mathbb{R}^d$ y considere el funcional evaluación puntual 
+    $E_x: \mathcal{H} \to \mathbb{R}$ dado por
+    $$E_x(f) = f(x),\ f \in \mathcal{H}$$
+    Decimos que $\mathcal{H}$ es un RKHS si $E_x$ es acotado ---por lo tanto continuo--- para cada
+    $x \in \mathcal{X}$. Esto es
+    $$|E_x(f)| \leq c ||f||_{\mathcal{H}},\ \forall f \in \mathcal{H}$$
+\end{definition}
+
+La propiedad al final de la definición (\ref{df:rkhs}) es llamada \textit{propiedad reproducible}.
+La razón de esto es que reproduce el funcional evaluación $E_x$ de la definición (\ref{df:rkhs_formal}), 
+es decir:
+
+Para $y \in \mathcal{X}$ y $f \in \mathcal{H}$ se tiene 
+\begin{equation}
+\label{eq:reproducing_property}    
+f(y) = E_y(f) = \langle f, k(y, .) \rangle = \langle f, k(., y) \rangle
+\end{equation}
+
+Sin embargo, esta propiedad es más general como se verá más adelante en (\ref{pp:reproducing_property}).
+Para ello, es útil el siguiente resultado que involucra la base de los RKHS. En específico,
 \begin{align}
 \label{eq:rkhs_basis}
     \begin{split}
@@ -697,7 +721,8 @@ Un primer resultado importante involucra la base de los RKHS. En específico,
 \end{align}
 
 donde $\alpha_i$ son escalares.
-Este primer resultado (sin demostración) muestra que un RKHS tiene una base de kernels. Aunque
+
+Este  resultado muestra que un RKHS tiene una base de kernels. Aunque
 estos son vistos como funciones de una sola variable $k_{x_i}(.) = k(x_i, .)$.
 
 El siguiente resultado es de utilidad para calcular el producto interno de dos miembros en
@@ -727,8 +752,7 @@ Reemplazando en el producto interno obtenemos
         \intertext{Note que $h(z) = k_{y_i}(z) \in \mathcal{H}$ y por lo tanto podemos aplicar la propiedad al final de la 
 definición (\ref{df:rkhs}), es decir, $h(z) = \langle k(z, .), h \rangle$}
         &= \sum_{i=1}^n  \sum_{i=1}^n \alpha_i \beta_j h(x_i) \\
-        &= \sum_{i=1}^n  \sum_{i=1}^n \alpha_i \beta_j k(x_i, y_i) \\
-        &\blacksquare
+        &= \sum_{i=1}^n  \sum_{i=1}^n \alpha_i \beta_j k(x_i, y_i) 
 \end{align*}
 
 Con esto, podemos dar la propiedad reproducible.
@@ -751,36 +775,194 @@ Entonces
         &= \langle \sum_{i=1}^n \alpha_i k(x_i, x), k(x, x) \rangle \\
         \intertext{por la proposición anterior}
         &= \sum_{i=1}^n \alpha_i  k(x_i, x) \\
-        &= f(x) \\
-        &\blacksquare
+        &= f(x)
 \end{align*}
 
-Finalizamos esta sección con un par de ejemplos y una discusión sobre el término 
-\textit{Kernelización}.
+Este resultado es especialmente útil, pues en las aplicaciones ---a menudo--- solamente no sabemos
+la posición de los puntos en $\mathcal{H}$ pero sí el kernel. Por lo tanto, la matriz de Mercer
+$\bm{K}$ es una matriz que nos dice la similitud (o disimilitud) de los puntos en $\mathcal{H}$.
 
+Finalizamos esta sección con una discusión sobre el término \textit{kernelización}.
+Consideremos un algoritmo lineal aplicado sobre un conjunto de datos no-lineal. Es evidente que
+el algoritmo no se desempeñará correctamente sobre el conjunto de datos. Para conrregir esto,
+según \parencite{Ghojogh_Elements}, tenemos dos opciones: Modificar el algoritmo para que sea
+capaz de manejar datos no-lineales o modificar el conjunto de datos para que presente un patrón
+más lineal. La última es justamente la idea de la que surge el concepto de \textit{kernelización}.
+En ciencia de datos, \textit{kernelización} se refiere a usar los datos ``arrastrados'' a un RKHS
+como entrada de un algoritmo, en lugar de usar los datos ``crudos''.
+
+Existen dos métodos de \textit{kernelización}: el truco del kernel (\textit{kernel trick}) y 
+\textit{kernelización} usando teoría de la representación. Nosotros nos enfocaremos en el primero
+porque es justamente el enfoque detrás de kernel PCA.
+El \textit{kernel trick} intenta reformular el algoritmo de modo que no aparezcan instancias
+de los datos en crudo $x$, dejando el algoritmo en términos del producto interno: $x^\intercal x$
+$x^\intercal X$, $X^\intercal x$ ó $X^\intercal X$. Pues, como mencionamos arriba, es fácil
+calcular el kernel usando únicamente el producto interno.
 
 \subsection{Kernel PCA}
-\subsubsection{Centrado del Kernel}
+\label{ss:kernel_pca}
+
+Muchos métodos de reducción de dimensión se pueden reducir a kernel PCA, usando los vectores propios
+(en general, funciones propias) para arrastrar los datos al espacio de características. 
+
+
+\begin{example}
+    \label{ex:kpca_pca}
+    Kernel PCA es equivalente a PCA ---por el \textit{kernel trick}---  si usamos el kernel
+    $$K = X^\intercal X$$
+    Dicha equivalencia se vuelve más aparente si en el algoritmo original de PCA descomponemos
+    la matriz de covarianza en valores singulares en lugar de descomponerla en valores propios.
+\end{example}
+
+\begin{example}
+    \label{ex:kpca_isomap_mds}
+    El algoritmo de escalado multidimensional (MDS) es equivalente a kernel PCA, haciendo:
+    $$K = -\frac{1}{2}HDH$$
+    Donde $D$ es la matriz de distancia euclideana al cuadrado y $H$ es la matriz de centrado.
+
+    Si en lugar de usar la distancia euclideana usamos la distancia geodesica, kernel PCA es 
+    equivalente a isomap con el kernel:
+    $$K = -\frac{1}{2} H D^{(g)}H$$
+    Donde $D^{(g)}$ es la matriz de distancias geodesicas.
+\end{example}
+
+
+Sin embargo, el uso de kernels no se limita a métodos de reducción de dimensión. También 
+puede usarse en el análisis de conglomerados (\textit{clustering}). 
+\begin{example}
+    \label{ex:kpca_spectral_clustering}
+    El algoritmo de \textit{spectral clustering} usa el kernel
+    $$K_{ij} = \frac{W_{ij}}{\sqrt{D_{ii} D_{jj}}}$$
+    Donde $W \in \mathbb{R}^{n \times n}$ es la matriz de adyacencia.
+\end{example}
+
+La principal ventaja de PCA no es computacional sino conceptual. Actúa como un marco unificador
+de una gran cantidad de métodos espectrales de reducción de dimensión y tiene aplicaciones
+en otras áreas de la ciencia de datos. Esta observación, a la par de los ejemplos presentados, 
+son suficiente motivación (espero) para continuar con el desarrollo del algoritmo de kernel PCA.
+
+\subsubsection{Preeliminares}
+
+De manera informal, la idea de kernel PCA es arrastrar los datos que ---asumimos--- yacen en una
+variedad no-lineal hacia un espacio donde ---con suerte--- sigan una distribución lineal o 
+aproximadamente lineal; y, una vez ahí, aplicar PCA. Para aclarar estos términos damos la siguientes
+definiciones.
+
+\begin{definition}
+    Llamamos a $\mathcal{X}$ espacio original (\textit{input space}). 
+    A menudo $\mathcal{X} = \mathbb{R}^d$.
+
+    Llamamos al espacio de Hilbert $\mathcal{H}$ espacio de las características (\textit{feature space}).
+    Puede tratarse de un espacio de dimensión finita o infinita, decimos que $\mathcal{H}$ es 
+    t-dimensional.
+
+    El mapeo $\phi: \mathcal{X} \to \mathcal{H}$ tal que $x \mapsto \phi(x)$ es llamado función 
+    de arrastre (\textit{pulling function} o \textit{feature map}).
+\end{definition}
+
+Es importante diferenciar entre el espacio original $\mathcal{X}$ y el conjunto de datos en forma
+de matriz $X = [x_1 \ldots x_n]$. Teniendo esto en mente, damos la siguiente definición.
+
+\begin{definition}
+    \label{eq:pulling_function_on_dataset}
+    La aplicación de la función de arrastre $\phi$ sobre el conjunto de datos $X$ está definida como
+    \begin{equation}
+    \Phi(X) = [\phi(x_i) \ldots \phi(x_n)]
+    \end{equation}
+    Siendo $t \times n$ dimensional.
+\end{definition}
+
+Usando el teorema de Mercer se puede mostrar que
+
+\begin{equation}
+    \label{eq:dot_product_as_kernel_single}
+    k(x,y) = \langle \phi(x), \phi(y) \rangle = \phi(x)^\intercal \phi(x)
+\end{equation}
+
+En el resultado anterior, se muestra una ventaja de la kernelización: para calcular el kernel 
+solo hace falta el producto interno; si recordamos que el producto interno es una medida de 
+similaridad en el espacio de las características. Entonces, no es necesario conocer la 
+función de arrastre (por lo tanto la posición exacta de los datos en el espacio de características) para 
+tener una idea de la similitud entre los datos.
+
+Analogamente para el conjunto de datos
+
+\begin{equation}
+    \label{eq:dot_product_as_kernel_dataset}
+    \bm{K} = \langle \Phi(X), \Phi(X) \rangle = \Phi(X)^\intercal \Phi(X)
+\end{equation}
+
+Este resultado es fácil de ver, razonando como sigue:
+
+\begin{align*}
+\Phi(X)^\intercal \Phi(X) &= [\phi(x_1) \ldots \phi(x_n)]^\intercal [\phi(x_1) \ldots \phi(x_n)] \\
+        &= [\phi(x_1)^\intercal \ldots \phi(x_n)^\intercal][\phi(x_1) \ldots \phi(x_n)] \\
+        &= [\phi(x_1)^\intercal \phi(x_1) \ldots \phi(x_n)^\intercal \phi(x_n)] \\
+        &= [k(x_i, x_j)] \\
+        &= \bm{K} 
+\end{align*}
+
+Finalmente, al igual que en PCA, un paso previo es centrar los datos. En el caso de kernel PCA, 
+no centramos los datos en crudo sino los datos una vez arrastrados. A este proceso se le llama 
+centrado del kernel.
+
+\begin{definition}
+    \label{df:feature_space_centered_data}
+    Definimos los datos centrados en el espacio de características como
+    $$\breve{\Phi}(X) = \Phi(X)H$$
+    Donde $H$ es la matriz de centrado.
+\end{definition}
+
+Centrar los datos en el espacio de la característica equivale al doble centrado de $\bm{K}$.
+
+\begin{proposition}
+   \label{pp:double_centered_kernel}
+   $$\breve{\bm{K}} = H \bm{K} H$$
+\end{proposition}
+\textbf{Demostración}
+\begin{align*}
+\breve{\bm{K}} &= \breve{\Phi}^\intercal(X) \breve{\Phi}(X) \\
+        &= (\Phi(X)H)^\intercal (\Phi(X)H) \\
+        &= (H^\intercal \Phi^\intercal(X))\Phi(X)H) \\
+        &= H^\intercal \Phi^\intercal(X)\Phi(X)H \\
+        &= H^\intercal \bm{K} H \\
+        &= H \bm{K} H
+\end{align*}
+
+El kernel de (\ref{pp:double_centered_kernel}) es llamado kernel doble-centrado y se trata
+de los datos centrados en el espacio de características
+
 \subsubsection{Proyección en el espacio de características}
+El paso de la proyección en el espacio de la caracteríticas es el más sencillo si 
+estamos familirizados con el problema de los vectores propios, vectores propios generalizados y 
+la descomposición de una matriz en valores singulares.
+Por esa razón empezamos presentando dichos problemas y algunos resultados de utilidad.
+
+\begin{definition}
+    \label{df:eigenvalue_problem}
+\end{definition}
+
+
 \subsection{MDS, Isomap y otras generalizaciones}
 \subsection{Spectral Clustering}
+\section{Ejemplos}
 % \bibliography{ref}
 % Referencias
 \section{Conclusiones}
-A lo largo del trabajo, hemos explorado el flujo del proceso de ciencia de datos ---desde la recolección de datos en crudo hasta la toma de decisiones 
+A lo largo de este trabajo, hemos explorado el flujo del proceso de ciencia de datos ---desde la recolección de datos en crudo hasta la toma de decisiones 
 basada en modelos y visualizaciones--- enfocándonos en la reducción de dimensión, una etapa crítica tanto para la exploración 
 como para la interpretación de conjuntos de datos con una gran cantidad de variables. 
 
-El Análisis de Componentes Principales (PCA) es un algoritmo indispensable por ser el método lineal de reducción de dimensión por excelencia. 
-Comprender su mecánica —basada en encontrar el subespacio que minimiza el error de reconstrucción y maximiza la varianza— establece la base conceptual necesaria para abordar 
-técnicas más complejas. Aunque se trata de un algoritmo relativamente simple, su estudio es importante pues, mediante el uso de funciones kernel y matrices de Mercer,
-puede construirse una generalización de PCA: kernel PCA. Dicho algoritmo, mantiene una estructura 
-muy similar a PCA desarrollado en este trabajo, con la diferencia de reducirse a un problema de descomposición en valores propios generalizados.
+% El Análisis de Componentes Principales (PCA) es un algoritmo indispensable por ser el método lineal de reducción de dimensión por excelencia. 
+% Comprender su mecánica —basada en encontrar el subespacio que minimiza el error de reconstrucción y maximiza la varianza— establece la base conceptual necesaria para abordar 
+% técnicas más complejas. Aunque se trata de un algoritmo relativamente simple, su estudio es importante pues, mediante el uso de funciones kernel y matrices de Mercer,
+% puede construirse una generalización de PCA: kernel PCA. Dicho algoritmo, mantiene una estructura 
+% muy similar a PCA desarrollado en este trabajo, con la diferencia de reducirse a un problema de descomposición en valores propios generalizados.
 
-Si bien PCA y sus variantes son herramientas poderosas, limitarnos al estudio de métodos espectrales nos presenta un panorama limitado de los algoritmos
-de reducción de dimensión. Por ello, en lo consecuente ---como continuación al proyecto de Investigación--- la intención es explorar algoritmos de reducción de dimensión 
-no lineales. Por ejemplo, UMAP (Uniform Manifold Approximation and Projection), 
-un método probabilístico que complementará los temas vistos durante esta primera parte del proyecto.
+% Si bien PCA y sus variantes son herramientas poderosas, limitarnos al estudio de métodos espectrales nos presenta un panorama limitado de los algoritmos
+% de reducción de dimensión. Por ello, en lo consecuente ---como continuación al proyecto de Investigación--- la intención es explorar algoritmos de reducción de dimensión 
+% no lineales. Por ejemplo, UMAP (Uniform Manifold Approximation and Projection), 
+% un método probabilístico que complementará los temas vistos durante esta primera parte del proyecto.
 \pagebreak
 \printbibliography
 \end{document}

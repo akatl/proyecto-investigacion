@@ -1,12 +1,12 @@
 # Fdb version 3
-["biber main"] 1780898158 "main.bcf" "main.bbl" "main" 1780901184
-  "main.bcf" 1780901184 124410 00c8574ba513a6950000175e2f9562c4 "pdflatex"
+["biber main"] 1781155579 "main.bcf" "main.bbl" "main" 1781156307
+  "main.bcf" 1781156307 124469 0ff61dfbe2767303b5d03bd0da3a1098 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1780901183 "/home/akatl/Lambda/proyecto-terminal/main.tex" "main.pdf" "main" 1780901184
+["pdflatex"] 1781156305 "/home/akatl/Lambda/proyecto-terminal/main.tex" "main.pdf" "main" 1781156307
   "/etc/texmf/web2c/texmf.cnf" 1727824929 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/akatl/Lambda/proyecto-terminal/main.tex" 1780901183 39933 9a8871c07f9b1003b28e83b92de67f67 ""
+  "/home/akatl/Lambda/proyecto-terminal/main.tex" 1781156305 48547 6ee543190cf3ca10e9f78a06b9a0d5f6 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -58,7 +58,6 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1248133631 37944 359e864bd06cde3b1cf57bb20757fb06 ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1248133631 31764 459c573c03a4949a528c2cc7f557e217 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb" 1248133631 33366 60462f3d16c3d0f024f1f856e64b09cd ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
@@ -148,12 +147,12 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1769822775 1456670 93b3e9f155a4172f5cfa928cddc60cac ""
   "img//data_science_process.png" 1771293221 57889 fcdf1ae314be89f4f30ae62321b385e0 ""
   "img//manifold_unfolding.png" 1774151724 58675 bece6c07b82675edfee16f4d87a4e769 ""
-  "main.aux" 1780901184 8033 9e3401956ddf59d671ce49287635babb "pdflatex"
-  "main.bbl" 1780898162 19219 9697ddec79eb277c40f6d7f11924b67f "biber main"
-  "main.out" 1780901184 3649 d93ce4d1970658be208188d9c8b6926a "pdflatex"
-  "main.run.xml" 1780901184 2352 0512f6c3036cb397f68cbbab3d6e4b7f "pdflatex"
-  "main.tex" 1780901183 39933 9a8871c07f9b1003b28e83b92de67f67 ""
-  "main.toc" 1780901184 1621 5673c9677e12d95eacc3ff15f4fb6016 "pdflatex"
+  "main.aux" 1781156307 9118 d699b1158efe74788389a5f4de1065d0 "pdflatex"
+  "main.bbl" 1781155583 19219 9697ddec79eb277c40f6d7f11924b67f "biber main"
+  "main.out" 1781156307 3697 d42ec1fd2d7bd9bca3a2965457732fe9 "pdflatex"
+  "main.run.xml" 1781156307 2352 0512f6c3036cb397f68cbbab3d6e4b7f "pdflatex"
+  "main.tex" 1781156305 48547 6ee543190cf3ca10e9f78a06b9a0d5f6 ""
+  "main.toc" 1781156307 1680 57c0a91b7da1cd06abc7b808d8bf9e89 "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"
