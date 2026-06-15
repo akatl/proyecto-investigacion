@@ -842,7 +842,7 @@ en otras áreas de la ciencia de datos. Esta observación, a la par de los ejemp
 son suficiente motivación (espero) para continuar con el desarrollo del algoritmo de kernel PCA.
 
 \subsubsection{Preeliminares}
-
+\label{ss:preelim}
 De manera informal, la idea de kernel PCA es arrastrar los datos que ---asumimos--- yacen en una
 variedad no-lineal hacia un espacio donde ---con suerte--- sigan una distribución lineal o 
 aproximadamente lineal; y, una vez ahí, aplicar PCA. Para aclarar estos términos damos la siguientes
@@ -930,19 +930,126 @@ Centrar los datos en el espacio de la característica equivale al doble centrado
 \end{align*}
 
 El kernel de (\ref{pp:double_centered_kernel}) es llamado kernel doble-centrado y se trata
-de los datos centrados en el espacio de características
+de los datos centrados en el espacio de características.
 
 \subsubsection{Proyección en el espacio de características}
-El paso de la proyección en el espacio de la caracteríticas es el más sencillo si 
+El paso de la proyección en el espacio de características es sencillo si 
 estamos familirizados con el problema de los vectores propios, vectores propios generalizados y 
-la descomposición de una matriz en valores singulares.
+la descomposición en valores singulares.
 Por esa razón empezamos presentando dichos problemas y algunos resultados de utilidad.
 
 \begin{definition}
     \label{df:eigenvalue_problem}
+    El problema de valores propios de una matriz simétrca $A \in \mathbb{R}^{d \times d}$ consiste en hallar
+    $\Lambda = diag[\lambda_1, \ldots, \lambda_d]$ diagonal y $\Phi = [\phi_1, \ldots, \phi_d]$ 
+    una matriz de vectores columna ---ambas de tamaño $d \times d$--- tales que
+    $$A \Phi = \Phi \Lambda$$
+    Si $A$ es simétrica, entonces $\Phi$ es ortogonal y la condición anterior se convierte en
+    \begin{equation}
+    \label{eq:eigenvalue_problem}
+    A = \Phi \Lambda \Phi^{-1} = \Phi \Lambda \Phi^\intercal
+    \end{equation}
+    A la ecuación anterior se le conoce como descomposición en valores propios de $A$ 
+    o descomposición espectral de $A$.
 \end{definition}
 
+Podemos generalizar el problema de descomposición espectral como sigue.
 
+\begin{definition}
+    \label{df:generalized_eigenvalue_problem}
+    Considere dos matrices simétricas $A, B \in \mathbb{R}^{d \times d}$, el problema de 
+    valores propios del par $(A, B)$ es hallar $\Phi, \Lambda$ como en (\ref{df:eigenvalue_problem})
+    tales que
+    \begin{equation}
+    \label{eq:generalized_eigenvalue_problem}
+        A \Phi = B \Phi \Lambda
+    \end{equation}
+\end{definition}
+
+Otra manera de descomponer una matriz es en valores singulares (SVD) la cual tiene dos formas:
+descomposición completa e incompleta. No es el propósito el dar un método para descomponer la matriz,
+daremos por hecho que la descomposición es posible y enunciaremos algunas propiedades de utilidad.
+
+\begin{definition}
+    \label{df:complete_svd}
+    Considere una matriz $A \in \mathbb{R}^{\alpha \times \beta}$, SVD completo descompone la matriz
+    como:
+    \begin{equation}
+    \label{eq:complete_svd}
+        A = U \Sigma V^\intercal
+    \end{equation}
+    Donde $U \in \mathbb{R}^{\alpha \times \alpha}, V \in \mathbb{R}^{\beta \times \beta}$ y
+    $\Sigma \in \mathbb{R}^{\alpha \times \beta}$.
+    La matriz $U$ es llamada matriz de vectores singulares izquierdos; la matriz $V$, matriz de 
+    vectores singulares derechos; mientras que $\Sigma$ es una matriz diagonal, no necesariamente 
+    cuadrada, que contiene los valores singulares en la diagonal principal. Esto implica que 
+    el número de valores singulares es $k = min\{\alpha, \beta\}$.
+\end{definition}
+
+Por otro lado, tenemos SVD incompleto.
+
+\begin{definition}
+    \label{df:partial_svd}
+    Considere una matriz $A \in \mathbb{R}^{\alpha \times \beta}$, SVD incompleto descompone 
+    la matriz como:
+    $$A = U \Sigma V^\intercal$$
+    Donde $U \in \mathbb{R}^{\alpha \times k}, V \in \mathbb{R}^{k \times \beta}$ y
+    $\Sigma \in \mathbb{R}^{k \times k}$ y $k = min\{\alpha, \beta\}$.
+\end{definition}
+
+En ambos casos, $U$ y $V$ son ortogonales  y por lo tanto se cumple que 
+\begin{align*}
+    U^\intercal U = I \\
+    V^\intercal V = I 
+\end{align*}
+
+Pero solamente en el caso de SVD completo se cumple 
+\begin{align*}
+    U U^\intercal = I \\
+    V V^\intercal = I 
+\end{align*}
+
+Finalmente, persentamos el siguiente resultado que establece una conexión entre la descomposición
+espectral y la descomposición en valores singulares (SVD).
+
+\begin{proposition}
+    \label{pp:eigen_svd}
+    En ambas formas de descomposición en valores singulares (SVD) de $A$ se cumplen los siguientes
+    enunciados:
+    \begin{enumerate}[I]
+        \item Las matrices de vectores singulares izquierdos/derechos son los vectores propios
+        de la descomposición espectral de $A A^\intercal$ y de $A^\intercal A$, respectivamente.
+        \item Los valores singulares son la raíz cuadrada de los valores propios de 
+        $A A^\intercal$ ó $A^\intercal A$.
+    \end{enumerate}
+\end{proposition}
+
+\textbf{Demostración}
+Sea $A = U \Sigma V^\intercal$ la descomposición en valores singulares (completa o incompleta) de $A$.
+Entonces, 
+\begin{align*}
+    A A^\intercal &= (U \Sigma V^\intercal)(U \Sigma V^\intercal)^\intercal \\
+        &= U \Sigma V^\intercal V \Sigma U^\intercal \\
+        &= U \Sigma^2 U^\intercal \\
+\end{align*}
+Note que $\Sigma^2$ es diagonal porque $\Sigma$ es diagonal y por lo tanto, la ecuación anterior
+es la descomposición espectral de $A A^\intercal$, donde $U$ es la matriz de vectores propios y
+$\Sigma^2$ la una matriz diagonal que contiene los valores propios. Esto último implica que los 
+valores propios de $A A^intercal$ son el cuadrado de los valores singulares de $A$.
+
+La demostración para $A^\intercal A$ es similar:
+\begin{align*}
+    A^\intercal A &= (U \Sigma V^\intercal)^\intercal (U \Sigma V^\intercal)\\
+        &= V \Sigma U^\intercal U \Sigma V^\intercal \\
+        &= V \Sigma^2 V^\intercal \\
+\end{align*}
+Con interpretación análoga a la de $A A^\intercal$.
+
+Los resultados anteriores son suficientes para presentar la proyección en el espacio de 
+características usando kernel PCA. La idea es hacer SVD incompleto sobre $\breve{\Phi}(X)$.
+Es importante recordar que, a partir de ahora, $\phi$ es la función de arrastre, $X$ es el conjunto
+de datos, $\bm{K}$ es la matriz kernel y $H$ la matriz de centrado. Todas ellas según fueron definidas
+en la sección de preeliminares (\ref{ss:preelim}).
 \subsection{MDS, Isomap y otras generalizaciones}
 \subsection{Spectral Clustering}
 \section{Ejemplos}
