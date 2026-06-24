@@ -879,11 +879,11 @@ Usando el teorema de Mercer se puede mostrar que
     k(x,y) = \langle \phi(x), \phi(y) \rangle = \phi(x)^\intercal \phi(x)
 \end{equation}
 
-En el resultado anterior, se muestra una ventaja de la kernelización: para calcular el kernel 
+Este resultado ilustra una ventaja de la kernelización: para calcular el kernel 
 solo hace falta el producto interno; si recordamos que el producto interno es una medida de 
-similaridad en el espacio de las características. Entonces, no es necesario conocer la 
-función de arrastre (por lo tanto la posición exacta de los datos en el espacio de características) para 
-tener una idea de la similitud entre los datos.
+similaridad en el espacio de las características, entonces no es necesario conocer la 
+función de arrastre (por lo tanto la posición exacta de los datos en el espacio de características) 
+para tener una idea de la similitud entre los datos.
 
 Analogamente para el conjunto de datos
 
@@ -1048,8 +1048,51 @@ Con interpretación análoga a la de $A A^\intercal$.
 Los resultados anteriores son suficientes para presentar la proyección en el espacio de 
 características usando kernel PCA. La idea es hacer SVD incompleto sobre $\breve{\Phi}(X)$.
 Es importante recordar que, a partir de ahora, $\phi$ es la función de arrastre, $X$ es el conjunto
-de datos, $\bm{K}$ es la matriz kernel y $H$ la matriz de centrado. Todas ellas según fueron definidas
-en la sección de preeliminares (\ref{ss:preelim}).
+de datos, $\bm{K}_x$ es la matriz kernel de dicho conjunto y $H$ la matriz de centrado. Todas ellas 
+según fueron definidas en la sección de preeliminares (\ref{ss:preelim}).
+
+Para el conjunto de datos $X$, tenemos la matriz doble-centrada:
+
+\begin{equation}
+    \breve{\bm{K}_x} = H \bm{K}_x H = \breve{\Phi}(X)^\intercal \breve{\Phi}(X)
+\end{equation}
+
+Como ya dijimos, la idea usar SVD incompleto sobre $\breve{\Phi}(X)$, pero esta idea no nos
+llevará muy lejor si no conocemos $\Phi$, que es el caso usual. Sin embargo, el kernel si es 
+conocido y por lo tanto aplicando descomposición espectral a él:
+
+\begin{equation}
+    \breve{\bm{K}_x} V = V \Lambda
+\end{equation}
+
+Note que $\breve{\bm{K}_x} = \breve{\Phi}(X)^\intercal \breve{\Phi}(X)$, entonces por la proposición 
+(\ref{pp:eigen_svd}), los vectores propios $V$ son justamente los vectores singulares izquierdos de 
+la SVD incompleta (pues $\Lambda$ es cuadrada) de $\breve{\Phi}(X)$ y $\Lambda$ consta del cuadrado de los valores singulares
+de dicha descomposición. Con este enfoque, es imposible conocer los vectores singulares derechos de
+la descomposición de $\breve{\Phi}(X)$ sin conocer $\Phi$. 
+
+Dada el SVD incompleto de $\breve{\Phi}(X)$ como sigue
+\begin{equation}
+    \breve{\Phi}(X) = V \Sigma U
+\end{equation}
+
+Tenemos que 
+\begin{equation}
+   \breve{\bm{K}_x} V = V \Sigma^2
+\end{equation}
+
+Con esto, la proyección de $X$ en kernel PCA está dada por:
+
+\begin{align*}
+    U^\intercal \breve{\Phi}(X) &= U^\intercal U \Sigma V^\intercal \\
+        &= \Sigma V^\intercal
+\end{align*}
+
+Es decir
+\begin{equation}
+    \label{eq:kpca_projection}
+    \tilde{\Phi}(X) = U^\intercal \breve{\Phi}(X) = \Sigma V^\intercal
+\end{equation}
 \subsection{MDS, Isomap y otras generalizaciones}
 \subsection{Spectral Clustering}
 \section{Ejemplos}
