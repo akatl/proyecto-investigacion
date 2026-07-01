@@ -1035,7 +1035,7 @@ Entonces,
 Note que $\Sigma^2$ es diagonal porque $\Sigma$ es diagonal y por lo tanto, la ecuación anterior
 es la descomposición espectral de $A A^\intercal$, donde $U$ es la matriz de vectores propios y
 $\Sigma^2$ la una matriz diagonal que contiene los valores propios. Esto último implica que los 
-valores propios de $A A^intercal$ son el cuadrado de los valores singulares de $A$.
+valores propios de $A A^\intercal$ son el cuadrado de los valores singulares de $A$.
 
 La demostración para $A^\intercal A$ es similar:
 \begin{align*}
@@ -1093,9 +1093,49 @@ Es decir
     \label{eq:kpca_projection}
     \tilde{\Phi}(X) = U^\intercal \breve{\Phi}(X) = \Sigma V^\intercal
 \end{equation}
-\subsection{MDS, Isomap y otras generalizaciones}
-\subsection{Spectral Clustering}
+
+\pagebreak
 \section{Ejemplos}
+\subsection{Preeliminares}
+Antes de proceder con ejemplos, es importante hacer algunos comentarios sobre los métodos basados en kernels
+y explicar conceptos que no se desarrollaran a fondo pero que usaremos en los ejemplos.
+
+\subsubsection{Kernels usuales}
+En esta sección damos la definición y propiedades de algunos kernels de utilidad, tanto para kernel PCA como
+para otros métodos basados en kernels.
+
+\begin{definition}
+   El kernel lineal está definido como 
+   $$k(x,y) = x^\intercal y$$ 
+\end{definition}
+Este kernel tiene la propiedad de que la función de arrastre es conocida, pues 
+$k(x,y) = \phi(x)^\intercal \phi(y) = x^\intercal y$ y por lo tanto $\phi(x) = x$. Es decir, con este
+kernel los datos permanecen en el espacio original.
+
+\begin{definition}
+    Dado un kernel $k_1:\mathcal{X}^2 \to \mathbb{R}$, definimos el kernel polinomial $k$ como
+    $$k(x,z) = p(k_1(x,z))$$
+    donde $p(.)$ es un polinomio con coeficientes positivos.
+\end{definition}
+
+\begin{definition}
+    Para $\sigma > 0$, el kernel Gaussiano se define como 
+    $$k(x,y) = \exp\left ( {-\frac{||x - z||^2}{2\sigma^2}} \right )$$
+\end{definition}
+El kernel Gaussiano suele funcionar bien con datos de distribución círcular, además, 
+valores chicos de $\sigma$ hacen que la matriz kernel tienda a la identidad, mientras que 
+valores grandes hacen que el kernel tienda a ser constante.
+Los datos en el \textit{feature space} tienen norma 1 pues $k(x,x) = \exp(0) = 1$.
+
+\begin{definition}
+    El kernel coseno está definido como
+    $$k(x,y) = cos(x,y) = \frac{x^\intercal y}{||x|| ||y||}$$
+\end{definition}
+
+Este kernel mide la similaridad de ángulos, proyecta los datos en una hiper-ésfera unitaria.
+
+
+
 % \bibliography{ref}
 % Referencias
 \section{Conclusiones}
