@@ -7942,12 +7942,11 @@ es un Kernel.</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [32]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># We test a logarithmic range for gamma.</span>
-<span class="n">gammas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>  <span class="c1"># [0.0001, ..., 10.0]</span>
-<span class="n">degrees</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>             <span class="c1"># For polynomial kernel</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">gammas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>  <span class="c1"># [0.0001, ..., 10.0]</span>
+<span class="n">degrees</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>             <span class="c1"># polynomial kernel</span>
 <span class="n">knn</span> <span class="o">=</span> <span class="mi">9</span> 
 
 <span class="n">grid_results</span> <span class="o">=</span> <span class="p">[]</span>
@@ -8343,6 +8342,12 @@ Consiste en los siguientes pasos:</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>Los métodos de reducción de dimensión resultaron útiles como herramientas para análisis exploratorio de datos y la visualización.</li>
+<li>KPCA resuelve las limitaciones de PCA lineal al "arrastrar" hacia un espacio dónde es más fácil descubrir su estructura.</li>
+<li>KPCA funciona como un marco unificador para una gran cantidad de métodos de reducción de dimensión.</li>
+<li>La medida de <em>trustworthiness</em> resultó una manera efectiva en un entorno donde es difícil calcular el error de reconstrucción.</li>
+</ul>
 </div>
 </div>
 </div>
