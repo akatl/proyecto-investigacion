@@ -1,0 +1,1 @@
+X, t = make_s_curve(n_samples= 1000, noise=0.05, random_state=0)

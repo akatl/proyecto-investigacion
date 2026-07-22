@@ -10,7 +10,22 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{graphicx} 
+\usepackage{graphicx}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Custom styles for Python
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{purple},
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny\color{gray}
+}
 
 \graphicspath{{./img/}}
 \addbibresource{ref.bib}
@@ -44,6 +59,7 @@
 
 \maketitle
 \tableofcontents
+\pagebreak
 
 \section{Introducción al Análisis de Datos}
 Recientemente ha habido una explosión en la cantidad de datos que se recopilan sobre diversos aspectos de nuestra vida. 
@@ -615,25 +631,23 @@ En cualquier caso, debemos definir un valor a partir del cual empezamos a descar
 \pagebreak
 % ----------------------------------------------------------------------------------------------
 
-\section{Kernelización}
+\section{Kernel PCA}
 En 1904, David Hilbert propusó su trabajo acerca de kernels, más tarde, Erhard Schmidt's propuso
 ecuaciones integrales del tipo Fredholm. Está fue la introducción del espacio de Hilbert. 
-Posterioremente, James Mercer trabajó también en espacios de Hilbert y enunció su teorema en 1909 (\parencite{reproducingKHS}).
+Posterioremente, James Mercer trabajó también en espacios de Hilbert y enunció su teorema en 1909 \parencite{reproducingKHS}.
 En Machine Learning, los espacios de Hilbert con kernel reproducible (RKHS) resultaron ser de gran 
-utilidad pues, un kernel, funciona como medida de similaridad (\parencite{Ghojogh_Elements}).
+utilidad pues, un kernel, funciona como medida de similaridad en un espacio donde arrastramos los datos, esperando
+que sea más fácil hallar una proyección apropidada.
 
 En esta sección se desarrolla la
-teoría esencial sobre espacios de Hilbert con dos fines: generalizar el algoritmo de análisis de
-componentes principales (PCA) ---desarrollado en la sección anterior--- y desarrollar el algoritmo
-de \textit{spectral clustering}. El primero, sirve para demostrar la aplicación de los kernels en la 
-reducción de dimensión; mientras que el segundo, nos permite ver que los kernels tienen aplicaciones
-también fuera de la reducción de dimensión y son herramientas útiles en otras (muchas) áreas del análisis
-de datos.
+teoría esencial sobre espacios de Hilbert con el fin de generalizar el algoritmo de análisis de
+componentes principales (PCA), a uno capaz de lidiar con conjuntos de datos donde una proyección lineal no es la mejor para 
+hallar una representación en dimensión baja.
 
 \subsection{Espacios de Hilbert con Kernel Reproducible (RKHS)}
 
 Como indica el nombre, un espacio de Hilbert con kernel reproducible (RKHS a partir de ahora) tiene tres características: Es un espacio Hilbert, 
-contiene Kernels y los kernels son reproducibles. Por lo tanto, estas tres propiedades serán nuestro punto de partida.
+contiene Kernels y los kernels cumplen la propiedad reproducible. Por lo tanto, estas tres propiedades serán nuestro punto de partida.
 
 \begin{definition}
 Un conjunto $\mathcal{H}$ es un espacio de Hilbert si cumple las siguientes propiedades:
@@ -642,15 +656,14 @@ Un conjunto $\mathcal{H}$ es un espacio de Hilbert si cumple las siguientes prop
     \item Es un espacio lineal.
     \item Es un espacio con producto interno, denotado $\langle,\rangle$.
     \item Es un espacio métrico completo, con la métrica $\rho(f, g) = ||f - g||$, donde $||f|| = \sqrt{\langle f, f\rangle}$.
-    \item Es un espacio de dimensión infinita, es decir, $\forall n \in \mathbb{R}$, $\mathcal{H}$ contiene $n$ vectores linealmente independientes.
     \item Es un espacio separable.
 \end{enumerate}
 
 \end{definition}
 Son necesarios algunos comentarios sobre la definición anterior. En primera, las condiciones (I) y (II) 
 son equivalentes a decir que $\mathcal{H}$ es un espacio euclideano.
-Luego, la condición (V) a menudo se omite, de forma que $\mathcal{H}$ puede no ser separable; 
-pero, si es separable, contiene un subconjunto denso numerable.
+Luego, la condición (IV) a menudo se omite, de forma que $\mathcal{H}$ puede no ser separable; 
+pero, si es separable, significa que contiene un subconjunto denso numerable.
 
 Por lo anterior podemos dar la siguiente definición de espacio de Hilbert.
 
@@ -660,10 +673,10 @@ Por lo anterior podemos dar la siguiente definición de espacio de Hilbert.
     métrico completo con respecto a la norma inducida por el producto interno.
 \end{definition}
 
-Una proposición importante sobre los espacios de Hilbert es que todos ellos son isomorfos,
+Una proposición importante sobre los espacios de Hilbert separables de dimensión infinita es que todos ellos son isomorfos,
 por esta razón a menudo se identifica al espacio $l_2$ como el espacio de Hilbert.
 Si embargo, es importante notar que esto no es cierto en el caso de los RKHS donde
-cada kernel genera un RKHS nuevo.
+cada kernel genera un RKHS distinto.
 
 Siguiendo el programa que hemos trazado, damos la definición de kernel (de Mercer).
 \begin{definition}
@@ -778,7 +791,7 @@ Entonces
         &= f(x)
 \end{align*}
 
-Este resultado es especialmente útil, pues en las aplicaciones ---a menudo--- solamente no sabemos
+Este resultado es especialmente útil, pues en las aplicaciones ---a menudo--- no conocemos 
 la posición de los puntos en $\mathcal{H}$ pero sí el kernel. Por lo tanto, la matriz de Mercer
 $\bm{K}$ es una matriz que nos dice la similitud (o disimilitud) de los puntos en $\mathcal{H}$.
 
@@ -796,7 +809,7 @@ Existen dos métodos de \textit{kernelización}: el truco del kernel (\textit{ke
 porque es justamente el enfoque detrás de kernel PCA.
 El \textit{kernel trick} intenta reformular el algoritmo de modo que no aparezcan instancias
 de los datos en crudo $x$, dejando el algoritmo en términos del producto interno: $x^\intercal x$
-$x^\intercal X$, $X^\intercal x$ ó $X^\intercal X$. Pues, como mencionamos arriba, es fácil
+$x^\intercal X$, $X^\intercal x$ ó $X^\intercal X$ y reemplazar dichas instancias por un kernel. Pues, como mencionamos arriba, es fácil
 calcular el kernel usando únicamente el producto interno.
 
 \subsection{Kernel PCA}
@@ -838,8 +851,8 @@ puede usarse en el análisis de conglomerados (\textit{clustering}).
 
 La principal ventaja de PCA no es computacional sino conceptual. Actúa como un marco unificador
 de una gran cantidad de métodos espectrales de reducción de dimensión y tiene aplicaciones
-en otras áreas de la ciencia de datos. Esta observación, a la par de los ejemplos presentados, 
-son suficiente motivación (espero) para continuar con el desarrollo del algoritmo de kernel PCA.
+en otras áreas de la ciencia de datos. 
+
 
 \subsubsection{Preeliminares}
 \label{ss:preelim}
@@ -1017,7 +1030,7 @@ espectral y la descomposición en valores singulares (SVD).
     En ambas formas de descomposición en valores singulares (SVD) de $A$ se cumplen los siguientes
     enunciados:
     \begin{enumerate}[I]
-        \item Las matrices de vectores singulares izquierdos/derechos son los vectores propios
+        \item Las matrices de vectores singulares derechos/izquierdos son los vectores propios
         de la descomposición espectral de $A A^\intercal$ y de $A^\intercal A$, respectivamente.
         \item Los valores singulares son la raíz cuadrada de los valores propios de 
         $A A^\intercal$ ó $A^\intercal A$.
@@ -1058,18 +1071,18 @@ Para el conjunto de datos $X$, tenemos la matriz doble-centrada:
 \end{equation}
 
 Como ya dijimos, la idea usar SVD incompleto sobre $\breve{\Phi}(X)$, pero esta idea no nos
-llevará muy lejor si no conocemos $\Phi$, que es el caso usual. Sin embargo, el kernel si es 
-conocido y por lo tanto aplicando descomposición espectral a él:
+llevará muy lejos si no conocemos $\Phi$, que es el caso usual. Sin embargo, el kernel sí es 
+conocido y por lo tanto aplicamos descomposición espectral a él.
 
 \begin{equation}
     \breve{\bm{K}_x} V = V \Lambda
 \end{equation}
 
 Note que $\breve{\bm{K}_x} = \breve{\Phi}(X)^\intercal \breve{\Phi}(X)$, entonces por la proposición 
-(\ref{pp:eigen_svd}), los vectores propios $V$ son justamente los vectores singulares izquierdos de 
+(\ref{pp:eigen_svd}), los vectores propios $V$ son justamente los vectores singulares derechos de 
 la SVD incompleta (pues $\Lambda$ es cuadrada) de $\breve{\Phi}(X)$ y $\Lambda$ consta del cuadrado de los valores singulares
-de dicha descomposición. Con este enfoque, es imposible conocer los vectores singulares derechos de
-la descomposición de $\breve{\Phi}(X)$ sin conocer $\Phi$. 
+de dicha descomposición. Con este enfoque, es imposible conocer los vectores singulares izquierdos de
+la descomposición de $\breve{\Phi}(X)$ sin conocer $\Phi$. Sin embargo, veremos que no es necesario conocerlos.
 
 Dada el SVD incompleto de $\breve{\Phi}(X)$ como sigue
 \begin{equation}
@@ -1095,10 +1108,10 @@ Es decir
 \end{equation}
 
 \pagebreak
-\section{Ejemplos}
+\section{Ejemplo}
 \subsection{Preeliminares}
-Antes de proceder con ejemplos, es importante hacer algunos comentarios sobre los métodos basados en kernels
-y explicar conceptos que no se desarrollaran a fondo pero que usaremos en los ejemplos.
+Antes de proceder con un ejemplo, es importante hacer algunos comentarios sobre los métodos basados en kernels
+y explicar conceptos que no se desarrollarán a fondo pero que usaremos en los ejemplos.
 
 \subsubsection{Kernels usuales}
 En esta sección damos la definición y propiedades de algunos kernels de utilidad, tanto para kernel PCA como
@@ -1113,15 +1126,15 @@ $k(x,y) = \phi(x)^\intercal \phi(y) = x^\intercal y$ y por lo tanto $\phi(x) = x
 kernel los datos permanecen en el espacio original.
 
 \begin{definition}
-    Dado un kernel $k_1:\mathcal{X}^2 \to \mathbb{R}$, definimos el kernel polinomial $k$ como
-    $$k(x,z) = p(k_1(x,z))$$
-    donde $p(.)$ es un polinomio con coeficientes positivos.
+    Definimos el kernel polinomial como
+    $k(x,y) = (\gamma x^\intercal y + c)^d$
 \end{definition}
 
 \begin{definition}
     Para $\sigma > 0$, el kernel Gaussiano se define como 
     $$k(x,y) = \exp\left ( {-\frac{||x - z||^2}{2\sigma^2}} \right )$$
 \end{definition}
+
 El kernel Gaussiano suele funcionar bien con datos de distribución círcular, además, 
 valores chicos de $\sigma$ hacen que la matriz kernel tienda a la identidad, mientras que 
 valores grandes hacen que el kernel tienda a ser constante.
@@ -1134,20 +1147,202 @@ Los datos en el \textit{feature space} tienen norma 1 pues $k(x,x) = \exp(0) = 1
 
 Este kernel mide la similaridad de ángulos, proyecta los datos en una hiper-ésfera unitaria.
 
+\begin{definition}
+    Si $d: \mathcal{X}^2 \to \mathbb{R}$ es una métrica y 
+    $D = (d(x_i, x_j))$ es la matriz de la métrica aplicada a cada par de puntos del conjunto de datos, entonces
+    $K = - \frac{1}{2} H D H$ es un kernel.
+\end{definition}
+
+Esta definición no dice como construir un kernel a partir de una métrica, será de utilidad para establecer una equivalencia entre
+el algoritmo no-lineal Isomap y kernel PCA.
+
+\subsubsection{Error de Reconstrución y \textit{Trustworthtiness}}
+
+En el caso de PCA usual, sabíamos que se trataba de la mejor proyección lineal de los datos. Pues es equivalente al problema de optimización:
+
+\begin{equation*}
+    \begin{aligned}
+    & \underset{U}{\text{min }} ||\breve{X} - U U^\intercal \breve{X}||^2\\
+% Minimiza el error de reconstruccion, por lo tanto PCA es la mejor proyeccion lineal en el sentido
+% de que tiene el minimo error de reconstruccion
+    & \text{sujeto a } U^\intercal U = I
+    \end{aligned}
+\end{equation*}
+Es decir, PCA encuentra la proyección lineal que minimiza el error de reconstrucción.
+
+En el ejemplo, evaluaremos varias proyecciones con distintos kernels que a su vez pueden diferir en los parámetros.
+No es posible, en general, evaluar las proyecciones en base al error de reconstrucción porque ---con la teoría que hemos desarrollado---
+no siempre es posible calcular dicho error.
+Teóricamente la reconstrucción es $\hat{\Phi}(X) = \breve{\Phi}(X) V V^\intercal + \mu_x$, por lo que sin conocer $\Phi$ es imposible hallar el error de reconstrucción.
+
+En su lugar, usamos el índice de \textit{trustworthiness}, definido como: 
+\begin{equation*}
+    T(k) = 1 - \frac{2}{nk (2n - 3k - 1)} \sum^n_{i=1}
+        \sum_{j \in \mathcal{N}_{i}^{k}} \max(0, (r(i, j) - k))
+\end{equation*}
+
+Donde $\mathcal{N}_i^k$ es el conjunto de los $k$ vecinos más cercanos al punto $x_i$ en la proyección y $r(i,j)$ es el $r(i,j)$-ésimo vecino más cercano
+en el espacio original.
+
+Si entrar en detalles, se trata de un índice que mide qué tanto se mantiene la estructura de vecindades antes y después de la proyección. 
+Además, penaliza el hecho de que, en la proyección, aparezcan vecinos que no estaban en las vecindades originales. Pues la aparición de nuevos
+vecinos puede inducir vecindades de puntos que no son similares entre sí.
+
+\subsection{Desenvolviendo una curva S}
+Usaremos, para la generación y manipulación del conjunto de datos, las siguientes librerías de Python:
+\begin{enumerate}
+    \item \texttt{Pandas}
+    \item \texttt{Numpy}
+    \item \texttt{SKLearn}
+\end{enumerate}
+
+La librería \texttt{sklearn} contiene la implementación de Kernel PCA, además de herramientas para obtener la matriz kernel y para calcular el
+índice de \textit{trustworthiness}.
+
+Empezamos generando el conjunto de datos: mil puntos de una curva S, cuya gráfica se muestra en la figura (\ref{fig:S_curve}).
+En el código, \texttt{X} es el conjunto de datos, mientras que \texttt{t} contiene
+la posición relativa en la curva.
+
+\begin{lstlisting}
+X, t = make_s_curve(n_samples= 1000, noise=0.05, random_state=0)
+\end{lstlisting}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{../img/s_curve.png} 
+    \caption{Gráfica de los puntos sobre la curva S} 
+    \label{fig:S_curve} 
+\end{figure}
+
+Mediante una búsqueda por fuerza bruta, probamos todos los kernels sobre sobre el espacio de parámetros 
+$\gamma \in [0.0001, 10]$ y $d \in \{3, 5, 7\}$. En el cuadro (\ref{fig:top_ten_kernels}), se muestran los diez mejores kernels y sus parametros.
+
+\begin{table*}
+    
+\begin{lstlisting}
+    kernel      gamma  degree  trustworthiness
+0      rbf   0.372759     NaN         0.898869
+1  sigmoid  10.000000     NaN         0.896587
+2      rbf   0.848343     NaN         0.896172
+3      rbf   1.930698     NaN         0.893615
+4  sigmoid   4.393971     NaN         0.883386
+5   cosine        NaN     NaN         0.881061
+6     poly  10.000000     5.0         0.875199
+7     poly   0.372759     7.0         0.871906
+8     poly   4.393971     5.0         0.871842
+9      rbf   0.163789     NaN         0.870786
+\end{lstlisting}
+\caption{Tabla de los diez mejores kernels y sus parámetros}
+\label{fig:top_ten_kernels}
+\end{table*}
 
 
-% \bibliography{ref}
-% Referencias
+Ajustamos el mejor modelo a los datos y obtenemos la proyección de la figura (\ref{fig:projection_uno}).
+\begin{figure}
+    \centering
+    \includegraphics[width=1.2\linewidth]{../img/projection_uno.png} 
+    \caption{Projección Usando KPCA con los kernels usuales} 
+    \label{fig:projection_uno} 
+\end{figure}
+
+Podemos obtener la matriz Kernel con el siguiente código.
+\begin{lstlisting}
+X_scaled['pos'] = t
+kpca_matrix = pairwise_kernels(X_scaled.sort_values(by='pos'), 
+    metric=best_name, gamma=best_gamma)
+\end{lstlisting}
+
+El resultado se muestra en la figura (\ref{fig:kpca_matrix}). Donde un color cercano al amarillo indica mayor similitude entre los puntos,
+es decir, en ella podemos visualizar la estructura de vecidandes en la proyección. Notamos que cada punto es similar solamente con sus vecinos
+más cercano, razón por la cual obtenemos un buen índice de \textit{trustworthiness}, aunque en la proyección es evidente que no se 
+mantiene la estructura global de los datos originales.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.2\linewidth]{../img/matrixx.png} 
+    \caption{Matriz de Mercer del mejor kernel} 
+    \label{fig:kpca_matrix} 
+\end{figure}
+
+
+Finalmente, evaluaremos el desempeño sobre nuestro conjunto de datos de otro algoritmo no-lineal: Isomap.
+Se trata de un algoritmo no-lineal de reducción de dimensión que generaliza al algoritmo lineal MDS.
+
+Consiste en los siguientes pasos:
+\begin{enumerate}
+    \item Hallar los k vecinos más cercanos a cada punto en el conjunto de datos.
+    \item Construir una gráfica uniendo dos puntos si y solo si son vecinos.
+    \item Hallar la distancia más corta entre cualquiera dos puntos.
+    \item Usar MDS para reducir la dimensión.
+\end{enumerate}
+
+Con la métrica
+$D_{i,j} = \text{min} \sum_{i = 1}^l || r_i - r_{i + 1}||$
+y el kernel
+$K = - \frac{1}{2} H D^2 H$, se puede mostrar que kernel PCA es equivalente a Isomap.
+
+Este hecho ejemplifica una de la grandes ventajas de kernel PCA: unificar a otros algoritmos de 
+reducción de dimensión dentro de un mismo marco teórico. De esta forma, no es necesario saber los 
+detalles de Isomap para usarlo, solamente el kernel bajo el que Kernel PCA es equivalente.
+
+En \textit{Python}, Isomap se encuentra implementado en la librería \texttt{sklearn}.
+Ajustamos el modelo a los datos con el siguiente código.
+
+\begin{lstlisting}
+isomap = Isomap(n_neighbors=12, n_components=2, p=1)
+X_isomap = isomap.fit_transform(X_scaled)
+\end{lstlisting}
+
+Obtenemos un índice de \textit{trustworthiness} de \texttt{0.9992801833927661}, el mejor hasta ahora.
+La proyección y la matriz kernel se muestran en la figura (\ref{fig:isomap_projection}) y (\ref{fig:isomap_matrix}), respectivamente.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.2\linewidth]{../img/isomap_projection.png} 
+    \caption{Proyección Obtenida con Isomap} 
+    \label{fig:isomap_projection} 
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.2\linewidth]{../img/matrix.png} 
+    \caption{Matriz de Mercer de Isomap} 
+    \label{fig:isomap_matrix} 
+\end{figure}
+
+En base al valor de \textit{trustworthiness} y la gráfica de la proyección, podemos concluir que Isomap preserva la 
+estructura local y global de los datos originales. Efectivamente, ``desenvolviendo'' la variedad.
+En la matriz kernel se puede apreciar que la similitud entre puntos es continua entre todos los puntos, razón por 
+la que conserva de mejor forma la estructura global.
+
+\pagebreak
 \section{Conclusiones}
-A lo largo de este trabajo, hemos explorado el flujo del proceso de ciencia de datos ---desde la recolección de datos en crudo hasta la toma de decisiones 
+A lo largo de este trabajo, hemos explorado el flujo de trabajo del proceso de ciencia de datos ---desde la recolección de datos en crudo hasta la toma de decisiones 
 basada en modelos y visualizaciones--- enfocándonos en la reducción de dimensión, una etapa crítica tanto para la exploración 
 como para la interpretación de conjuntos de datos con una gran cantidad de variables. 
 
-% El Análisis de Componentes Principales (PCA) es un algoritmo indispensable por ser el método lineal de reducción de dimensión por excelencia. 
-% Comprender su mecánica —basada en encontrar el subespacio que minimiza el error de reconstrucción y maximiza la varianza— establece la base conceptual necesaria para abordar 
-% técnicas más complejas. Aunque se trata de un algoritmo relativamente simple, su estudio es importante pues, mediante el uso de funciones kernel y matrices de Mercer,
-% puede construirse una generalización de PCA: kernel PCA. Dicho algoritmo, mantiene una estructura 
-% muy similar a PCA desarrollado en este trabajo, con la diferencia de reducirse a un problema de descomposición en valores propios generalizados.
+El Análisis de Componentes Principales (PCA) es un algoritmo indispensable por ser el método lineal de reducción de dimensión por excelencia. 
+Comprender su mecánica —basada en encontrar el subespacio que minimiza el error de reconstrucción y maximiza la varianza— establece la base conceptual necesaria para abordar 
+técnicas más complejas. Aunque se trata de un algoritmo relativamente simple, su estudio es importante pues, mediante el uso de funciones kernel y matrices de Mercer,
+puede construirse una generalización de PCA: kernel PCA.
+ 
+En este contexto, la teoría de los Espacios de Hilbert con Kernel Reproducible (RKHS) y el Teorema de Mercer fundamentan formalmente a Kernel PCA. 
+Aplicando el \textit{kernel trick}, es posible mapear los datos a un espacio de características de mayor (o infinita) dimensión para aplicar una 
+proyección lineal sin la necesidad de conocer explícitamente la función de arrastre. Como se mostró, Kernel PCA no es solo una generalización no lineal, 
+sino que actúa como un marco unificador bajo el cual otros métodos espectrales (como MDS, Isomap, LLE o incluso el spectral clustering) pueden entenderse como casos 
+particulares bajo selecciones específicas de kernels o matrices kernel. 
+
+Finalmente, obtuvimos los siguientes resultados al intentar desdoblar un variedad tridimensional en forma de curva S:  
+\begin{itemize}
+    \item Los kernels tradicionales en Kernel PCA (como RBF, Gaussiano o Polinomial) demostraron ser eficaces para preservar las relaciones de vecindad local 
+    —alcanzando métricas de trustworthiness cercanas al 0.90—, pero fallaron en preservar la geometría y la estructura topológica global de la variedad.  
+    \item Por otro lado, la equivalencia de Kernel PCA con Isomap mediante el uso de distancias geodésicas demostró 
+    ser superior para este tipo de estructuras no lineales, alcanzando un trustworthiness de 0.9992 y logrando desdoblar con éxito la curva S en dos dimensiones.  
+\end{itemize}
+
+En conclusión, los métodos de reducción de dimensión exigen una comprensión de la teoría subyacente para interpretar los resultados y hacer buenas aplicaciones.
+Si bien las técnicas lineales como PCA siguen siendo herramientas esenciales y eficientes, los métodos no lineales basados en kernels constituyen un marco 
+robusto y unificador para descubrir y preservar la estructura latente en conjuntos de datos complejos.
 
 % Si bien PCA y sus variantes son herramientas poderosas, limitarnos al estudio de métodos espectrales nos presenta un panorama limitado de los algoritmos
 % de reducción de dimensión. Por ello, en lo consecuente ---como continuación al proyecto de Investigación--- la intención es explorar algoritmos de reducción de dimensión 

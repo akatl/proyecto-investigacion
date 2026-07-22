@@ -1,18 +1,20 @@
 \babel@toc {spanish}{}\relax 
-\contentsline {section}{\numberline {1}Introducción al Análisis de Datos}{1}{section.1}%
-\contentsline {section}{\numberline {2}Análisis Exploratorio de Datos}{4}{section.2}%
+\contentsline {section}{\numberline {1}Introducción al Análisis de Datos}{2}{section.1}%
+\contentsline {section}{\numberline {2}Análisis Exploratorio de Datos}{5}{section.2}%
 \contentsline {section}{\numberline {3}Reducción de Dimensión}{5}{section.3}%
 \contentsline {subsection}{\numberline {3.1}PCA}{6}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}La proyección lineal de un dato}{7}{subsubsection.3.1.1}%
 \contentsline {subsubsection}{\numberline {3.1.2}Las matrices de centrado y la proyección de múltiples datos}{9}{subsubsection.3.1.2}%
 \contentsline {subsubsection}{\numberline {3.1.3}La matriz de Covarianza y Descomposición en Vectores Propios}{10}{subsubsection.3.1.3}%
 \contentsline {subsubsection}{\numberline {3.1.4}El rango de la matriz de covarianza y los componentes a retener}{13}{subsubsection.3.1.4}%
-\contentsline {section}{\numberline {4}Kernelización}{15}{section.4}%
+\contentsline {section}{\numberline {4}Kernel PCA}{15}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Espacios de Hilbert con Kernel Reproducible (RKHS)}{15}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Kernel PCA}{19}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}Preeliminares}{20}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.1}Preeliminares}{19}{subsubsection.4.2.1}%
 \contentsline {subsubsection}{\numberline {4.2.2}Proyección en el espacio de características}{21}{subsubsection.4.2.2}%
-\contentsline {section}{\numberline {5}Ejemplos}{25}{section.5}%
+\contentsline {section}{\numberline {5}Ejemplo}{25}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Preeliminares}{25}{subsection.5.1}%
 \contentsline {subsubsection}{\numberline {5.1.1}Kernels usuales}{25}{subsubsection.5.1.1}%
-\contentsline {section}{\numberline {6}Conclusiones}{25}{section.6}%
+\contentsline {subsubsection}{\numberline {5.1.2}Error de Reconstrución y \textit {Trustworthtiness}}{26}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Desenvolviendo una curva S}{26}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Conclusiones}{30}{section.6}%

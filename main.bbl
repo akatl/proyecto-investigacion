@@ -465,6 +465,47 @@
       \field{title}{Exploratory Data Analysis}
       \field{year}{1977}
     \endentry
+    \entry{inbook}{inbook}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=93bd60e6714432f2a6de40228ab1caf7}{%
+           family={Venna},
+           familyi={V\bibinitperiod},
+           given={Jarkko},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a4e041fb1be6fc5ec0f43802c95087d2}{%
+           family={Kaski},
+           familyi={K\bibinitperiod},
+           given={Samuel},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2bf32f5e6193f0b8dae1818140863ffd}
+      \strng{fullhash}{2bf32f5e6193f0b8dae1818140863ffd}
+      \strng{bibnamehash}{2bf32f5e6193f0b8dae1818140863ffd}
+      \strng{authorbibnamehash}{2bf32f5e6193f0b8dae1818140863ffd}
+      \strng{authornamehash}{2bf32f5e6193f0b8dae1818140863ffd}
+      \strng{authorfullhash}{2bf32f5e6193f0b8dae1818140863ffd}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-3-540-42486-4}
+      \field{journaltitle}{Lecture Notes in Computer Science}
+      \field{month}{08}
+      \field{title}{Neighborhood Preservation in Nonlinear Projection Methods: An Experimental Study}
+      \field{volume}{2130}
+      \field{year}{2001}
+      \true{nocite}
+      \field{pages}{485\bibrangedash 491}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1007/3-540-44668-0_68
+      \endverb
+    \endentry
     \entry{tutorialspectralclustering}{misc}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=86714cf89fed80215d15171e9ed5f412}{%
