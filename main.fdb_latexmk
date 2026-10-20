@@ -1,13 +1,13 @@
 # Fdb version 3
-["biber main"] 1784749226 "main.bcf" "main.bbl" "main" 1784751017
-  "main.bcf" 1784751017 124410 00c8574ba513a6950000175e2f9562c4 "pdflatex"
+["biber main"] 1791688878 "main.bcf" "main.bbl" "main" 1792466103
+  "main.bcf" 1792466103 124410 00c8574ba513a6950000175e2f9562c4 "pdflatex"
   "ref.bib" 1784661322 3735 90f84225207ba781c03022d24bed87fa ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1784751016 "/home/akatl/Lambda/proyecto-terminal/main.tex" "main.pdf" "main" 1784751017
+["pdflatex"] 1792466101 "/home/akatl/Lambda/proyecto-terminal/main.tex" "main.pdf" "main" 1792466103
   "/etc/texmf/web2c/texmf.cnf" 1727824929 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/akatl/Lambda/proyecto-terminal/main.tex" 1784751015 66130 4870b79c1e28b98284be298cb14409da ""
+  "/home/akatl/Lambda/proyecto-terminal/main.tex" 1792466100 66928 8934e226ab96ea559cbddf8cc830bbb1 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -59,7 +59,6 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb" 1248133631 36912 b448ef9ad9d7228ec3c6e71005136d55 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1248133631 32362 179c33bbf43f19adbb3825bb4e36e57a ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1248133631 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
@@ -166,12 +165,12 @@
   "img//../img/s_curve.png" 1784662633 46946 ad44a9e57fdce730516c3d91e9bacd4a ""
   "img//data_science_process.png" 1771293221 57889 fcdf1ae314be89f4f30ae62321b385e0 ""
   "img//manifold_unfolding.png" 1774151724 58675 bece6c07b82675edfee16f4d87a4e769 ""
-  "main.aux" 1784751017 11435 9450ffd4c91d4b6670af1b271cfb1eec "pdflatex"
-  "main.bbl" 1784749230 20817 5cd8764b59b8a31213653647f30a3f36 "biber main"
-  "main.out" 1784751017 4025 9ebdfece9dccc57c86212f8bc02ccb71 "pdflatex"
-  "main.run.xml" 1784751017 2352 0512f6c3036cb397f68cbbab3d6e4b7f "pdflatex"
-  "main.tex" 1784751015 66130 4870b79c1e28b98284be298cb14409da ""
-  "main.toc" 1784751017 1880 48f287bfaac95834680814b6f487148f "pdflatex"
+  "main.aux" 1792466103 11431 fe0a3efd87df5b7de811a32358736c90 "pdflatex"
+  "main.bbl" 1791688882 20817 5cd8764b59b8a31213653647f30a3f36 "biber main"
+  "main.out" 1792466103 4025 9ebdfece9dccc57c86212f8bc02ccb71 "pdflatex"
+  "main.run.xml" 1792466103 2352 0512f6c3036cb397f68cbbab3d6e4b7f "pdflatex"
+  "main.tex" 1792466100 66928 8934e226ab96ea559cbddf8cc830bbb1 ""
+  "main.toc" 1792466103 1879 a5eb1f4e617f450fd3778c687eecf28f "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"

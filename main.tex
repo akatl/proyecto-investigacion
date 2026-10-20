@@ -51,13 +51,35 @@
 % \bibliographystyle{apalike}
 \nocite{*}
 
-\title{Proyecto de Investigación}
-\author{Hugo Missael González Cruz}
-\date{\today}
-
+% \title{Proyecto de Investigación}
+% \author{Hugo Missael González Cruz}
+% \date{\today}
+\title{
+% \includegraphics[width=1.75in]{hamdardlogo.PNG} \\
+\Large Proyecto de Investigación\\
+\vspace*{0.3in}
+\textbf{Elementos de Reducción de Dimensión}
+}
+\author{
+    Licenciatura en Matemáticas\\
+    \vspace*{0.8in} \\
+    Alumno: Hugo Missael González Cruz\\
+    \vspace*{0.5in} \\
+    Asesor: Asael Fabian Martínez Martínez\\
+    \vspace*{0.5in} \\
+    Coordinador de la Licenciatura: Rubén Becerril Fonseca\\
+    \vspace*{2in} \\
+    \textbf{Universidad Autónoma Metropolitana}\\
+} \date{}
+%--------------------Make usable space all of page
+\setlength{\oddsidemargin}{0in} \setlength{\evensidemargin}{0in}
+\setlength{\topmargin}{0in}     \setlength{\headsep}{-.25in}
+\setlength{\textwidth}{6.5in}   \setlength{\textheight}{8.5in}
+%--------------------Indention
 \begin{document}
 
 \maketitle
+\pagebreak
 \tableofcontents
 \pagebreak
 
@@ -1184,7 +1206,7 @@ En su lugar, usamos el índice de \textit{trustworthiness}, definido como:
 Donde $\mathcal{N}_i^k$ es el conjunto de los $k$ vecinos más cercanos al punto $x_i$ en la proyección y $r(i,j)$ es el $r(i,j)$-ésimo vecino más cercano
 en el espacio original.
 
-Si entrar en detalles, se trata de un índice que mide qué tanto se mantiene la estructura de vecindades antes y después de la proyección. 
+Sin entrar en detalles, se trata de un índice que mide qué tanto se mantiene la estructura de vecindades antes y después de la proyección. 
 Además, penaliza el hecho de que, en la proyección, aparezcan vecinos que no estaban en las vecindades originales. Pues la aparición de nuevos
 vecinos puede inducir vecindades de puntos que no son similares entre sí.
 
@@ -1240,7 +1262,7 @@ $\gamma \in [0.0001, 10]$ y $d \in \{3, 5, 7\}$. En el cuadro (\ref{fig:top_ten_
 Ajustamos el mejor modelo a los datos y obtenemos la proyección de la figura (\ref{fig:projection_uno}).
 \begin{figure}
     \centering
-    \includegraphics[width=1.2\linewidth]{../img/projection_uno.png} 
+    \includegraphics[width=1.1\linewidth]{../img/projection_uno.png} 
     \caption{Projección Usando KPCA con los kernels usuales} 
     \label{fig:projection_uno} 
 \end{figure}
@@ -1254,12 +1276,12 @@ kpca_matrix = pairwise_kernels(X_scaled.sort_values(by='pos'),
 
 El resultado se muestra en la figura (\ref{fig:kpca_matrix}). Donde un color cercano al amarillo indica mayor similitude entre los puntos,
 es decir, en ella podemos visualizar la estructura de vecidandes en la proyección. Notamos que cada punto es similar solamente con sus vecinos
-más cercano, razón por la cual obtenemos un buen índice de \textit{trustworthiness}, aunque en la proyección es evidente que no se 
+más cercanos, razón por la cual obtenemos un buen índice de \textit{trustworthiness}, aunque en la proyección es evidente que no se 
 mantiene la estructura global de los datos originales.
 
 \begin{figure}
     \centering
-    \includegraphics[width=1.2\linewidth]{../img/matrixx.png} 
+    \includegraphics[width=1.1\linewidth]{../img/matrixx.png} 
     \caption{Matriz de Mercer del mejor kernel} 
     \label{fig:kpca_matrix} 
 \end{figure}
@@ -1271,7 +1293,7 @@ Se trata de un algoritmo no-lineal de reducción de dimensión que generaliza al
 Consiste en los siguientes pasos:
 \begin{enumerate}
     \item Hallar los k vecinos más cercanos a cada punto en el conjunto de datos.
-    \item Construir una gráfica uniendo dos puntos si y solo si son vecinos.
+    \item Construir una gráfica uniendo dos puntos si y sólo si son vecinos.
     \item Hallar la distancia más corta entre cualquiera dos puntos.
     \item Usar MDS para reducir la dimensión.
 \end{enumerate}
@@ -1298,14 +1320,14 @@ La proyección y la matriz kernel se muestran en la figura (\ref{fig:isomap_proj
 
 \begin{figure}
     \centering
-    \includegraphics[width=1.2\linewidth]{../img/isomap_projection.png} 
+    \includegraphics[width=1.1\linewidth]{../img/isomap_projection.png} 
     \caption{Proyección Obtenida con Isomap} 
     \label{fig:isomap_projection} 
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=1.2\linewidth]{../img/matrix.png} 
+    \includegraphics[width=1.1\linewidth]{../img/matrix.png} 
     \caption{Matriz de Mercer de Isomap} 
     \label{fig:isomap_matrix} 
 \end{figure}
