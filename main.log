@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.1.30)  19 OCT 2026 21:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.1.30)  19 OCT 2026 21:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -682,67 +682,71 @@ LaTeX Info: Redefining \% on input line 1.
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
- [2] [3]
-<./img//data_science_process.png, id=128, 385.44pt x 289.08pt>
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.87 \section
+             {Introducción al Análisis de Datos} [1] [2]
+<./img//data_science_process.png, id=127, 385.44pt x 289.08pt>
 File: ./img//data_science_process.png Graphic file (type png)
 <use ./img//data_science_process.png>
-Package pdftex.def Info: ./img//data_science_process.png  used on input line 163.
+Package pdftex.def Info: ./img//data_science_process.png  used on input line 164.
 (pdftex.def)             Requested size: 281.85585pt x 211.38834pt.
- [4 <./img//data_science_process.png>] [5] [6]
-<./img//manifold_unfolding.png, id=159, 771.88374pt x 224.84pt>
+ [3 <./img//data_science_process.png>] [4] [5]
+<./img//manifold_unfolding.png, id=158, 771.88374pt x 224.84pt>
 File: ./img//manifold_unfolding.png Graphic file (type png)
 <use ./img//manifold_unfolding.png>
-Package pdftex.def Info: ./img//manifold_unfolding.png  used on input line 335.
+Package pdftex.def Info: ./img//manifold_unfolding.png  used on input line 336.
 (pdftex.def)             Requested size: 281.85585pt x 82.0985pt.
- [7 <./img//manifold_unfolding.png>] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21]
-<./img//../img/s_curve.png, id=332, 480.79625pt x 378.41376pt>
+ [6 <./img//manifold_unfolding.png>] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20]
+<./img//../img/s_curve.png, id=331, 480.79625pt x 378.41376pt>
 File: ./img//../img/s_curve.png Graphic file (type png)
 <use ./img//../img/s_curve.png>
-Package pdftex.def Info: ./img//../img/s_curve.png  used on input line 1234.
+Package pdftex.def Info: ./img//../img/s_curve.png  used on input line 1235.
 (pdftex.def)             Requested size: 281.85585pt x 221.84174pt.
-<./img//../img/projection_uno.png, id=335, 1483.5425pt x 451.6875pt>
+<./img//../img/projection_uno.png, id=334, 1483.5425pt x 451.6875pt>
 File: ./img//../img/projection_uno.png Graphic file (type png)
 <use ./img//../img/projection_uno.png>
-Package pdftex.def Info: ./img//../img/projection_uno.png  used on input line 1265.
+Package pdftex.def Info: ./img//../img/projection_uno.png  used on input line 1266.
 (pdftex.def)             Requested size: 516.73335pt x 157.32796pt.
 
-Overfull \hbox (46.97836pt too wide) in paragraph at lines 1265--1266
+Overfull \hbox (46.97836pt too wide) in paragraph at lines 1266--1267
  [][] 
  []
 
-[22] [23 <./img//../img/s_curve.png> <./img//../img/projection_uno.png>]
-<./img//../img/matrixx.png, id=370, 949.5475pt x 382.42876pt>
+[21] [22 <./img//../img/s_curve.png> <./img//../img/projection_uno.png>]
+<./img//../img/matrixx.png, id=369, 949.5475pt x 382.42876pt>
 File: ./img//../img/matrixx.png Graphic file (type png)
 <use ./img//../img/matrixx.png>
-Package pdftex.def Info: ./img//../img/matrixx.png  used on input line 1284.
+Package pdftex.def Info: ./img//../img/matrixx.png  used on input line 1285.
 (pdftex.def)             Requested size: 516.73335pt x 208.119pt.
 
-Overfull \hbox (46.97836pt too wide) in paragraph at lines 1284--1285
+Overfull \hbox (46.97836pt too wide) in paragraph at lines 1285--1286
  [][] 
  []
 
-[24 <./img//../img/matrixx.png>]
-<./img//../img/isomap_projection.png, id=390, 1483.5425pt x 451.6875pt>
+[23 <./img//../img/matrixx.png>]
+<./img//../img/isomap_projection.png, id=389, 1483.5425pt x 451.6875pt>
 File: ./img//../img/isomap_projection.png Graphic file (type png)
 <use ./img//../img/isomap_projection.png>
-Package pdftex.def Info: ./img//../img/isomap_projection.png  used on input line 1323.
+Package pdftex.def Info: ./img//../img/isomap_projection.png  used on input line 1324.
 (pdftex.def)             Requested size: 516.73335pt x 157.32796pt.
 
-Overfull \hbox (46.97836pt too wide) in paragraph at lines 1323--1324
+Overfull \hbox (46.97836pt too wide) in paragraph at lines 1324--1325
  [][] 
  []
 
-<./img//../img/matrix.png, id=391, 949.5475pt x 382.42876pt>
+<./img//../img/matrix.png, id=390, 949.5475pt x 382.42876pt>
 File: ./img//../img/matrix.png Graphic file (type png)
 <use ./img//../img/matrix.png>
-Package pdftex.def Info: ./img//../img/matrix.png  used on input line 1330.
+Package pdftex.def Info: ./img//../img/matrix.png  used on input line 1331.
 (pdftex.def)             Requested size: 516.73335pt x 208.119pt.
 
-Overfull \hbox (46.97836pt too wide) in paragraph at lines 1330--1331
+Overfull \hbox (46.97836pt too wide) in paragraph at lines 1331--1332
  [][] 
  []
 
-[25 <./img//../img/isomap_projection.png>] [26 <./img//../img/matrix.png>] [27] [28] (./main.aux
+[24 <./img//../img/isomap_projection.png>] [25 <./img//../img/matrix.png>] [26] [27] (./main.aux
 LaTeX Info: Redefining \sptext on input line 27.
 LaTeX Info: Redefining \. on input line 27.
 LaTeX Info: Redefining \% on input line 27.
@@ -754,18 +758,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 22228 strings out of 480112
- 376658 string characters out of 5892631
- 1182407 words of memory out of 5000000
+ 22227 strings out of 480112
+ 376651 string characters out of 5892631
+ 1182406 words of memory out of 5000000
  39732 multiletter control sequences out of 15000+600000
  483372 words of font info for 80 fonts, out of 8000000 for 9000
  85 hyphenation exceptions out of 8191
  60i,14n,68p,774b,2804s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (28 pages, 895048 bytes).
+Output written on main.pdf (28 pages, 895021 bytes).
 PDF statistics:
- 551 PDF objects out of 1000 (max. 8388607)
- 462 compressed objects within 5 object streams
- 179 named destinations out of 1000 (max. 500000)
+ 550 PDF objects out of 1000 (max. 8388607)
+ 461 compressed objects within 5 object streams
+ 178 named destinations out of 1000 (max. 500000)
  188 words of extra memory for PDF output out of 10000 (max. 10000000)
 
